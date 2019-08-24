@@ -116,7 +116,7 @@ app.listen(port, (err) => {
   if (err) {
     console.log(`Error in database connection: ${err}`);
   } else {
-    mongoose.connect('mongodb://localhost:27017/hotel_ims_full', {
+    mongoose.connect('mongodb://inteligent:text1234@ds149596.mlab.com:49596/rims', {
       useNewUrlParser: true,
       useFindAndModify: false,
       useCreateIndex: true

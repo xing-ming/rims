@@ -23,7 +23,7 @@
           <li class="collection-header blue-grey">
             <a href="/ict/catalog/category/brand/create" class="black-text">Catalog</a>
           </li>
-          <% doc.forEach((category) => {%>
+          <% category.forEach((category) => {%>
           <li class="collection-item">
             <a href="/ict/item/display/category/<%= category.category_name %>"><%= category.category_name %></a>
           </li>

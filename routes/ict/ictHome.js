@@ -1,7 +1,5 @@
 let express = require('express');
 let router = express.Router();
-let Category = require('../../model/ict/Category');
-let Brand = require('../../model/ict/Brand');
 
 /**
  * @method: get
@@ -10,12 +8,7 @@ let Brand = require('../../model/ict/Brand');
  * @description: display ict home base
  */
 router.get('/ict-home', (req, res) => {
-  Category.find((err, doc) => {
-    if (err) throw err;
-    Brand.find((err, docs) => {
-      res.render('ict/ictHome', {docs, doc});
-    })
-  })
+  res.render('ict/ictHome');
 });
 
 module.exports = router;
