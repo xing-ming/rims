@@ -1,0 +1,45 @@
+<% include ../navbar/accountant %>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col s8 push-s2">
+      <div class="row">
+        <h6 class="green-text"><% include ../messages/success%></h6>
+        <h6 class="red-text"><% include ../messages/danger%></h6>
+        <form action="/accountant/month/create" method="post">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="month_name" type="text" name="month_name" class="validate" autofocus required>
+              <label for="month_name">Month Name</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Save
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </form>
+
+        <div class="row">
+          <ul class="collection with-header">
+            <li class="collection-header">
+              <h5>Months</h5>
+            </li>
+            <% months.forEach((month) => {%>
+            <li class="collection-item">
+              <div>
+                <%= month.month_name %>
+                <a href="/accountant/month/delete/<%= month._id %>" class="secondary-content red-text">
+                  <i class="material-icons">delete</i>
+                </a>
+              </div>
+            </li>
+            <%})%>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

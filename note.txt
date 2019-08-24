@@ -1,0 +1,6 @@
+#modal: set modal on cart for easy update
+* cartItem: remove username input
+#create store
+#create recipte address
+#employe registration
+#change category and brand and them in one file and global database

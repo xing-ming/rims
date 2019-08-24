@@ -1,0 +1,33 @@
+<ul id="user_account" class="dropdown-content">
+  <li><span>Hi user</span></li>
+  <li class="divider"></li>
+  <li><a href="">Sign out</a></li>
+</ul>
+
+<nav>
+  <div class="nav-wrapper">
+    <a href="/casher/home/casher-home">Home</a>
+    <ul class="right hide-on-med-and-down">
+      <li>
+        <% if(session.cart) {%>
+        <a href="/casher/item/cart-display">
+          <span class="new badge" data-badge-caption="item" style="font-weight: bold; font-style: italic">
+            <%= session.cart.totalQty %>
+          </span>
+        </a>
+        <%}%>
+      </li>
+      <!-- Dropdown Trigger -->
+      <li>
+          <a class="dropdown-trigger" href="#!" data-target="user_account">
+            User Account
+            <i class="material-icons right">arrow_drop_down</i>
+          </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  $(".dropdown-trigger").dropdown();
+</script>

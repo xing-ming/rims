@@ -1,0 +1,89 @@
+<% include ../navbar/ict %>
+
+<br style="line-height: 100px">
+<div class="container">
+  <div class="row">
+    <div class="col s8 push-s2">
+      <div class="row">
+        <form action="/ict/item/create" method="POST" class="col s12">
+          <div class="row">
+            <h6 class="green-text"><% include ../messages/success%></h6>
+            <h6 class="red-text"><% include ../messages/danger%></h6>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="item_id" type="hidden" name="item_id" class="validate"
+                value="<%= typeof item != 'undefined' ? item._id : '' %>">
+              <!-- <label for="item_id">Item Name</label> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="item_name" type="text" name="item_name" class="validate"
+                value="<%= typeof item != 'undefined' ? item.item_name : '' %>" autofocus required>
+              <label for="item_name">Item Name</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="item_quantity" type="text" name="item_quantity" class="validate"
+                value="<%= typeof item != 'undefined' ? item.item_quantity : '' %>" required>
+              <label for="item_quantity">Item Quantity</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="item_price" type="text" name="item_price" class="validate"
+                value="<%= typeof item != 'undefined' ? item.item_price : '' %>" required>
+              <label for="item_price">Item Price</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <select class="validate" name="category_name" required>
+                <option value="<%= typeof item != 'undefined' ? item.category_name : '' %>" disabled selected>Choose
+                  Category</option>
+                <% categories.forEach((category) => {%>
+                <option value="<%= category.category_name %>"><%= category.category_name %></option>
+                <%})%>
+              </select>
+              <label>Select Category</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <select class="validate" name="brand_name" required>
+                <option value="<%= typeof item != 'undefined' ? item.brand_name : '' %>" disabled selected>Choose Brand
+                </option>
+                <% brands.forEach((brand) => {%>
+                <option value="<%= brand.brand_name %>"><%= brand.brand_name %></option>
+                <%})%>
+              </select>
+              <label>Select Brand</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="action">
+              <%= typeof item != 'undefined' ? 'Update' : 'Save' %>
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // selection
+  $(document).ready(function () {
+    $('select').formSelect();
+  });
+</script>

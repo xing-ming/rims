@@ -1,0 +1,64 @@
+<% include ../navbar/accountant %>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col xl12">
+      <div class="row">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="searchInput" type="text" placeholder="search by date">
+            <label for="searchInput">Search</label>
+          </div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Item Name</th>
+              <th>Qty</th>
+              <th>Item Price</th>
+              <th>Total Amount</th>
+              <th>Payment Method</th>
+              <th>Date Time Created</th>
+              <th>Date Time Updated</th>
+            </tr>
+          </thead>
+
+          <tbody id="searchTable">
+            <% orders.forEach((order) => {%>
+            <% order.items.forEach((item) => {%>
+            <tr>
+              <td></td>
+              <td class="noShow"><%= order.createdAt.toDateString() %></td>
+              <td class="noShow">NGN <%= order.order.totalPrice %></td>
+              <td class="noShow"><%= order.payment_method %></td>
+              <td class="noShow"><%= order._id %></td>
+
+              <!-- fix-->
+              <td><%= item.item.item_name %></td>
+              <td><%= item.qty %></td>
+              <td><%= item.item.item_price %></td>
+              <td><%= item.item_price %></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <%})%>
+            <tr class="blue">
+              <td><%= order._id %></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>NGN <%= order.order.totalPrice %></td>
+              <td><%= order.payment_method %></td>
+              <td><%= order.createdAt.toISOString() %></td>
+              <td><%= order.updatedAt.toISOString() %></td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

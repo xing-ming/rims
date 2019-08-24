@@ -1,0 +1,47 @@
+<% include ../navbar/ict %>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col s12 pull-s0">
+      <div class="row">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="searchInput" type="text" placeholder="search name qty price category brand">
+            <label for="searchInput">Search</label>
+          </div>
+        </div>
+        <table class="highlight centered responsive-table">
+          <h6 class="green-text"><%= success %></h6>
+          <h6 class="red-text"><%= danger %></h6>
+          <thead>
+            <tr>
+              <th>Department name</th>
+              <th>Department code</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="searchTable">
+            <% department.forEach((department) => {%>
+            <tr>
+              <td><%= department.department_name %></td>
+              <td><%= department.department_code %></td>
+              <td>
+                <a href="/employee/department/edit/<%= department._id %>" class="black-text">
+                  <i class="material-icons">create</i>
+                </a>
+              </td>
+              <td>
+                <a href="/employee/department/delete/<%= department._id %>" class="black-text">
+                  <i class="material-icons">delete</i>
+                </a>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

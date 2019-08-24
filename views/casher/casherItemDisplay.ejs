@@ -1,0 +1,54 @@
+<% include ../navbar/casher %>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col s12 pull-s0">
+      <div class="row">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="searchInput" type="text" placeholder="search name qty price category brand">
+            <label for="searchInput">Search</label>
+          </div>
+        </div>
+        <table class="highlight centered responsive-table">
+          <thead>
+            <tr>
+              <th>Item Name</th>
+              <th>Item Quantity</th>
+              <th>Item Price</th>
+              <th>Item Category</th>
+              <th>Item Brand</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="searchTable">
+            <% items.forEach((item) => {%>
+            <tr>
+              <td><%= item.item_name %></td>
+              <td><%= item.item_quantity %></td>
+              <td><%= item.item_price %></td>
+              <td>
+                <a href="/casher/item/display/category/<%= item.category_name %>" class="black-text">
+                  <%= item.category_name %>
+                </a>
+              </td>
+              <td>
+                <a href="/casher/item/display/brand/<%= item.brand_name %>" class="black-text">
+                  <%= item.brand_name %>
+                </a>
+              </td>
+              <td>
+                <a href="/casher/item/add-item-to-cart/<%= item._id %>" class="black-text">
+                  <i class="material-icons">shopping_basket</i>
+                </a>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

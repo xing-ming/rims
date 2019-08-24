@@ -1,0 +1,91 @@
+<div class="container">
+  <div class="row">
+    <div class="col xl8 push-xl2">
+      <div class="invoiceBorder">
+        <h5 class="invoiceText">INVOICE</h5>
+        <p class="invioceAddress">
+          33 Old Karu Road Maco Plaza<br>
+          Mararaba, Nasarawa, Nigeria <br>
+        </p>
+        <p class="invioceInfo">
+          +234 9024209824 <br>
+          pinyin223@gmail.com <br>
+          thestrawberrybridg.com
+        </p>
+      </div>
+      <div>
+        <small class="invoiceAmountText" id="saleDate"></small> <br>
+        <h5 class="invoiceAmount" id="total-price"></h5><br><br>
+        <hr>
+      </div>
+      <div class="row">
+        <table class="highlight centered responsive-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Unit Cost</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+
+          <tbody id="searchTable">
+            <% items.forEach((item) => {%>
+            <tr>
+              <td><%= item.item.item_name %></td>
+              <td><%= item.qty %></td>
+              <td><%= item.item.item_price %></td>
+              <td><%= item.item_price %></td>
+            </tr>
+            <%})%>
+            <div id="total_price" style="display: none"><%= totalPrice %></div>
+          </tbody>
+        </table><!-- end of table -->
+      </div>
+      <div class="row">
+        <div class="col xl6 push-xl6">
+          <ul class="collection Amountcollection">
+            <li class="collection-item">
+              <input type="text" name="department_address" placeholder="address code">
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col xl6 push-xl6">
+          <ul class="collection Amountcollection">
+            <li class="collection-item">
+              <div class="AmountDue" id="AmountDue">Amount Due</div>
+            </li>
+          </ul>
+        </div>
+        <div class="col xl6 push-xl4">
+          <ul class="collection Amountcollection">
+            <li class="collection-item">
+              <div id="money"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  // convert total to NGN
+  let total_price = document.getElementById('total_price').innerHTML;
+  let real_money = +total_price;
+  let money = real_money.toLocaleString('en', { style: "currency", currency: "NGN" });
+  document.getElementById('money').innerHTML = money;
+  document.getElementById('total-price').innerHTML = money;
+
+  // invoice print
+  document.getElementById('AmountDue').addEventListener('click', () => {
+    window.print();
+  });
+
+  // sale date
+  let date = new Date().toDateString();
+  document.getElementById('saleDate').innerHTML = date;
+</script>

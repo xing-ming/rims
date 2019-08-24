@@ -1,0 +1,62 @@
+<% include ../navbar/accountant %>
+
+<div class="container">
+  <div class="row">
+    <div class="col s8 push-s2">
+      <div class="row">
+        <form action="/accountant/monthlyAccount/create" method="post">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="monthlyAccount_id" type="hidden" name="monthlyAccount_id" class="validate"
+                value="<%= typeof monthlyAccount != 'undefined' ? monthlyAccount._id : '' %>">
+              <!-- <label for="monthlyAccount_id">Id</label> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="username" type="text" name="username" class="validate" required
+                value="<%= typeof monthlyAccount != 'undefined' ? monthlyAccount.username : '' %>" placeholder="Pinyin">
+              <label for="username">Username</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="amount" type="text" name="amount" class="validate" required
+                value="<%= typeof monthlyAccount != 'undefined' ? monthlyAccount.amount : '' %>" autofocus>
+              <label for="amount">Amount</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <select class="validate" name="month_name" required>
+                <option disabled selected
+                  value="<%= typeof monthlyAccount != 'undefined' ? monthlyAccount.month_name : '' %>">Months
+                </option>
+                <% months.forEach((month) => {%>
+                <option value="<%= month.month_name %>"><%= month.month_name %></option>
+                <%})%>
+              </select>
+              <label>Select Month</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Save
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // selection
+  $(document).ready(function () {
+    $('select').formSelect();
+  });
+</script>

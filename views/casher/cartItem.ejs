@@ -1,0 +1,139 @@
+<% include ../navbar/casher %>
+
+<% if(items) {%>
+<br><br>
+<div class="container">
+  <div class="row">
+    <div class="col s8 push-s2">
+      <div class="row">
+        <h6 class="red-text"><% include ../messages/danger%></h6>
+        <h6 class="red-text"><% include ../messages/success%></h6>
+        <table class="highlight centered responsive-table">
+          <thead>
+            <tr>
+              <th>Item Name</th>
+              <th>Item Qty</th>
+              <th>Item Price</th>
+              <th>Total Price</th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="searchTable">
+            <% items.forEach((item) => {%>
+            <tr>
+              <td><%= item.item.item_name %></td>
+              <td><%= item.qty %></td>
+              <td><%= item.item.item_price %></td>
+              <td><%= item.item_price %></td>
+              <td>
+                <a href="/casher/item/edit/<%= item.item._id %>" class="waves-effect waves-light btn modal-trigger">
+                  <i class="material-icons">save</i>
+                </a>
+              </td>
+              <td>
+                <a href="/casher/item/reduce-by-one/<%= item.item._id %>" class="black-text">
+                  <i class="material-icons">remove</i>
+                </a>
+              </td>
+              <td>
+                <a href="/casher/item/remove-all/<%= item.item._id %>" class="black-text">
+                  <i class="material-icons">close</i>
+                </a>
+              </td>
+            </tr>
+            <%})%>
+            <tr>
+              <td style="font-style:italic; font-weight: bold">Total Price</td>
+              <td></td>
+              <td></td>
+              <td style="font-weight: bold" id="money"></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            <div id="total_price" style="display: none"><%= totalPrice %></div>
+          </tbody>
+        </table><!-- end of table -->
+      </div>
+    </div>
+  </div>
+
+  <!-- save item to database -->
+  <div class="row">
+    <div class="col s8 push-s2">
+      <form action="/casher/item/order" method="POST" class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            <input id="username" type="text" name="username" class="validate"
+              value="<%= typeof item != 'undefined' ? item.username : '' %>" required>
+            <label for="username">Username</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <select class="validate" name="payment_method" required>
+              <option disabled selected>Choose receipt address</option>
+              <% department.forEach((department) => {%>
+              <option value="<%= department.department_code %>"><%= department.department_name %></option>
+              <%})%>
+            </select>
+            <label>Select receipt address</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <select class="validate" name="payment_method" required>
+              <option disabled selected>Choose payment method</option>
+              <% payment.forEach((payment) => {%>
+              <option value="<%= payment.payment_method %>"><%= payment.payment_method %></option>
+              <%})%>
+            </select>
+            <label>Select Payment method</label>
+          </div>
+        </div>
+
+        <div class="row">
+          <button class="btn waves-effect waves-light" type="submit" name="action"
+            onclick="return confirm('Please make sure you save each item before submit !!!')">
+            <%= typeof item != 'undefined' ? 'Submit' : 'Submit' %>
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div><!-- container -->
+<%} else {%>
+<br style="line-height: 300px">
+
+<div class="container">
+  <div class="row">
+    <div class="col s8 push-s3 pull-s2">
+      <h5>Thank you for your effort we'ar so happy</h5>
+      <h5>
+        <a href="/casher/item/display" style="font-style: italic; font-weight: bold; color: #000">
+          Please add item to processed
+        </a>
+      </h5>
+    </div>
+  </div>
+</div>
+<%}%>
+
+<script>
+  // convert total to NGN
+  let total_price = document.getElementById('total_price').innerHTML;
+  let real_money = +total_price;
+  let money = real_money.toLocaleString('en', { style: "currency", currency: "NGN" });
+  document.getElementById('money').innerHTML = money;
+
+  // selection
+  $(document).ready(function () {
+    $('select').formSelect();
+  });
+</script>

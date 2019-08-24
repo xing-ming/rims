@@ -1,0 +1,41 @@
+<% include ../navbar/ict %>
+
+<br style="line-height: 120px">
+<div class="container">
+  <div class="row">
+    <form class="col s12" action="/employee/department/create" method="POST">
+      <div class="row">
+        <div class="input-field col s6 push-s3">
+          <input id="department_id" type="hidden" name="department_id" class="validate"
+            value="<%= typeof department != 'undefined' ? department._id : '' %>">
+          <!-- <label for="department_id">Department ID</label> -->
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6 push-s3">
+          <input id="department_name" type="text" name="department_name" class="validate" required
+            value="<%= typeof department != 'undefined' ? department.department_name : '' %>">
+          <label for="department_name">Department Name</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6 push-s3">
+          <input id="department_code" type="text" name="department_code" class="validate" required
+            value="<%= typeof department != 'undefined' ? department.department_code : '' %>">
+          <label for="department_code">Department Code</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col s6 push-s3">
+          <button class="btn waves-effect waves-light" type="submit" name="action">
+            <%= typeof department != 'undefined' ? 'Update' : 'Save' %>
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

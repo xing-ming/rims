@@ -1,0 +1,69 @@
+<% include ../navbar/casher %>
+
+<br style="line-height: 100px">
+<div class="container">
+  <div class="row">
+    <div class="col s4 push-s4">
+      <div class="row">
+        <form action="/casher/item/save" method="POST" class="col s12">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="item_id" type="hidden" name="item_id" class="validate"
+                value="<%= typeof item != 'undefined' ? item._id : '' %>">
+              <!-- <label for="item_id">Item ID</label> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="item_quantity" type="hidden" name="item_quantity" class="validate"
+                value="<%= typeof item != 'undefined' ? item.item_quantity : '' %>">
+              <!-- <label for="item_quantity">Item Quantity</label> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="item_name" type="text" name="item_name" class="validate"
+                value="<%= typeof item != 'undefined' ? item.item_name : '' %>" disabled>
+              <label for="item_name">Item Name</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="sale_quantity" type="text" name="sale_quantity" class="validate" autofocus>
+              <label for="sale_quantity">Quantity</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="action" id="button">
+              <%= typeof item != 'undefined' ? 'Submit' : 'Save' %>
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.getElementById('button').addEventListener('click', () => {
+    const sale_quantity = document.getElementById('sale_quantity').value;
+    const item_quantity = document.getElementById('item_quantity').value;
+
+    const compute = +item_quantity - +sale_quantity;
+    document.getElementById('item_quantity').value = compute;
+  });
+
+  document.getElementById('button').addEventListener('click', () => {
+    const item_quantity = document.getElementById('item_quantity').value;
+    const item_name = document.getElementById('item_name').value;
+
+    if (item_quantity <= 0) {
+      alert(`${item_name}: is out of stock`);
+    }
+  });
+</script>

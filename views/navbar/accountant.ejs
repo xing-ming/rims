@@ -1,0 +1,23 @@
+<ul id="accountant_user" class="dropdown-content">
+  <li><span>Hi user</span></li>
+  <li class="divider"></li>
+  <li><a href="">Sign out</a></li>
+</ul>
+
+<nav>
+  <div class="nav-wrapper">
+    <a href="/accountant/home/accountant-home">Home</a>
+    <ul class="right hide-on-med-and-down">
+      <li>
+        <a class="dropdown-trigger" href="#!" data-target="accountant_user">
+          User Account
+          <i class="material-icons right">arrow_drop_down</i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  $(".dropdown-trigger").dropdown();
+</script>
