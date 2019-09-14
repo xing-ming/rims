@@ -2,7 +2,7 @@
 
 if (process.env.NODE_ENV === 'production') {
     module.exports = {
-        mongoURI: "mongodb://inteligent:text1234@ds149596.mlab.com:49596/rims",
+        mongoURI: "mongodb+srv://pinyin:inteligent@dzhavo-1bim4.mongodb.net/test?retryWrites=true&w=majority",
         security: 'love-lucifer-so-much',
     }
 } else {
@@ -11,3 +11,5 @@ if (process.env.NODE_ENV === 'production') {
         security: 'love-luciferDemon-so-much',
     }
 }
+
+// mongoURI: "mongodb://inteligent:text1234@ds149596.mlab.com:49596/rims"
