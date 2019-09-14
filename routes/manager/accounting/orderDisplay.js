@@ -5,7 +5,7 @@ const Cart = require('../../../model/casher/Cart');
 
 // security
 let auth = function (req, res, next) {
-  if (req.user && req.user.administrator === 'Manager') {
+  if (req.user && req.user.administrator === 'Manager' || req.user && req.user.administrator === 'Developer') {
     next();
   } else {
     req.flash('auth_danger', 'Please sign in to continue !!!!!');

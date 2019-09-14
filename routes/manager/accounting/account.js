@@ -6,7 +6,7 @@ const MonthlyAccount = require('../../../model/accounting/MonthlyAccount');
 
 // security
 let auth = function (req, res, next) {
-  if (req.user && req.user.administrator === 'Manager') {
+  if (req.user && req.user.administrator === 'Manager' || req.user && req.user.administrator === 'Developer') {
     next();
   } else {
     req.flash('auth_danger', 'Please sign in to continue !!!!!');
@@ -40,7 +40,7 @@ router.get('/dayAccountDisplay', auth, (req, res) => {
  * @description: display weekly account
  * @private: manager
  */
-router.get('/weeklyAccountDisplay',auth, (req, res) => {
+router.get('/weeklyAccountDisplay', auth, (req, res) => {
   WeeklyAccount.find({}).sort({
     createdAt: -1
   }).exec((err, weeklyAccount) => {
