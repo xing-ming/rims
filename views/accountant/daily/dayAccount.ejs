@@ -1,0 +1,83 @@
+<% include ../../navbar/accountant %>
+
+<div class="container">
+  <div class="row">
+    <div class="col s8 push-s2">
+      <div class="row">
+        <form action="/accountant/dayAccount/create" method="post">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="dayAccount_id" type="hidden" name="dayAccount_id" class="validate"
+                value="<%= typeof dayAccount != 'undefined' ? dayAccount._id : '' %>">
+              <!-- <label for="dayAccount_id">Id</label> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="username" type="hidden" name="username" class="validate" required value="<%= user.name %>">
+              <!-- <label for="username">Username</label> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="account_title" type="text" name="account_title" class="validate" required
+                value="<%= typeof dayAccount != 'undefined' ? dayAccount.account_title : '' %>" autofocus>
+              <label for="account_title">Account Title</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="amount" type="text" name="amount" class="validate" required
+                value="<%= typeof dayAccount != 'undefined' ? dayAccount.amount : '' %>">
+              <label for="amount">Amount</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <select name="account_type" required>
+                <option value="<%= typeof dayAccount != 'undefined' ? dayAccount.account_type : '' %>">
+                  <%= typeof dayAccount != 'undefined' ? dayAccount.account_type : '' %>
+                </option>
+                <%paymentMethod.forEach((paymentMethod) => {%>
+                <option value="<%= paymentMethod.payment_method%>"><%= paymentMethod.payment_method %></option>
+                <%})%>
+              </select>
+              <label>Account type</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <select class="validate" name="day_name" required>
+                <option value="<%= typeof dayAccount != 'undefined' ? dayAccount.day_name : '' %>">
+                  <%= typeof dayAccount != 'undefined' ? dayAccount.day_name : '' %>
+                </option>
+                <% days.forEach((day) => {%>
+                <option value="<%= day.day_name %>"><%= day.day_name %></option>
+                <%})%>
+              </select>
+              <label>Select Day</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Save
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // selection
+  $(document).ready(function () {
+    $('select').formSelect();
+  });
+</script>

@@ -1,0 +1,45 @@
+<% include ../../navbar/admin %>
+
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <h6 class="green-text" style="text-align: center"><% include ../../messages/success%></h6>
+        <h6>Manage Users</h6>
+        <br>
+        <div class="input-field col s12">
+          <input id="searchInput" type="text" placeholder="search user">
+          <label for="searchInput">Search</label>
+        </div>
+
+        <table class="highlight responsive-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>E-Mail</th>
+              <th>Administrator</th>
+              <th>D.T Created</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="searchTable">
+            <% users.forEach((users) => {%>
+            <tr>
+              <td><%= users.name %></td>
+              <td><%= users.email %></td>
+              <td><%= users.administrator %></td>
+              <td><%= users.createdAt %></td>
+              <td>
+                <a href="/manager/signup/users/delete/<%= users._id %>" class="black-text">
+                  <i class="material-icons">delete</i>
+                </a>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

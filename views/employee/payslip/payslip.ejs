@@ -1,0 +1,234 @@
+<% include ../../navbar/accountant %>
+
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <h6>Create Payslip</h6>
+
+        <form action="/payroll/payslip/create" method="post">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="employee_id_code" name="employee_id_code" type="hidden" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee._id : '' %>" readonly>
+              <!-- <label for="employee_name">Employee ID</label> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s3">
+              <input id="employee_name" name="employee_name" type="text" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.employee_name : '' %>" readonly>
+              <label for="employee_name">Employee</label>
+            </div>
+
+            <div class="input-field col s3">
+              <input id="department_name" name="department_name" type="text" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.department_name : '' %>" readonly>
+              <label for="department_name">Department</label>
+            </div>
+
+            <div class="input-field col s3">
+              <input id="position" name="position" type="text" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.position : '' %>" readonly>
+              <label for="position">Position</label>
+            </div>
+
+            <div class="input-field col s3">
+              <input class="datepicker" id="payslip_date" name="payslip_date" type="text" class="validate" required>
+              <label for="payslip_date">Date</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s3">
+              <input id="allowance_1" name="allowance_1" type="text" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.allowance_1 : '' %>" readonly>
+              <label for="allowance_1">Allowance 1</label>
+            </div>
+
+            <div class="input-field col s2">
+              <input id="allowance_1_amount" name="allowance_1_amount" type="number" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.allowance_1_amount : '' %>" readonly>
+              <label for="allowance_1_amount">Amount</label>
+            </div>
+
+            <div class="input-field col s3">
+              <input id="allowance_2" name="allowance_2" type="text" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.allowance_2 : '' %>" readonly>
+              <label for="allowance_2">Allowance 2</label>
+            </div>
+
+            <div class="input-field col s2">
+              <input id="allowance_2_amount" name="allowance_2_amount" type="number" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.allowance_2_amount : '' %>" readonly>
+              <label for="allowance_2_amount">Amount</label>
+            </div>
+
+            <div class="input-field col s2">
+              <select name="status" required>
+                <option disabled selected></option>
+                <%status.forEach((status) => {%>
+                <option value="<%= status.status %>"><%= status.status %></option>
+                <%})%>
+              </select>
+              <label>Status</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s3">
+              <input id="tax" name="tax" type="number" class="validate" required readonly
+                value="<%= typeof employee != 'undefined' ? employee.tax : '' %>">
+              <label for="tax">Tax Deduction</label>
+            </div>
+
+            <div class="input-field col s4">
+              <input id="other_deduction" name="other_deduction" type="text" class="validate">
+              <label for="other_deduction">Other Deduction</label>
+            </div>
+
+            <div class="input-field col s2">
+              <input id="other_deduction_amount" name="other_deduction_amount" type="number" class="validate">
+              <label for="other_deduction_amount">Amount</label>
+            </div>
+
+            <div class="input-field col s3">
+              <select class="validate" name="payment_method" required>
+                <option selected></option>
+                <% payment.forEach((payment) => {%>
+                <option value="<%= payment.payment_method %>"><%= payment.payment_method %></option>
+                <%})%>
+              </select>
+              <label>Select Payment method</label>
+            </div>
+          </div>
+          <h6>Summary</h6>
+
+          <div class="row">
+            <div class="input-field col s3">
+              <input id="email" name="email" type="hidden" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.email : '' %>">
+              <!-- <label for="email">E-Mail</label> -->
+            </div>
+
+            <div class="input-field col s3">
+              <input id="total_deduction" name="total_deduction" type="number" class="validate"
+                value="<%= typeof employee != 'undefined' ? employee.total_deduction : '' %>" placeholder="Auto Compute"
+                required readonly>
+              <label for="total_deduction">Total Deduction</label>
+            </div>
+
+            <div class="input-field col s3">
+              <input id="total_allowance" name="total_allowance" type="number" class="validate"
+                value="<%= typeof employee != 'undefined' ? employee.total_allowance : '' %>" placeholder="Auto Compute"
+                required readonly>
+              <label for="total_allowance">Total Allowance</label>
+            </div>
+
+            <!-- bank detail -->
+            <div class="input-field col s3">
+              <input id="account_holder_name" name="account_holder_name" type="hidden" class="validate"
+                value="<%= typeof employee != 'undefined' ? employee.account_holder_name : '' %>">
+              <!-- <label for="account_holder_name">Account Holder</label> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6 push-s3">
+              <input id="salary" name="salary" type="number" class="validate" required readonly
+                value="<%= typeof employee != 'undefined' ? employee.salary : '' %>">
+              <label for="salary">Salary</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s3">
+              <input id="phone_1" name="phone_1" type="hidden" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.phone_1 : '' %>">
+              <!-- <label for="phone_1">Phone 1</label> -->
+            </div>
+
+            <div class="input-field col s3">
+              <input id="total_salary" name="total_salary" type="number" class="validate" placeholder="Auto Compute"
+                value="<%= typeof employee != 'undefined' ? employee.total_salary : '' %>" required readonly>
+              <label for="total_salary">Total Salary</label>
+            </div>
+
+            <div class="input-field col s3">
+              <input id="total_net_pay" name="total_net_pay" type="number" class="validate" placeholder="Auto Compute"
+                required readonly>
+              <label for="total_net_pay">Net Pay</label>
+            </div>
+
+            <!-- bank detail -->
+            <div class="input-field col s3">
+              <input id="account_number" name="account_number" type="hidden" class="validate"
+                value="<%= typeof employee != 'undefined' ? employee.account_number : '' %>">
+              <!-- <label for="account_number">Account Number</label> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s3">
+              <input id="dateOfJoining" name="dateOfJoining" type="hidden" class="validate" required readonly
+                value="<%= typeof employee != 'undefined' ? employee.createdAt.toDateString() : '' %>">
+              <!-- <label for="dateOfJoining">Date Of Joining</label> -->
+            </div>
+
+            <div class="input-field col s6">
+              <textarea id="comment" name="comment" class="materialize-textarea"></textarea>
+              <label for="comment">Comment</label>
+            </div>
+
+            <!-- bank detail -->
+            <div class="input-field col s3">
+              <input id="bank_name" name="bank_name" type="hidden" class="validate"
+                value="<%= typeof employee != 'undefined' ? employee.bank_name : '' %>">
+              <!-- <label for="bank_name">Bank Name</label> -->
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s6">
+              <button class="btn waves-effect waves-light" type="submit" name="action" id="button">
+                Save
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div><!-- form row -->
+    </div>
+  </div><!-- main row -->
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('.datepicker').datepicker();
+  });
+
+  $(document).ready(function () {
+    $('select').formSelect();
+  });
+
+  // compute deduction
+  document.getElementById('button').addEventListener('mouseover', () => {
+    let tax = document.getElementById('tax').value;
+    let oda = document.getElementById('other_deduction_amount').value;
+    // sum
+    let sum = +tax + +oda;
+    // display
+    document.getElementById('total_deduction').value = sum;
+  });
+
+  // compute net pay
+  document.getElementById('button').addEventListener('mouseover', () => {
+    let total_salary = document.getElementById('total_salary').value;
+    let total_deduction = document.getElementById('total_deduction').value;
+    // minus
+    let output = +total_salary - +total_deduction;
+    // display
+    document.getElementById('total_net_pay').value = output;
+  });
+</script>

@@ -1,22 +1,23 @@
 <ul id="item" class="dropdown-content">
-    <li><span>Hi user</span></li>
-    <li class="divider"></li>
-    <li><a href="">Sign out</a></li>
+  <% if(user) {%>
+  <li><span>Hi <%= user.name %></span></li>
+  <li><a href="/auth/users/logout">Sign-Out</a></li>
+  <%}%>
 </ul>
 <nav>
-    <div class="nav-wrapper">
-        <a href="/ict/home/ict-home">Home</a>
-        <ul class="right hide-on-med-and-down">
-            <li>
-                <a class="dropdown-trigger" href="#!" data-target="item">
-                    User Account
-                    <i class="material-icons right">arrow_drop_down</i>
-                </a>
-            </li>
-        </ul>
-    </div>
+  <div class="nav-wrapper">
+    <a href="/ict/home/ict-home">Home</a>
+    <ul class="right hide-on-med-and-down">
+      <li>
+        <a class="dropdown-trigger" href="#!" data-target="item">
+          User Account
+          <i class="material-icons right">arrow_drop_down</i>
+        </a>
+      </li>
+    </ul>
+  </div>
 </nav>
 
 <script>
-    $(".dropdown-trigger").dropdown();
+  $(".dropdown-trigger").dropdown();
 </script>

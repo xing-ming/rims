@@ -2,6 +2,16 @@ var express = require('express');
 var router = express.Router();
 const Weekly = require('../../model/accounting/Weekly');
 
+// security
+let auth = function (req, res, next) {
+  if (req.user && req.user.administrator === 'Accountant') {
+    next();
+  } else {
+    req.flash('auth_danger', 'Please sign in to continue !!!!!');
+    res.redirect('/auth/users/signin');
+  }
+};
+
 /**
  * @method: post
  * @access: /accountant/week/create
@@ -33,14 +43,14 @@ router.post('/create', function (req, res, next) {
 * @private: accountant and admin
 * @description: display weeks
 */
-router.get('/displayWeeklyAccount', (req, res, next) => {
+router.get('/displayWeeklyAccount', auth, (req, res, next) => {
   const success = req.flash('success');
   const danger = req.flash('danger');
   Weekly.find({}).sort({ week_name: -1 }).exec((err, weeks) => {
     if (err) {
       console.log(`Unable to display week: ${err}`);
     }
-    res.render('accountant/week', { weeks, success, danger });
+    res.render('accountant/weekly/week', { weeks, success, danger });
   });
 });
 
@@ -49,7 +59,7 @@ router.get('/displayWeeklyAccount', (req, res, next) => {
  * @private: accountant
  * @description: delete week
  */
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', auth, (req, res) => {
   Weekly.findByIdAndDelete({ _id: req.params.id }, (err) => {
     if (err) {
       console.log(`Unable to delete week: ${err}`);

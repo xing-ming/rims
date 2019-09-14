@@ -1,0 +1,44 @@
+<% include ../navbar/homeNavbar %>
+
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <h6>Employee Attendance</h6>
+        <div class="input-field col s12">
+          <input id="searchInput" type="text" placeholder="search employee_id">
+          <label for="searchInput">Search</label>
+        </div>
+        <table class="highlight centered responsive-table">
+          <thead>
+            <tr>
+              <th>Employee ID</th>
+              <th>Date</th>
+              <th>Time In</th>
+              <th>Date</th>
+              <th>Time Out</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="searchTable">
+            <% employee_id.forEach((employee_id) => {%>
+            <tr>
+              <td><%= employee_id.employee_id %></td>
+              <td><%= employee_id.createdAt.toDateString() %></td>
+              <td><%= employee_id.createdAt.toLocaleTimeString() %></td>
+              <td><%= employee_id.updatedAt.toDateString() %></td>
+              <td><%= employee_id.updatedAt.toLocaleTimeString() %></td>
+              <td>
+                <a href="/attendance/edit/<%= employee_id._id %>">
+                  <i class="material-icons">create</i>
+                </a>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div><!-- container -->

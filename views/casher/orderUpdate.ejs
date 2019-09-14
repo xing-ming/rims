@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <div class="col s8 push-s2">
-      <form action="/casher/item/order/update" method="POST" class="col s12">
+      <form action="/casher/item/order" method="POST" class="col s12">
         <div class="row">
           <div class="input-field col s12">
             <input id="order_id" type="hidden" name="order_id" class="validate"
@@ -16,7 +16,7 @@
         <div class="row">
           <div class="input-field col s12">
             <input id="username" type="text" name="username" class="validate"
-              value="<%= typeof order != 'undefined' ? order.username : '' %>" disabled required>
+              value="<%= typeof order != 'undefined' ? order.username : '' %>" readonly required>
             <label for="username">Username</label>
           </div>
         </div>
@@ -25,7 +25,9 @@
           <div class="input-field col s12">
             <select class="validate" name="payment_method" required
               value="<%= typeof order != 'undefined' ? order.payment_method : '' %>">
-              <option disabled selected>Choose payment method</option>
+              <option disabled selected>
+                <%= typeof order != 'undefined' ? order.payment_method : '' %>
+              </option>
               <% payment.forEach((payment) => {%>
               <option value="<%= payment.payment_method %>"><%= payment.payment_method %></option>
               <%})%>
@@ -36,7 +38,7 @@
 
         <div class="row">
           <button class="btn waves-effect waves-light" type="submit" name="action">
-            <%= typeof item != 'undefined' ? 'Submit' : 'Submit' %>
+            <%= typeof order != 'undefined' ? 'Update' : 'Save' %>
             <i class="material-icons right">send</i>
           </button>
         </div>

@@ -1,0 +1,53 @@
+<!--  containg department and allowance -->
+
+<% include ../../navbar/admin %>
+
+<br>
+<div class="container">
+  <div class="row">
+    <h6>Manage Department And Allowance</h6>
+    <h6 class="green-text" style="text-align: center;"><% include ../../messages/success %></h6>
+    <h6 class="red-text" style="text-align: center;"><% include ../../messages/danger %></h6>
+    <br>
+    <div class="col s6">
+      <div class="row">
+        <table class="highlight responsive-table">
+          <thead>
+            <tr>
+              <th>Department</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% department.forEach((department) => {%>
+            <tr>
+              <td><%= department.department_name %></td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- department col -->
+
+    <!-- allowance start -->
+    <div class="col s6">
+      <div class="row">
+        <table class="highlight responsive-table">
+          <thead>
+            <tr>
+              <th>Allowance</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% allowance.forEach((allowance) => {%>
+            <tr>
+              <td><%= allowance.allowance %></td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- allowance col -->
+  </div>
+</div>

@@ -4,17 +4,55 @@ const Order = require('../../model/casher/Order');
 const Cart = require('../../model/casher/Cart');
 const PaymentMethod = require('../../model/ict/PaymentMethod');
 
+// security
+let auth = function (req, res, next) {
+  if (req.user && req.user.administrator === 'Cashier') {
+    next();
+  } else {
+    req.flash('auth_danger', 'Please sign in to continue !!!!!');
+    res.redirect('/auth/users/signin');
+  }
+};
+
 /**
  * @method: post
- * @access: /casher/item/order/update
- * @description: update order in database
+ * @access: /casher/item/order
+ * @description: create and update order in database
  * @private: casher
  */
-router.post('/order/update', (req, res) => {
-  if (req.body.order_id !== '') {
+router.post('/order', (req, res) => {
+  if (req.body.order_id === '') {
+    addOrder(req, res);
+  } else {
     updateOrder(req, res);
   }
 });
+
+/**
+ * @route : /casher/item/order
+ * @access: casher
+ * @method: post
+ * @description: save order or sales to database
+*/
+function addOrder(req, res) {
+  if (!req.session.cart) {
+    return res.render('casher/cartItem');
+  }
+  const cart = new Cart(req.session.cart);
+  const newOrder = new Order({
+    order: cart,
+    username: req.body.username,
+    payment_method: req.body.payment_method,
+    department_name: req.body.department_name
+  });
+  newOrder.save((err) => {
+    if (err) {
+      console.log(`Unable to save order: ${err}`);
+    }
+    req.flash('success', 'order save successful');
+    res.redirect('/casher/item/invoice');
+  });
+}
 
 /**
  * @method: get
@@ -22,7 +60,7 @@ router.post('/order/update', (req, res) => {
  * @description: edit order by updating the payment methode
  * @private: casher
  */
-router.get('/order/edit/:id', (req, res) => {
+router.get('/order/edit/:id', auth, (req, res) => {
   Order.findById({ _id: req.params.id }, (err, order) => {
     if (err) {
       console.log(`Unable to edit order: ${err}`);
@@ -57,7 +95,7 @@ function updateOrder(req, res) {
  * @description: display order
  * @private: casher
  */
-router.get('/order-display', (req, res) => {
+router.get('/order-display', auth, (req, res) => {
   const success = req.flash('success');
   Order.find({}).sort({ createdAt: -1 }).exec((err, orders) => {
     if (err) {
@@ -70,23 +108,6 @@ router.get('/order-display', (req, res) => {
       // console.log(order.items);
     });
     res.render('casher/order', { orders, success });
-  });
-});
-
-/**
- * @method: get
- * @access: /casher/item/invoice
- * @description: print invoice
- * @private: casher
- */
-router.get('/invoice', (req, res) => {
-  if (!req.session.cart) {
-    return res.render('casher/cartItem', { items: null });
-  }
-  let cart = new Cart(req.session.cart);
-  res.render('casher/invoice', {
-    items: cart.generateArray(),
-    totalPrice: cart.totalPrice,
   });
 });
 

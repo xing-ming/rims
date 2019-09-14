@@ -3,16 +3,37 @@ let router = express.Router();
 let Category = require('../../model/ict/Category');
 let Brand = require('../../model/ict/Brand');
 
+// security
+let auth = function (req, res, next) {
+  if (req.user && req.user.administrator === 'ICT') {
+    next();
+  } else {
+    req.flash('auth_danger', 'Please sign in to continue !!!!!');
+    res.redirect('/auth/users/signin');
+  }
+};
+
+// CONTROLLING BOTH CATEGORY AND BRAND
+
 /**
  * method: get
 * route: /ict/catalog/category/brand/create
 * access: ict
 * description: display create category and create brand pages
 */
-router.get('/category/brand/create', (req, res, next) => {
+router.get('/category/brand/create', auth, (req, res, next) => {
   let success = req.flash('success');
   let danger = req.flash('danger');
-  res.render('ict/catalog', { success, danger });
+  Category.find((err, category) => {
+    if (err) throw err;
+    Brand.find((err, brand) => {
+      if (err) throw err;
+      res.render('ict/catalog', {
+        success, danger,
+        category, brand
+      });
+    });
+  });
 });
 
 /**
@@ -46,7 +67,7 @@ router.post('/category/create', function (req, res, next) {
  * access: ict
  * description: delete category
  */
-router.get('/category/delete/:id', (req, res) => {
+router.get('/category/delete/:id', auth, (req, res) => {
   Category.findByIdAndDelete({ _id: req.params.id }, (err) => {
     if (err) {
       console.log(`Unable to delete category: ${err}`);
@@ -90,7 +111,7 @@ router.post('/brand/create', function (req, res, next) {
  * @private: ict
  * @description: delete brand
  */
-router.get('/brand/delete/:id', (req, res) => {
+router.get('/brand/delete/:id', auth, (req, res) => {
   Brand.findByIdAndDelete({ _id: req.params.id }, (err) => {
     if (err) {
       console.log(`Unable to delete brand: ${err}`);

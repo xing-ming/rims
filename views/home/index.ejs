@@ -1,13 +1,73 @@
-<% include ../navbar/ict %>
+<% include ../navbar/homeNavbar %>
 
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<div class="container">
+  <div class="row">
+    <div class="col s12 push-s0">
+      <section id="showcase">
+        <div class="section_container">
+          <h4>Affordable Professional Software</h4>
+          <p>Get a fully featured service desk with self-service,
+            automation, SLAs, and CSAT reporting <br>
+            — starting at Professional and Enterprise
+            <!-- only NGN 50000/month. -->
+          </p>
+        </div>
+      </section>
+
+      <section id="newsletter">
+        <div class="section_container">
+          <h6 class="green-text" style="text-align: center"><% include ../messages/success%></h6>
+
+          <form action="/attendance/create" method="POST">
+            <input type="hidden" name="attendance_id"
+              value="<%= typeof employee_id != 'undefined' ? employee_id._id : '' %>">
+
+            <input type="text" name="employee_id" placeholder="ID" autofocus
+              value="<%= typeof employee_id != 'undefined' ? employee_id.employee_id : '' %>" required>
+
+            <button type="submit" class="button_1">
+              <%= typeof employee_id != 'undefined' ? 'Sign out' : 'Sign In' %>
+            </button>
+
+
+            <a href="/attendance/display" class="white-text">
+              <button type="button" class="button_1">
+                <%= typeof employee_id != 'undefined' ? 'View' : 'Sign out' %>
+              </button>
+            </a>
+          </form>
+        </div>
+      </section>
+
+      <div class="row">
+        <div class="col s6">
+          <div class="carousel  center">
+            <a class="carousel-item" href="#one!"><img src="/img/slider/showcase.jpg"></a>
+            <a class="carousel-item" href="#two!"><img src="/img/slider/pexels-photo-1345082.jpeg"></a>
+            <a class="carousel-item" href="#three!"><img src="/img/slider/pexels-photo-230544.jpeg"></a>
+            <a class="carousel-item" href="#four!"><img src="/img/slider/pexels-photo.jpg"></a>
+            <a class="carousel-item" href="#five!"><img src="/img/slider/0c6166d98a4f734be14c407e1388c4bd.jpg"></a>
+          </div>
+        </div>
+
+        <div class="col s6">
+          <div class="carousel  center">
+            <a class="carousel-item" href="#one!"><img src="/img/slider/89d265b5c0370a86d36c54ae9d14d909.jpg"></a>
+            <a class="carousel-item" href="#two!"><img src="/img/slider/deca134db2d239c40ddf6b22dca43443.jpg"></a>
+            <a class="carousel-item" href="#three!"><img src="/img/slider/fbb187c448ec4bfbf60915529f3ad941.jpg"></a>
+            <a class="carousel-item" href="#four!"><img src="/img/slider/pexels-photo-1005638.jpeg"></a>
+            <a class="carousel-item" href="#five!"><img src="/img/slider/01a8b79b564b5b64cf769e61cb89e68c.jpg"></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% include ../navbar/homeFooter %>
+
+<script>
+  $(document).ready(function () {
+    $('.carousel').carousel();
+  });
+</script>

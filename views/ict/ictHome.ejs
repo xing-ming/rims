@@ -5,29 +5,40 @@
   <div class="row">
     <div class="col s4 m4">
       <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Item</span>
-          <p>Create item, view items and <br> create payment method and display</p>
-        </div>
-        <div class="card-action">
-          <a href="/ict/item/create">Add</a>
-          <a href="/ict/item/display">View</a>
-          <a href="/ict/paymentMethod/getPaymentMethod">Payment-method</a>
-        </div>
+        <ul class="collection with-header">
+          <li class="collection-header blue-grey">
+            <h6>Item</h6>
+          </li>
+          <li class="collection-item">
+            <a href="/ict/catalog/category/brand/create">Add category and brand</a>
+          </li>
+          <li class="collection-item">
+            <a href="/ict/item/create">Add item</a>
+          </li>
+          <li class="collection-item">
+            <a href="/ict/item/display">View item</a>
+          </li>
+          <li class="collection-item">
+            <a href="/ict/paymentMethod/getPaymentMethod">Create payment-method</a>
+          </li>
+        </ul>
       </div>
     </div><!-- col 1 -->
+
 
     <div class="col s4 m4">
       <div class="card blue-grey darken-1">
         <ul class="collection with-header">
           <li class="collection-header blue-grey">
-            <a href="/ict/catalog/category/brand/create" class="black-text">Catalog</a>
+            <h6>Department/Position</h6>
           </li>
-          <% category.forEach((category) => {%>
+
           <li class="collection-item">
-            <a href="/ict/item/display/category/<%= category.category_name %>"><%= category.category_name %></a>
+            <a href="/employee/catalog/create">Create Department And Allowance</a>
           </li>
-          <%})%>
+          <li class="collection-item">
+            <a href="/employee/statusAndPosition/create">Create Position And Status</a>
+          </li>
         </ul>
       </div>
     </div><!-- col 2 -->
@@ -36,33 +47,16 @@
       <div class="card blue-grey darken-1">
         <ul class="collection with-header">
           <li class="collection-header blue-grey">
-            <h4>Brand of items</h4>
+            <h6>Employee</h6>
           </li>
-          <% brand.forEach((brand) => {%>
           <li class="collection-item">
-            <a href="/ict/item/display/brand/<%= brand.brand_name %>"><%= brand.brand_name %></a>
+            <a href="/employee/create">Create Employee</a>
           </li>
-          <%})%>
+          <li class="collection-item">
+            <a href="/employee/display">Manage Employee</a>
+          </li>
         </ul>
       </div>
     </div><!-- col 3 -->
   </div> <!-- row 1 -->
-  <div class="row">
-    <div class="col s4 m4">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Employee</span>
-          <p>Create employee, department <br> display employee and department</p>
-        </div>
-        <div class="card-action">
-          <a href="/employee/department/create">Dep</a>
-          <a href="/employee/department/displayDepartment">View</a>
-          <a href="">Emp</a>
-          <a href="">view</a>
-        </div>
-      </div>
-    </div><!-- col 1 -->
-
-  
-  </div>
 </div>

@@ -2,6 +2,16 @@ var express = require('express');
 var router = express.Router();
 const Day = require('../../model/accounting/Day');
 
+// security
+let auth = function (req, res, next) {
+  if (req.user && req.user.administrator === 'Accountant') {
+    next();
+  } else {
+    req.flash('auth_danger', 'Please sign in to continue !!!!!');
+    res.redirect('/auth/users/signin');
+  }
+};
+
 /**
  * @method: post
  * @access: /accountant/day/create
@@ -34,14 +44,14 @@ router.post('/create', function (req, res, next) {
 * @private: accountant and admin
 * @description: display days
 */
-router.get('/getSaleDay', (req, res, next) => {
+router.get('/getSaleDay', auth, (req, res, next) => {
   const success = req.flash('success');
   const danger = req.flash('danger');
   Day.find({}).sort({ day_name: -1 }).exec((err, days) => {
     if (err) {
       console.log(`Unable to display day: ${err}`);
     }
-    res.render('accountant/day', { days, success, danger });
+    res.render('accountant/daily/day', { days, success, danger });
   });
 });
 
@@ -51,7 +61,7 @@ router.get('/getSaleDay', (req, res, next) => {
  * @private: accountant
  * @description: delete day
  */
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', auth, (req, res) => {
   Day.findByIdAndDelete({ _id: req.params.id }, (err) => {
     if (err) {
       console.log(`Unable to delete day: ${err}`);

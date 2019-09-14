@@ -2,6 +2,17 @@ var express = require('express');
 var router = express.Router();
 const DayAccount = require('../../model/accounting/DayAccount');
 const Day = require('../../model/accounting/Day');
+const PaymentMethod = require('../../model/ict/PaymentMethod');
+
+// security
+let auth = function (req, res, next) {
+  if (req.user && req.user.administrator === 'Accountant') {
+    next();
+  } else {
+    req.flash('auth_danger', 'Please sign in to continue !!!!!');
+    res.redirect('/auth/users/signin');
+  }
+};
 
 /**
  * @method: post { update, create }
@@ -9,12 +20,18 @@ const Day = require('../../model/accounting/Day');
  * @description: display dayAccount
  * @private: accountant
  */
-router.get('/create', (req, res, next) => {
+router.get('/create', auth, (req, res, next) => {
   Day.find({}).sort({ day_name: 1 }).exec((err, days) => {
     if (err) {
       console.log(`Unable to display day: ${err}`);
     }
-    res.render('accountant/dayAccount', { days });
+    PaymentMethod.find((err, paymentMethod) => {
+      if (err) throw err;
+      res.render('accountant/daily/dayAccount', {
+        days,
+        paymentMethod
+      });
+    });
   });
 });
 
@@ -38,7 +55,9 @@ function createDayAccount(req, res) {
   const newAccount = new DayAccount({
     day_name: req.body.day_name,
     username: req.body.username,
-    amount: req.body.amount
+    amount: req.body.amount,
+    account_type: req.body.account_type,
+    account_title: req.body.account_title
   });
   newAccount.save((err) => {
     if (err) {
@@ -55,17 +74,21 @@ function createDayAccount(req, res) {
  * @description: edit item
  * @private: ict
  */
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', auth, (req, res) => {
   DayAccount.findById({ _id: req.params.id }, (err, dayAccount) => {
     if (err) {
       console.log(`Unable to edit day account: ${err}`);
     }
     Day.find((err, days) => {
-      if (err) {
-        throw err;
-      } else {
-        res.render('accountant/dayAccount', { days, dayAccount });
-      }
+      if (err) throw err;
+      PaymentMethod.find((err, paymentMethod) => {
+        if (err) throw err;
+        res.render('accountant/daily/dayAccount', {
+          days,
+          dayAccount,
+          paymentMethod
+        });
+      });
     });
   });
 });
@@ -92,14 +115,14 @@ function updateDayAccount(req, res) {
  * @private: accountant
  * stage: create, update
  */
-router.get('/dayAccountDisplay', (req, res) => {
+router.get('/dayAccountDisplay', auth, (req, res) => {
   const success = req.flash('success');
   const danger = req.flash('danger');
   DayAccount.find({}).sort({ createdAt: -1 }).exec((err, dayAccount) => {
     if (err) {
       console.log(`Unable to display dayAccount: ${err}`);
     } else {
-      res.render('accountant/dayAccountDisplay', {
+      res.render('accountant/daily/dayAccountDisplay', {
         dayAccount,
         success,
         danger

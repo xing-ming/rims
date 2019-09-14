@@ -1,7 +1,8 @@
 <ul id="user_account" class="dropdown-content">
-  <li><span>Hi user</span></li>
-  <li class="divider"></li>
-  <li><a href="">Sign out</a></li>
+  <% if(user) {%>
+  <li><span>Hi <%= user.name %></span></li>
+  <li><a href="/auth/users/logout">Sign-Out</a></li>
+  <%}%>
 </ul>
 
 <nav>
@@ -10,12 +11,12 @@
     <ul class="right hide-on-med-and-down">
       <li>
         <% if(session.cart) {%>
-        <a href="/casher/item/cart-display">
-          <span class="new badge" data-badge-caption="item" style="font-weight: bold; font-style: italic">
-            <%= session.cart.totalQty %>
-          </span>
-        </a>
-        <%}%>
+  <a href="/casher/item/cart-display">
+    <span class="new badge" data-badge-caption="item" style="font-weight: bold; font-style: italic">
+      <%= session.cart.totalQty %>
+    </span>
+  </a>
+  <%}%>
       </li>
       <!-- Dropdown Trigger -->
       <li>

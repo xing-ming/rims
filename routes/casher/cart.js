@@ -2,8 +2,18 @@ var express = require('express');
 var router = express.Router();
 const Item = require('../../model/ict/Item');
 const Cart = require('../../model/casher/Cart');
-const Order = require('../../model/casher/Order');
 const PaymentMethod = require('../../model/ict/PaymentMethod');
+const Department = require('../../model/employee/department/Department');
+
+// security
+let auth = function (req, res, next) {
+  if (req.user && req.user.administrator === 'Cashier') {
+    next();
+  } else {
+    req.flash('auth_danger', 'Please sign in to continue !!!!!');
+    res.redirect('/auth/users/signin');
+  }
+};
 
 /**
  * @method: get
@@ -11,7 +21,7 @@ const PaymentMethod = require('../../model/ict/PaymentMethod');
  * @description: display item to casher
  * @private: casher
  */
-router.get('/display', (req, res) => {
+router.get('/display', auth, (req, res) => {
   Item.find({}).sort({ item_name: 1 }).exec((err, items) => {
     if (err) {
       throw err;
@@ -28,7 +38,7 @@ router.get('/display', (req, res) => {
  * @description: display item by category
  * @private: casher
  */
-router.get('/display/category/:category', (req, res) => {
+router.get('/display/category/:category', auth, (req, res) => {
   Item.find({ category_name: req.params.category }, (err, items) => {
     if (err) {
       throw err;
@@ -45,7 +55,7 @@ router.get('/display/category/:category', (req, res) => {
  * @description: display item by brand
  * @private: casher
  */
-router.get('/display/brand/:brand', (req, res) => {
+router.get('/display/brand/:brand', auth, (req, res) => {
   Item.find({ brand_name: req.params.brand }, (err, items) => {
     if (err) {
       throw err;
@@ -62,7 +72,7 @@ router.get('/display/brand/:brand', (req, res) => {
  * @description: display cart item
  * @private: casher
  */
-router.get('/add-item-to-cart/:id', (req, res) => {
+router.get('/add-item-to-cart/:id', auth, (req, res) => {
   const cart = new Cart(req.session.cart ? req.session.cart : {});
   Item.findById({ _id: req.params.id }, (err, item) => {
     if (err) {
@@ -70,7 +80,7 @@ router.get('/add-item-to-cart/:id', (req, res) => {
     } else {
       cart.add(item, item.id);
       req.session.cart = cart;
-      console.log(req.session.cart);
+      // console.log(req.session.cart);
       res.redirect('/casher/item/display');
     }
   });
@@ -82,11 +92,11 @@ router.get('/add-item-to-cart/:id', (req, res) => {
  * @description: remove item in cart by one
  * @private: casher
  */
-router.get('/reduce-by-one/:id', (req, res) => {
+router.get('/reduce-by-one/:id', auth, (req, res) => {
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   cart.reduceByOne(req.params.id);
   req.session.cart = cart;
-  console.log(req.session.cart);
+  // console.log(req.session.cart);
   res.redirect('/casher/item/cart-display');
 });
 
@@ -96,12 +106,30 @@ router.get('/reduce-by-one/:id', (req, res) => {
  * @description: remove all item in cart
  * @private: casher
  */
-router.get('/remove-all/:id', (req, res) => {
+router.get('/remove-all/:id', auth, (req, res) => {
   let cart = new Cart(req.session.cart ? req.session.cart : {});
   cart.removeAll(req.params.id);
   req.session.cart = cart;
-  console.log(req.session.cart);
+  // console.log(req.session.cart);
   res.redirect('/casher/item/cart-display');
+});
+
+/**
+ * @method: get
+ * @access: /casher/item/clear-cart
+ * @description: clear cart
+ * @private: casher
+ */
+router.get('/clear-cart', auth, (req, res) => {
+  Item.find({}).sort({ item_name: 1 }).exec((err, items) => {
+    if (err) {
+      throw err;
+    } else {
+      let cart = new Cart(req.session.cart);
+      req.session.cart = null;
+      res.redirect('/casher/item/display');
+    }
+  });
 });
 
 /**
@@ -110,22 +138,42 @@ router.get('/remove-all/:id', (req, res) => {
  * @description: display cart to casher
  * @private: casher
  */
-router.get('/cart-display', (req, res) => {
-  const danger = req.flash('danger');
+router.get('/cart-display', auth, (req, res) => {
+  const success = req.flash('success');
   if (!req.session.cart) {
     return res.render('casher/cartItem', { items: null });
   }
   let cart = new Cart(req.session.cart);
   PaymentMethod.find((err, payment) => {
-    if (err) {
-      throw err;
-    } else {
+    if (err) throw err
+    Department.find((err, department) => {
+      if (err) throw err;
       res.render('casher/cartItem', {
         items: cart.generateArray(),
         totalPrice: cart.totalPrice,
-        danger, payment
+        payment,
+        department,
+        success
       });
-    }
+    });
+  });
+});
+
+/**
+ * @method: get
+ * @access: /casher/item/invoice
+ * @description: print invoice
+ * @private: casher
+ */
+router.get('/invoice', auth, (req, res) => {
+  if (!req.session.cart) {
+    return res.render('casher/cartItem', { items: null });
+  }
+  let cart = new Cart(req.session.cart);
+  req.session.cart = null;
+  res.render('casher/invoice', {
+    items: cart.generateArray(),
+    totalPrice: cart.totalPrice,
   });
 });
 
@@ -154,7 +202,7 @@ router.post('/save', (req, res) => {
  * @description: edit item by adding the comsumer quantity
  * @private: casher
  */
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', auth, (req, res) => {
   Item.findById({ _id: req.params.id }, (err, item) => {
     if (err) {
       console.log(`Unable to edit item: ${err}`);
@@ -175,36 +223,6 @@ function updateItem(req, res) {
     }
     req.flash('success', `${req.body.item_name} save & ready to sale`);
     res.redirect('/casher/item/cart-display');
-  });
-}
-
-/**
- * @method: post
- * @access: /casher/item/order
- * @description: save order to database
- * @private: casher
- */
-router.post('/order', (req, res) => {
-  addOrder(req, res);
-});
-
-// post function
-function addOrder(req, res) {
-  if (!req.session.cart) {
-    return res.render('casher/cartItem');
-  }
-  const cart = new Cart(req.session.cart);
-  const newOrder = new Order({
-    order: cart,
-    username: req.body.username,
-    payment_method: req.body.payment_method
-  });
-  newOrder.save((err) => {
-    if (err) {
-      console.log(`Unable to save order: ${err}`);
-    }
-    req.flash('success', 'order save successful');
-    res.redirect('/casher/item/invoice');
   });
 }
 

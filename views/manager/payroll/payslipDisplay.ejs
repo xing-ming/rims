@@ -1,0 +1,58 @@
+<% include ../../navbar/admin %>
+
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <h6 class="green-text" style="text-align: center"><% include ../../messages/success%></h6>
+        <h6>Manage Payslip</h6>
+        <br>
+        <div class="input-field col s12">
+          <input id="searchInput" type="text" placeholder="search employee payslip">
+          <label for="searchInput">Search</label>
+        </div>
+
+        <table class="highlight responsive-table">
+          <thead>
+            <tr>
+              <th>Slip Id</th>
+              <th>Employee</th>
+              <th>Summary</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="searchTable">
+            <% payslip.forEach((payslip) => {%>
+            <tr>
+              <td><%= payslip._id %></td>
+              <td><%= payslip.employee_name %></td>
+              <td>
+                Salary: <%= payslip.salary %> <br>
+                Total Allowance: <%= payslip.total_allowance %> <br>
+                Total Deduction: <%= payslip.total_deduction %> <br>
+                Net Pay: <%= payslip.total_net_pay %>
+              </td>
+              <td><%= payslip.payslip_date %></td>
+              <td><%= payslip.status %></td>
+              <td>
+                <a href="/manager/payroll/payslip/display/each/<%= payslip._id %>">
+                  <i class="material-icons">folder_open</i>
+                </a>
+              </td>
+              <td>
+                <a href="/manager/payroll/payslip/delete/<%= payslip._id %>" class="black-text">
+                  <i class="material-icons">delete</i>
+                </a>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

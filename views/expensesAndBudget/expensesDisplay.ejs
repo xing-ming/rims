@@ -1,0 +1,49 @@
+<% include ../navbar/accountant %>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <h6>Expenses</h6>
+        <br>
+        <h6 class="green-text" style="text-align: center"><% include ../messages/success%></h6>
+        <h6 class="red-text" style="text-align: center"><% include ../messages/danger%></h6>
+        <input id="searchInput" type="text" placeholder="Search">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Created</th>
+              <th>Updated</th>
+              <th>Detail</th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="searchTable">
+            <% expenses.forEach((expenses) => {%>
+            <tr>
+              <td><%= expenses.expenses_type %></td>
+              <td><%= expenses.amount %></td>
+              <td><%= expenses.createdAt.toDateString() %></td>
+              <td><%= expenses.updatedAt.toDateString() %></td>
+              <td colspan="3" class="detail_content"><%= expenses.detail %></td>
+              <td>
+                <a href="/expensesAndBudget/expenses/edit/<%= expenses._id %>" class="secondary-content">
+                  <i class="material-icons">create</i>
+                </a>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

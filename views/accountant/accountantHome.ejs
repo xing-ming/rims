@@ -3,12 +3,12 @@
 <br>
 <div class="container">
   <div class="row">
-    <h5 style="text-align: center">Spreadsheet</h5>
+    <h6 style="text-align: center">Spreadsheet</h6>
     <div class="col s3 m3">
       <div class="card blue-grey darken-1">
         <ul class="collection with-header">
           <li class="collection-header blue-grey">
-            <h5>Daily Account</h5>
+            <h6>Daily Account</h6>
           </li>
           <li class="collection-item"><a href="/accountant/day/getSaleDay">Create days</a></li>
           <li class="collection-item"><a href="/accountant/dayAccount/create">Create daily account</a></li>
@@ -21,12 +21,11 @@
       <div class="card blue-grey darken-1">
         <ul class="collection with-header">
           <li class="collection-header blue-grey">
-            <h5>Weekly Account</h5>
+            <h6>Weekly Account</h6>
           </li>
           <li class="collection-item"><a href="/accountant/week/displayWeeklyAccount">Create weeks</a></li>
           <li class="collection-item"><a href="/accountant/weeklyAccount/create">Create weekly account</a></li>
           <li class="collection-item"><a href="/accountant/weeklyAccount/weeklyAccountDisplay">View weekly account</a>
-          </li>
         </ul>
       </div>
     </div><!-- col 2 -->
@@ -35,12 +34,15 @@
       <div class="card blue-grey darken-1">
         <ul class="collection with-header">
           <li class="collection-header blue-grey">
-            <h5>Monthly Account</h5>
+            <h6>Monthly Account</h6>
           </li>
           <li class="collection-item"><a href="/accountant/month/getSaleMonth">Create months</a></li>
           <li class="collection-item"><a href="/accountant/monthlyAccount/create">Create monthly account</a></li>
-          <li class="collection-item"><a href="/accountant/monthlyAccount/monthlyAccountDisplay">View monthly
-              account</a></li>
+          <li class="collection-item">
+            <a href="/accountant/monthlyAccount/monthlyAccountDisplay">
+              View monthlyaccount
+            </a>
+          </li>
         </ul>
       </div>
     </div><!-- col 3 -->
@@ -49,12 +51,39 @@
       <div class="card blue-grey darken-1">
         <ul class="collection with-header">
           <li class="collection-header blue-grey">
-            <h5>Display order</h5>
+            <h6>Display order</h6>
           </li>
-          <!-- <p>show sale made</p> -->
-          <p>please take note of date created and <br> date updated for propal documentation</p>
+          <p>Please take note of date and time created and <br> updated for security reason</p>
           <li class="collection-item"><a href="/accountant/item/order-display">View Order</a></li>
         </ul>
       </div>
     </div><!-- col 4 -->
+  </div><!-- row 1 end -->
+
+  <div class="row">
+    <div class="col s3 m3">
+      <div class="card blue-grey darken-1">
+        <ul class="collection with-header">
+          <li class="collection-header blue-grey">
+            <h6>Expences and budget</h6>
+          </li>
+          <li class="collection-item"><a href="/expensesAndBudget/create">Create expences and budget</a></li>
+          <li class="collection-item"><a href="/expensesAndBudget/expenses/display">View expences</a></li>
+          <li class="collection-item"><a href="/expensesAndBudget/budget/display">View Budget</a></li>
+        </ul>
+      </div>
+    </div><!-- col 1 -->
+
+    <div class="col s3 m3">
+      <div class="card blue-grey darken-1">
+        <ul class="collection with-header">
+          <li class="collection-header blue-grey">
+            <h6>Payroll</h6>
+          </li>
+          <li class="collection-item"><a href="/payroll/payslip/employee-information/display">Manage Employee</a></li>
+          <li class="collection-item"><a href="/payroll/payslip/display">Payslip</a></li>
+        </ul>
+      </div>
+    </div><!-- col 1 -->
   </div>
+</div>

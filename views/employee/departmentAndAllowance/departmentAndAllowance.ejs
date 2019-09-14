@@ -1,0 +1,100 @@
+<!--  containg department and allowance -->
+<% include ../../navbar/ict %>
+
+<br>
+<div class="container">
+  <div class="row">
+    <h6>Manage Department And Allowance</h6>
+    <h6 class="green-text" style="text-align: center;"><% include ../../messages/success %></h6>
+    <h6 class="red-text" style="text-align: center;"><% include ../../messages/danger %></h6>
+    <br>
+    <div class="col s6">
+      <div class="row">
+        <form class="col s12" action="/employee/catalog/department/create" method="POST">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="department_name" type="text" name="department_name" class="validate" required>
+              <label for="department_name">Department</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s6">
+              <button class="btn waves-effect waves-light" type="submit" name="action">
+                <%= typeof department != 'undefined' ? 'Save' : 'Save' %>
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <table class="highlight responsive-table">
+        <thead>
+          <tr>
+            <th>Department</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% department.forEach((department) => {%>
+          <tr>
+            <td><%= department.department_name %></td>
+            <td>
+              <a href="/employee/catalog/department/delete/<%= department._id %>" class="black-text">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+          </tr>
+          <%})%>
+        </tbody>
+      </table>
+    </div><!-- department col -->
+
+    <!-- allowance start -->
+    <div class="col s6">
+      <div class="row">
+        <form class="col s12" action="/employee/catalog/allowance/create" method="POST">
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="allowance" type="text" name="allowance" class="validate" required>
+              <label for="allowance">Allowance</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col s6 push-s9">
+              <button class="btn waves-effect waves-light" type="submit" name="action">
+                <%= typeof allowance != 'undefined' ? 'Save' : 'Save' %>
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <table class="highlight responsive-table">
+        <thead>
+          <tr>
+            <th>Allowance</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% allowance.forEach((allowance) => {%>
+          <tr>
+            <td><%= allowance.allowance %></td>
+            <td>
+              <a href="/employee/catalog/allowance/delete/<%= allowance._id %>" class="black-text">
+                <i class="material-icons">delete</i>
+              </a>
+            </td>
+          </tr>
+          <%})%>
+        </tbody>
+      </table>
+    </div><!-- allowance col -->
+  </div>
+</div>

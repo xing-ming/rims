@@ -6,8 +6,7 @@
   <div class="row">
     <div class="col s8 push-s2">
       <div class="row">
-        <h6 class="red-text"><% include ../messages/danger%></h6>
-        <h6 class="red-text"><% include ../messages/success%></h6>
+        <h6 class="green-text"><% include ../messages/success%></h6>
         <table class="highlight centered responsive-table">
           <thead>
             <tr>
@@ -67,18 +66,26 @@
       <form action="/casher/item/order" method="POST" class="col s12">
         <div class="row">
           <div class="input-field col s12">
-            <input id="username" type="text" name="username" class="validate"
-              value="<%= typeof item != 'undefined' ? item.username : '' %>" required>
-            <label for="username">Username</label>
+            <input id="username" type="hidden" name="username" class="validate" value="<%= user.name %>" readonly
+              required>
+            <!-- <label for="username">Username</label> -->
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s12">
-            <select class="validate" name="payment_method" required>
-              <option disabled selected>Choose receipt address</option>
+            <input id="order_id" type="hidden" name="order_id" class="validate"
+              value="<%= typeof order != 'undefined' ? order._id : '' %>" required>
+            <!-- <label for="order_id">Order ID</label> -->
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <select class="validate" name="department_name" required>
+              <option value="<%= department.department_name %>"><%= department.department_name %></option>
               <% department.forEach((department) => {%>
-              <option value="<%= department.department_code %>"><%= department.department_name %></option>
+              <option value="<%= department.department_name %>"><%= department.department_name %></option>
               <%})%>
             </select>
             <label>Select receipt address</label>
@@ -88,7 +95,7 @@
         <div class="row">
           <div class="input-field col s12">
             <select class="validate" name="payment_method" required>
-              <option disabled selected>Choose payment method</option>
+              <option value="<%= payment.payment_method %>"><%= payment.payment_method %></option>
               <% payment.forEach((payment) => {%>
               <option value="<%= payment.payment_method %>"><%= payment.payment_method %></option>
               <%})%>
@@ -96,34 +103,58 @@
             <label>Select Payment method</label>
           </div>
         </div>
-
+        <% if(session.cart && session.cart.totalQty > 0 && session.cart.totalPrice > 0) {%>
         <div class="row">
           <button class="btn waves-effect waves-light" type="submit" name="action"
             onclick="return confirm('Please make sure you save each item before submit !!!')">
-            <%= typeof item != 'undefined' ? 'Submit' : 'Submit' %>
+            Submit
             <i class="material-icons right">send</i>
           </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div><!-- container -->
-<%} else {%>
-<br style="line-height: 300px">
 
-<div class="container">
-  <div class="row">
-    <div class="col s8 push-s3 pull-s2">
-      <h5>Thank you for your effort we'ar so happy</h5>
-      <h5>
-        <a href="/casher/item/display" style="font-style: italic; font-weight: bold; color: #000">
-          Please add item to processed
-        </a>
-      </h5>
-    </div>
+          <a href="/casher/item/display">
+            <button class="btn waves-effect waves-light" type="button" name="action">
+              Add
+              <i class="material-icons right">tcontrol_point</i>
+            </button>
+          </a>
+        </div>
+        <%} else {%>
+        <div class="row">
+          <a href="/casher/item/clear-cart">
+            <button class="btn waves-effect waves-light" type="button" name="action">
+              Clear
+              <i class="material-icons right">do_not_disturb_off</i>
+            </button>
+          </a>
+
+          <a href="/casher/item/display">
+            <button class="btn waves-effect waves-light" type="button" name="action">
+              Add
+              <i class="material-icons right">tcontrol_point</i>
+            </button>
+          </a>
+        </div>
+        <%}%>
+    </form>
   </div>
 </div>
-<%}%>
+</div><!-- container -->
+<%} else {%>
+        <br style="line-height: 300px">
+
+        <div class="container">
+          <div class="row">
+            <div class="col s8 push-s3 pull-s2">
+              <h5>Thank you for your effort we'ar so happy</h5>
+              <h5>
+                <a href="/casher/item/display" style="font-style: italic; font-weight: bold; color: #000">
+                  Please add item to processed
+                </a>
+              </h5>
+            </div>
+          </div>
+        </div>
+        <%}%>
 
 <script>
   // convert total to NGN

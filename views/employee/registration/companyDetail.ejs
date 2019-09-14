@@ -1,0 +1,49 @@
+<% include ../../navbar/ict %>
+
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <% include ../../navbar/employeeNavbar %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col s3">
+      <div class="card small">
+        <img src="/img/girl.jpeg" alt="passport image" width="255" height="300">
+      </div>
+    </div>
+    <div class="col s12">
+      <div class="row">
+        <table class="highlight centered responsive-table">
+          <thead>
+            <tr></tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <th>Empoyee ID</th>
+              <td><%= employee._id %></td>
+            </tr>
+            <tr>
+              <th>Department</th>
+              <td><%= employee.department_name %></td>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <td><%= employee.status %></td>
+            </tr>
+            <tr>
+              <th>Position</th>
+              <td><%= employee.position %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div><!-- container -->

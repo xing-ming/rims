@@ -46,8 +46,7 @@
           <div class="row">
             <div class="input-field col s12">
               <select class="validate" name="category_name" required>
-                <option value="<%= typeof item != 'undefined' ? item.category_name : '' %>" disabled selected>Choose
-                  Category</option>
+                <option value="<%= typeof item != 'undefined' ? item.category_name : '' %>"><%= typeof item != 'undefined' ? item.category_name : '' %></option>
                 <% categories.forEach((category) => {%>
                 <option value="<%= category.category_name %>"><%= category.category_name %></option>
                 <%})%>
@@ -59,7 +58,7 @@
           <div class="row">
             <div class="input-field col s12">
               <select class="validate" name="brand_name" required>
-                <option value="<%= typeof item != 'undefined' ? item.brand_name : '' %>" disabled selected>Choose Brand
+                <option value="<%= typeof item != 'undefined' ? item.brand_name : '' %>"><%= typeof item != 'undefined' ? item.brand_name : '' %>
                 </option>
                 <% brands.forEach((brand) => {%>
                 <option value="<%= brand.brand_name %>"><%= brand.brand_name %></option>

@@ -3,7 +3,7 @@
 <br>
 <div class="container">
   <div class="row">
-    <div class="col xl12">
+    <div class="col s12">
       <div class="row">
         <div class="row">
           <div class="input-field col s12">
@@ -11,17 +11,19 @@
             <label for="searchInput">Search</label>
           </div>
         </div>
-        <table>
+        <table class="highlight centered responsive-table">
           <thead>
             <tr>
               <th>Code</th>
-              <th>Item Name</th>
+              <th>Item</th>
               <th>Qty</th>
-              <th>Item Price</th>
-              <th>Total Amount</th>
-              <th>Payment Method</th>
-              <th>Date Time Created</th>
-              <th>Date Time Updated</th>
+              <th>Unit</th>
+              <th>Amount</th>
+              <th>Payment</th>
+              <th>D.T Created</th>
+              <th>D.T Updated</th>
+              <th>Dep</th>
+              <th>Username</th>
             </tr>
           </thead>
 
@@ -34,6 +36,7 @@
               <td class="noShow">NGN <%= order.order.totalPrice %></td>
               <td class="noShow"><%= order.payment_method %></td>
               <td class="noShow"><%= order._id %></td>
+              <td class="noShow"><%= order.username %></td>
 
               <!-- fix-->
               <td><%= item.item.item_name %></td>
@@ -43,17 +46,21 @@
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
+              <td></td>
             </tr>
             <%})%>
             <tr class="blue">
-              <td><%= order._id %></td>
+              <td><b><%= order._id %></b></td>
               <td></td>
               <td></td>
               <td></td>
-              <td>NGN <%= order.order.totalPrice %></td>
-              <td><%= order.payment_method %></td>
-              <td><%= order.createdAt.toISOString() %></td>
-              <td><%= order.updatedAt.toISOString() %></td>
+              <td><b>NGN <%= order.order.totalPrice %></b></td>
+              <td><b><%= order.payment_method %></b></td>
+              <td><b><%= order.createdAt.toLocaleString() %></b></td>
+              <td><b><%= order.updatedAt.toLocaleString() %></b></td>
+              <td><b><%= order.department_name %></b></td>
+              <td><b><%= order.username %></b></td>
             </tr>
             <%})%>
           </tbody>

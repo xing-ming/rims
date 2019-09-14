@@ -1,0 +1,65 @@
+<% include ../../navbar/ict %>
+
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <% include ../../navbar/employeeNavbar %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col s3">
+      <div class="card small">
+        <img src="/img/girl.jpeg" alt="passport image" width="255" height="300">
+      </div>
+    </div>
+    <div class="col s12">
+      <div class="row">
+        <table class="highlight centered responsive-table">
+          <thead>
+            <tr></tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <th>Empoyee ID</th>
+              <td><%= employee._id %></td>
+            </tr>
+            <tr>
+              <th>Salary</th>
+              <td><%= employee.salary %></td>
+            </tr>
+            <tr>
+              <th>Allowance 1</th>
+              <td><%= employee.allowance_1_amount %></td>
+            </tr>
+            <tr>
+              <th>Allowance 2</th>
+              <td><%= employee.allowance_2_amount %></td>
+            </tr>
+            <tr>
+              <th>Tax Deduction</th>
+              <td><%= employee.tax %></td>
+            </tr>
+            <tr>
+              <th>Total Allowance</th>
+              <td><%= employee.total_allowance %></td>
+            </tr>
+            <tr>
+              <th>Total Deduction</th>
+              <td><%= employee.total_deduction %></td>
+            </tr>
+            <tr>
+              <th>Net Pay</th>
+              <td><%= employee.net_pay %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div><!-- container -->

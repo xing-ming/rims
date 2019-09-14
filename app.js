@@ -8,39 +8,11 @@ const expressLayouts = require('express-ejs-layouts'),
   session = require('express-session'),
   MongoStore = require('connect-mongo')(session);
 flash = require('connect-flash'),
-  key = require('./config/key');
+  key = require('./config/key'),
+  passport = require('passport');
+require('./config/passport')(passport);
 
 const app = express();
-
-// golbal router on database
-// model
-const Category = require('./model/ict/Category');
-const Brand = require('./model/ict/Brand');
-const Department = require('./model/employee/Department');
-
-Category.find({}).sort({ category_name: 1 }).exec((err, category) => {
-  if (err) {
-    console.log(`server can not display category: ${err}`);
-  } else {
-    app.locals.category = category
-  }
-});
-
-Brand.find({}).sort({ brand_name: 1 }).exec((err, brand) => {
-  if (err) {
-    console.log(`server can not display brand: ${err}`);
-  } else {
-    app.locals.brand = brand
-  }
-});
-
-Department.find({}).sort({ department_name: -1 }).exec((err, department) => {
-  if (err) {
-    console.log(`server can not display department: ${err}`);
-  } else {
-    app.locals.department = department
-  }
-});
 
 // view engine setup
 app.set('view engine', 'ejs');
@@ -49,7 +21,6 @@ app.use(expressLayouts);
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(session({
   secret: key.security,
   resave: false,
@@ -60,22 +31,38 @@ app.use(session({
   cookie: { maxAge: 60 * 60 * 1000 }
 }));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // global route and middlewares
 app.use((req, res, next) => {
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
   res.locals.session = req.session;
+  res.locals.user = req.user || null;
   next();
 });
 
 // router initialization
-app.use('/users', require('./routes/users/users'));
+app.use('/auth/users', require('./routes/auth/signup'));
+app.use('/auth/users', require('./routes/auth/signin'));
+// manager
+app.use('/manager', require('./routes/manager/manager'));
+app.use('/manager/accounting', require('./routes/manager/accounting/account'));
+app.use('/manager/order', require('./routes/manager/accounting/orderDisplay'));
+app.use('/manager/catalog', require('./routes/manager/catalog/catalog'));
+app.use('/manager/employee', require('./routes/manager/employee/employee'));
+app.use('/manager/payroll/payslip',  require('./routes/manager/employee/payslip'));
+app.use('/manager/item', require('./routes/manager/item/item'));
+app.use('/manager/signup/users', require('./routes/manager/users/displayUsers'));
 // home page
 app.use('/', require('./routes/home/index'));
 // information communication technology base
 app.use('/ict/home', require('./routes/ict/ictHome'));
-// app.use('/ict/brand', require('./routes/ict/brand'));
-app.use('/ict/catalog', require('./routes/ict/catalog'));
+app.use('/ict/catalog', require('./routes/ict/catalog'));// controlling category and brand
 app.use('/ict/item', require('./routes/ict/item'));
 app.use('/ict/paymentMethod', require('./routes/ict/paymentMethod'));
 // casher base
@@ -92,7 +79,14 @@ app.use('/accountant/dayAccount', require('./routes/accounting/dayAccount'));
 app.use('/accountant/weeklyAccount', require('./routes/accounting/weeklyAccount'));
 app.use('/accountant/monthlyAccount', require('./routes/accounting/monthlyAccount'));
 // employee
-app.use('/employee/department', require('./routes/employee/department'));
+app.use('/employee/catalog', require('./routes/employee/departmentAndAllowance/departmentAndAllowance'));
+app.use('/employee', require('./routes/employee/employee'));
+app.use('/employee/statusAndPosition', require('./routes/employee/statusAndPosition/statusAndPosition'));
+app.use('/payroll/payslip', require('./routes/employee/payslip/payslip'));
+// expenses
+app.use('/expensesAndBudget', require('./routes/expensesAndBudget/expensesAndBudget'));
+// attendance
+app.use('/attendance', require('./routes/attendance/attendance'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -116,7 +110,7 @@ app.listen(port, (err) => {
   if (err) {
     console.log(`Error in database connection: ${err}`);
   } else {
-    mongoose.connect('mongodb://inteligent:text1234@ds149596.mlab.com:49596/rims', {
+    mongoose.connect(key.mongoURI, {
       useNewUrlParser: true,
       useFindAndModify: false,
       useCreateIndex: true

@@ -1,0 +1,37 @@
+<% include ../../navbar/admin %>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <h6>Budget</h6>
+        <br>
+        <input id="searchInput" type="text" placeholder="Search">
+        <table class="centered responsive-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Brand</th>
+              <th>Other Budget</th>
+              <th>Amount</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+
+          <tbody id="searchTable">
+            <% budget.forEach((budget) => {%>
+            <tr>
+              <td><%= budget.category_name %></td>
+              <td><%= budget.brand_name %></td>
+              <td><%= budget.other_budget %></td>
+              <td><%= budget.budget_amount %></td>
+              <td><%= budget.createdAt.toLocaleString() %></td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

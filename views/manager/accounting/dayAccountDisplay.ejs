@@ -1,0 +1,46 @@
+<% include ../../navbar/admin %>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col xl12">
+      <div class="row">
+        <div class="row">
+          <h6 class="green-text"><% include ../../messages/success%></h6>
+          <h6 class="red-text"><% include ../../messages/danger%></h6>
+          <div class="input-field col s12">
+            <input id="searchInput" type="text" placeholder="search by date">
+            <label for="searchInput">Search</label>
+          </div>
+        </div>
+        <table class="highlight centered responsive-table">
+          <thead>
+            <tr>
+              <th>Days</th>
+              <th>Amount</th>
+              <th>Account Title</th>
+              <th>Account Type</th>
+              <th>Date Time Created</th>
+              <th>Date Time Updated</th>
+              <th>Username</th>
+            </tr>
+          </thead>
+
+          <tbody id="searchTable">
+            <% dayAccount.forEach((dayAccount) => {%>
+            <tr>
+              <td><%= dayAccount.day_name %></td>
+              <td><%= dayAccount.amount %></td>
+              <td><%= dayAccount.account_title %></td>
+              <td><%= dayAccount.account_type %></td>
+              <td><%= dayAccount.createdAt.toLocaleString() %></td>
+              <td><%= dayAccount.updatedAt.toLocaleString() %></td>
+              <td><%= dayAccount.username %></td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

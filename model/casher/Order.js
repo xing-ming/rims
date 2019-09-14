@@ -10,6 +10,10 @@ const schema = new Schema({
         type: String,
         required: true
     },
+    department_name: {
+        type: String,
+        required: true
+    },
     username: {
         type: String,
         required: true

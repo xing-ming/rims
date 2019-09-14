@@ -1,0 +1,119 @@
+<% include ../../navbar/accountant %>
+
+<div class="container">
+  <div class="row">
+    <h6>Payslip Invioce</h6>
+
+    <br>
+    <div class="col s4">
+      <b>Department:</b>
+      <%= payslip.department_name %>
+      <br>
+      <b>Date Of Joining:</b>
+      <%= payslip.dateOfJoining %>
+      <br>
+      <b>Phone Number:</b>
+      <%= payslip.phone_1 %>
+      <br>
+      <b>Employee ID:</b>
+      <%= payslip.employee_id_code %>
+    </div>
+
+    <div class="col s4">
+      <b>Employee:</b>
+      <%= payslip.employee_name %>
+      <br>
+      <b>Position:</b>
+      <%= payslip.position %>
+      <br>
+      <b>Account Number:</b>
+      <%= payslip.account_number %>
+      <br>
+      <b>Email:</b>
+      <%= payslip.email %>
+    </div>
+
+    <div class="col s4">
+      <b>Date:</b>
+      <%= payslip.createdAt.toDateString() %>
+      <br>
+      <b>Payslip Number:</b>
+      <%= payslip._id %>
+      <br>
+      <b>Payment Status:</b>
+      <%= payslip.status %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <table class="highlight responsive-table">
+          <thead>
+            <tr>
+              <th>Earning</th>
+              <th>Amount</th>
+              <th>Deducation</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Basic Salary</td>
+              <td><%= payslip.salary %></td>
+              <td>Tax Deduction</td>
+              <td><%= payslip.tax %></td>
+            </tr>
+
+            <tr>
+              <td><%= payslip.allowance_1 %></td>
+              <td><%= payslip.allowance_1_amount %></td>
+              <td>Other Deduction: <br> <%= payslip.other_deduction %></td>
+              <td><%= payslip.other_deduction_amount %></td>
+            </tr>
+
+            <tr>
+              <td><%= payslip.allowance_2 %></td>
+              <td><%= payslip.allowance_2_amount %></td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr>
+              <td>Total Allowance</td>
+              <td><%= payslip.total_allowance %></td>
+              <td></td>
+              <td></td>
+            </tr>
+
+            <tr>
+              <th><b>Total Earnings</b></th>
+              <td><%= payslip.total_salary %></td>
+              <th><b>Total Deductions</b></th>
+              <td><%= payslip.total_deduction %></td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td>
+                <b>
+                  <a href="/payroll/payslip/print-payslip/invoice/each/<%= payslip._id %>" class="tooltipped"
+                    data-position="bottom" data-tooltip="Print ready" id="button">Net Pay</a>
+                </b>
+              </td>
+              <td><%= payslip.total_net_pay %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div><!-- container -->
+
+<script>
+  $(document).ready(function () {
+    $('.tooltipped').tooltip();
+  });
+</script>

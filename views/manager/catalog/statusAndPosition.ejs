@@ -1,0 +1,52 @@
+<!-- handling both status and position -->
+
+<% include ../../navbar/admin %>
+
+<br>
+<div class="container">
+  <div class="row">
+    <h6>Add Employee Status And Position</h6>
+    <h6 class="green-text" style="text-align: center;"><% include ../../messages/success %></h6>
+    <h6 class="red-text" style="text-align: center;"><% include ../../messages/danger %></h6>
+    <div class="col s6">
+      <div class="row">
+        <table>
+          <thead>
+            <tr>
+              <th>Status</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% status.forEach((status) => {%>
+            <tr>
+              <td><%= status.status %></td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- status col -->
+
+    <!-- Position -->
+    <div class="col s6">
+      <div class="row">
+        <table>
+          <thead>
+            <tr>
+              <th>Position</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% position.forEach((position) => {%>
+            <tr>
+              <td><%= position.position %></td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- position col -->
+  </div><!-- main row -->
+</div>

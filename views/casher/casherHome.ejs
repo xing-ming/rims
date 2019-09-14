@@ -5,14 +5,17 @@
   <div class="row">
     <div class="col s4 m4">
       <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Item</span>
-          <p>Show all items by it category and brand</p>
-        </div>
-        <div class="card-action">
-          <a href="/casher/item/display">Display items</a>
-          <a href="/casher/item/order-display">Display order</a>
-        </div>
+        <ul class="collection with-header">
+          <li class="collection-header blue-grey">
+            <h6>Display order and item</h6>
+          </li>
+          <li class="collection-item">
+            <a href="/casher/item/display">View Item</a>
+          </li>
+          <li class="collection-item">
+            <a href="/casher/item/order-display">View Orders</a>
+          </li>
+        </ul>
       </div>
     </div><!-- col 1 -->
 
@@ -20,7 +23,7 @@
       <div class="card blue-grey darken-1">
         <ul class="collection with-header">
           <li class="collection-header blue-grey">
-            <h4>Category of items</h4>
+            <h6>Category of items</h6>
           </li>
           <% category.forEach((category) => {%>
           <li class="collection-item">
@@ -35,7 +38,7 @@
       <div class="card blue-grey darken-1">
         <ul class="collection with-header">
           <li class="collection-header blue-grey">
-            <h4>Brand of items</h4>
+            <h6>Brand of items</h6>
           </li>
           <% brand.forEach((brand) => {%>
           <li class="collection-item">

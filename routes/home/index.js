@@ -1,9 +1,15 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-/* GET home page. */
-router.get('/', (req, res, next) => {
-  res.render('home/index', { title: 'Express' });
+/**
+ * @method : get
+ * @route : /
+ * @access : all
+ * @description: display home page
+ */
+router.get('/', (req, res) => {
+  const success = req.flash('success');
+  res.render('home/index', { success });
 });
 
 module.exports = router;

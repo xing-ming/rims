@@ -1,5 +1,15 @@
-let express = require('express');
-let router = express.Router();
+const express = require('express');
+const router = express.Router();
+
+// security
+let auth = function (req, res, next) {
+  if (req.user && req.user.administrator === 'ICT') {
+    next();
+  } else {
+    req.flash('auth_danger', 'Please sign in to continue !!!!!');
+    res.redirect('/auth/users/signin');
+  }
+};
 
 /**
  * @method: get
@@ -7,7 +17,7 @@ let router = express.Router();
  * @private: ict
  * @description: display ict home base
  */
-router.get('/ict-home', (req, res) => {
+router.get('/ict-home', auth, (req, res) => {
   res.render('ict/ictHome');
 });
 

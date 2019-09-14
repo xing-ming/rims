@@ -1,7 +1,8 @@
 <ul id="accountant_user" class="dropdown-content">
-  <li><span>Hi user</span></li>
-  <li class="divider"></li>
-  <li><a href="">Sign out</a></li>
+  <% if(user) {%>
+  <li><span>Hi <%= user.name %></span></li>
+  <li><a href="/auth/users/logout">Sign-Out</a></li>
+  <%}%>
 </ul>
 
 <nav>

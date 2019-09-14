@@ -1,0 +1,40 @@
+<ul id="dropdown1" class="dropdown-content">
+  <% if(user && user.administrator === 'ICT') {%>
+  <li><a href="/ict/home/ict-home">Hi <%= user.name %></a></li>
+  <%}%>
+
+  <% if(user && user.administrator === 'Cashier') {%>
+  <li><a href="/casher/home/casher-home">Hi <%= user.name %></a></li>
+  <%}%>
+
+    <% if(user && user.administrator === 'Accountant') {%>
+  <li><a href="/accountant/home/accountant-home">Hi <%= user.name %></a></li>
+  <%}%>
+
+  <% if(user && user.administrator === 'Manager') {%>
+  <li><a href="/manager/home/manager-home">Hi <%= user.name %></a></li>
+  <%}%>
+  
+  <li class="divider"></li>
+  <% if(user) {%>
+  <li><a href="/auth/users/logout">Sign-Out</a></li>
+  <%} else {%>
+  <li><a href="/auth/users/signin">Sign-In</a></li>
+  <%}%>
+</ul>
+<nav class="header">
+  <div class="nav-wrapper">
+    <a href="/">Home</a>
+    <ul class="right hide-on-med-and-down">
+      <li>
+        <a class="dropdown-trigger" href="#!" data-target="dropdown1">Account
+          <i class="material-icons right">arrow_drop_down</i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  $(".dropdown-trigger").dropdown();
+</script>
