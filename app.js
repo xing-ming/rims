@@ -58,6 +58,7 @@ app.use('/manager/employee', require('./routes/manager/employee/employee'));
 app.use('/manager/payroll/payslip',  require('./routes/manager/employee/payslip'));
 app.use('/manager/item', require('./routes/manager/item/item'));
 app.use('/manager/signup/users', require('./routes/manager/users/displayUsers'));
+app.use('/manager/employee/duty-roster', require('./routes/manager/roster/dutyRoster'));
 // home page
 app.use('/', require('./routes/home/index'));
 // information communication technology base
@@ -65,6 +66,7 @@ app.use('/ict/home', require('./routes/ict/ictHome'));
 app.use('/ict/catalog', require('./routes/ict/catalog'));// controlling category and brand
 app.use('/ict/item', require('./routes/ict/item'));
 app.use('/ict/paymentMethod', require('./routes/ict/paymentMethod'));
+app.use('/employee/duty-roster', require('./routes/roster/dutyRoster'));
 // casher base
 app.use('/casher/home', require('./routes/casher/casherHome'));
 app.use('/casher/item', require('./routes/casher/cart'));

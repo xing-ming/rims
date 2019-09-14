@@ -1,0 +1,45 @@
+<% include ../../navbar/admin %>
+
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <h6>Manage Roster</h6>
+        <div class="input-field col s12">
+          <input id="searchInput" type="text" placeholder="search">
+          <label for="searchInput">Search</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <table class="highlight centered responsive-table">
+          <thead>
+            <tr>
+              <th>Roster ID</th>
+              <th>Employee ID</th>
+              <th>Employee</th>
+              <th>Task</th>
+              <th>Start</th>
+              <th>End</th>
+              <th>Created</th>
+            </tr>
+          </thead>
+
+          <tbody id="searchTable">
+            <% roster.forEach((roster) => {%>
+            <tr>
+              <td><%= roster.id %></td>
+              <td><%= roster.employee_id %></td>
+              <td><%= roster.employee %></td>
+              <td><%= roster.session_task %></td>
+              <td><%= roster.session_task_start %></td>
+              <td><%= roster.session_task_end %></td>
+              <td><%= roster.createdAt.toDateString() %></td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

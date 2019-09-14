@@ -35,7 +35,7 @@ router.get('/display', auth, (req, res) => {
  * @description: delete sign up users
  * @access: manager
  */
-router.get('/delete/:id', (req, res) => {
+router.get('/delete/:id', auth, (req, res) => {
   Users.findByIdAndDelete({ _id: req.params.id }, (err) => {
     if (err) throw err;
     req.flash('success', 'user deleted successful');

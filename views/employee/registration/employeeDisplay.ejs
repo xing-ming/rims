@@ -24,6 +24,7 @@
               <th>Status</th>
               <th></th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
 
@@ -37,12 +38,17 @@
               <td><%= employee.position %></td>
               <td><%= employee.status %></td>
               <td>
-                <a href="/employee/display/personal-detail/<%= employee._id %>">
+                <a href="/employee/display/personal-detail/<%= employee._id %>" class="black-text">
                   <i class="material-icons">folder_open</i></a>
               </td>
               <td>
-                <a href="/employee/edit/<%= employee._id %>">
+                <a href="/employee/edit/<%= employee._id %>" class="black-text">
                   <i class="material-icons">create</i>
+                </a>
+              </td>
+              <td>
+                <a href="/employee/duty-roster/create/<%= employee._id %>" class="black-text">
+                  <i class="material-icons">event_note</i>
                 </a>
               </td>
             </tr>
