@@ -29,7 +29,7 @@
               <td><%= users.name %></td>
               <td><%= users.email %></td>
               <td><%= users.administrator %></td>
-              <td><%= users.createdAt %></td>
+              <td><%= users.createdAt.toDateString() %></td>
               <td>
                 <a href="/manager/signup/users/delete/<%= users._id %>" class="black-text">
                   <i class="material-icons">delete</i>

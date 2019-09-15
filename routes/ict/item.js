@@ -5,7 +5,7 @@ let Brand = require('../../model/ict/Brand');
 let Item = require('../../model/ict/Item');
 
 // security
-let auth = function (req, res, next) {
+let auth = function(req, res, next) {
   if (req.user && req.user.administrator === 'ICT') {
     next();
   } else {
@@ -23,16 +23,23 @@ let auth = function (req, res, next) {
 router.get('/create', auth, (req, res) => {
   let success = req.flash('success');
   let danger = req.flash('danger');
-  Category.find({}).sort({ category_name: 1 }).exec((err, categories) => {
+  Category.find({}).sort({
+    category_name: 1
+  }).exec((err, categories) => {
     if (err) {
       throw err;
     }
-    Brand.find({}).sort({ brand_name: 1 }).exec((err, brands) => {
+    Brand.find({}).sort({
+      brand_name: 1
+    }).exec((err, brands) => {
       if (err) {
         throw err;
       }
       res.render('ict/item', {
-        brands, categories, success, danger
+        brands,
+        categories,
+        success,
+        danger
       });
     });
   });
@@ -45,18 +52,11 @@ router.get('/create', auth, (req, res) => {
  * @access: ict
  */
 router.post('/create', (req, res) => {
-  Item.findOne({ item_name: req.body.item_name }, (err, item_name) => {
-    if (item_name && req.body.item_id !== '') {
-      updateItem(req, res);
-    } else {
-      if (item_name && req.body.item_id === '') {
-        req.flash('danger', `${req.body.item_name} already exist`);
-        res.redirect('/ict/item/create')
-      } else {
-        addItem(req, res);
-      }
-    }
-  });
+  if (req.body.item_id === '') {
+    addItem(req, res);
+  } else {
+    updateItem(req, res);
+  }
 });
 
 /**
@@ -64,19 +64,28 @@ router.post('/create', (req, res) => {
  * @abstract: call back function
  */
 function addItem(req, res) {
-  newItem = new Item({
-    item_name: req.body.item_name,
-    item_quantity: req.body.item_quantity,
-    item_price: req.body.item_price,
-    category_name: req.body.category_name,
-    brand_name: req.body.brand_name,
-  });
-  newItem.save((err) => {
-    if (err) {
-      console.log(`Unable to save: ${err}`);
+  Item.findOne({
+    item_name: req.body.item_name
+  }, (err, item_name) => {
+    if (item_name) {
+      req.flash('danger', `${req.body.item_name} already exist`);
+      res.redirect('/ict/item/create');
+    } else {
+      newItem = new Item({
+        item_name: req.body.item_name,
+        item_quantity: req.body.item_quantity,
+        item_price: req.body.item_price,
+        category_name: req.body.category_name,
+        brand_name: req.body.brand_name,
+      });
+      newItem.save((err) => {
+        if (err) {
+          console.log(`Unable to save: ${err}`);
+        }
+        req.flash('success', 'save successful');
+        res.redirect('/ict/item/create')
+      });
     }
-    req.flash('success', 'save successful');
-    res.redirect('/ict/item/create')
   });
 }
 
@@ -87,7 +96,9 @@ function addItem(req, res) {
  * @access: ict
  */
 router.get('/edit/:id', auth, (req, res) => {
-  Item.findById({ _id: req.params.id }, (err, item) => {
+  Item.findById({
+    _id: req.params.id
+  }, (err, item) => {
     if (err) {
       console.log(`Unable to edit item: ${err}`);
     }
@@ -99,7 +110,11 @@ router.get('/edit/:id', auth, (req, res) => {
         if (err) {
           throw err;
         }
-        res.render('ict/item', { item, categories, brands })
+        res.render('ict/item', {
+          item,
+          categories,
+          brands
+        })
       });
     });
   });
@@ -111,7 +126,11 @@ router.get('/edit/:id', auth, (req, res) => {
  * @access: ict
  */
 function updateItem(req, res) {
-  Item.findByIdAndUpdate({ _id: req.body.item_id }, req.body, { new: true }, (err) => {
+  Item.findByIdAndUpdate({
+    _id: req.body.item_id
+  }, req.body, {
+    new: true
+  }, (err) => {
     if (err) {
       console.log(`Unable to update item: ${err}`);
     }
@@ -127,7 +146,9 @@ function updateItem(req, res) {
  * @access: ict
  */
 router.get('/delete/:id', auth, (req, res) => {
-  Item.findByIdAndDelete({ _id: req.params.id }, (err) => {
+  Item.findByIdAndDelete({
+    _id: req.params.id
+  }, (err) => {
     if (err) {
       console.log(`Unable to delete item: ${err}`);
     }
@@ -145,7 +166,9 @@ router.get('/delete/:id', auth, (req, res) => {
 router.get('/display', auth, (req, res) => {
   let success = req.flash('success');
   let danger = req.flash('danger');
-  Item.find({}).sort({ item_name: 1 }).exec((err, items) => {
+  Item.find({}).sort({
+    item_name: 1
+  }).exec((err, items) => {
     if (err) throw err
     Brand.find((err, brand) => {
       if (err) throw err;
@@ -166,7 +189,9 @@ router.get('/display', auth, (req, res) => {
  * @access: ict
  */
 router.get('/display/category/:category', auth, (req, res) => {
-  Item.find({ category_name: req.params.category }, (err, items) => {
+  Item.find({
+    category_name: req.params.category
+  }, (err, items) => {
     if (err) {
       throw err;
     }
@@ -183,7 +208,9 @@ router.get('/display/category/:category', auth, (req, res) => {
  * @access: ict
  */
 router.get('/display/brand/:brand', auth, (req, res) => {
-  Item.find({ brand_name: req.params.brand }, (err, items) => {
+  Item.find({
+    brand_name: req.params.brand
+  }, (err, items) => {
     if (err) {
       throw err;
     }

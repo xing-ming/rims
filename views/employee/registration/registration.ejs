@@ -37,7 +37,7 @@
 
           <div class="input-field col s6">
             <select name="gender" required>
-              <option value="<%= typeof employee != 'undefined' ? employee.gender : '' %>">
+              <option value="<%= typeof employee != 'undefined' ? employee.gender : '' %>" required>
                 <%= typeof employee != 'undefined' ? employee.gender : '' %>
               </option>
               <option value="Male">Male</option>

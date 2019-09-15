@@ -78,23 +78,19 @@ const schema = new Schema({
     type: Number
   },
   total_allowance: {
-    type: Number,
-    required: true
+    type: Number
   },
   total_deduction: {
-    type: Number,
-    required: true
+    type: Number
   },
   tax: {
     type: Number
   },
   total_salary: {
-    type: Number,
-    required: true
+    type: Number
   },
   net_pay: {
-    type: Number,
-    required: true
+    type: Number
   },
   account_holder_name: {
     type: String,

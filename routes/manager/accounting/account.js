@@ -5,7 +5,7 @@ const WeeklyAccount = require('../../../model/accounting/WeeklyAccount');
 const MonthlyAccount = require('../../../model/accounting/MonthlyAccount');
 
 // security
-let auth = function (req, res, next) {
+let auth = function(req, res, next) {
   if (req.user && req.user.administrator === 'Manager' || req.user && req.user.administrator === 'Developer') {
     next();
   } else {

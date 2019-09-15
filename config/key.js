@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
     }
 } else {
     module.exports = {
-        mongoURI: "mongodb://localhost:27017/hotel_ims_full",
+        mongoURI: "mongodb://localhost:27017/hic",
         security: 'love-luciferDemon-so-much',
     }
 }

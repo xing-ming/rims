@@ -38,16 +38,20 @@
               <td><%= employee.position %></td>
               <td><%= employee.status %></td>
               <td>
-                <a href="/employee/display/personal-detail/<%= employee._id %>" class="black-text">
-                  <i class="material-icons">folder_open</i></a>
+                <a href="/employee/display/personal-detail/<%= employee._id %>"
+                  class="tooltipped black-text" data-position="bottom" data-tooltip="View details">
+                  <i class="material-icons">folder_open</i>
+                </a>
               </td>
               <td>
-                <a href="/employee/edit/<%= employee._id %>" class="black-text">
+                <a href="/employee/edit/<%= employee._id %>" class="tooltipped black-text"
+                  data-position="bottom" data-tooltip="Edit details">
                   <i class="material-icons">create</i>
                 </a>
               </td>
               <td>
-                <a href="/employee/duty-roster/create/<%= employee._id %>" class="black-text">
+                <a href="/employee/duty-roster/create/<%= employee._id %>" class="tooltipped black-text"
+                  data-position="bottom" data-tooltip="Create roster">
                   <i class="material-icons">event_note</i>
                 </a>
               </td>
@@ -59,3 +63,9 @@
     </div>
   </div>
 </div><!-- container -->
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.tooltipped').tooltip();
+  });
+</script>
