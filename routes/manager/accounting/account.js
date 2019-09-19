@@ -22,7 +22,7 @@ let auth = function(req, res, next) {
  */
 router.get('/dayAccountDisplay', auth, (req, res) => {
   DayAccount.find({}).sort({
-    createdAt: -1
+    _id: -1
   }).exec((err, dayAccount) => {
     if (err) {
       console.log(`Unable to display dayAccount: ${err}`);
@@ -42,7 +42,7 @@ router.get('/dayAccountDisplay', auth, (req, res) => {
  */
 router.get('/weeklyAccountDisplay', auth, (req, res) => {
   WeeklyAccount.find({}).sort({
-    createdAt: -1
+    _id: -1
   }).exec((err, weeklyAccount) => {
     if (err) {
       console.log(`Unable to display weeklyAccount: ${err}`);
@@ -62,7 +62,7 @@ router.get('/weeklyAccountDisplay', auth, (req, res) => {
  */
 router.get('/monthlyAccountDisplay', auth, (req, res) => {
   MonthlyAccount.find({}).sort({
-    createdAt: -1
+    _id: -1
   }).exec((err, monthlyAccount) => {
     if (err) {
       console.log(`Unable to display monthlyAccount: ${err}`);

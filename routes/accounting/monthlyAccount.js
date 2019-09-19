@@ -21,7 +21,7 @@ let auth = function (req, res, next) {
  * @private: accountant
  */
 router.get('/create', auth, (req, res, next) => {
-  Month.find({}).sort({ day_name: 1 }).exec((err, months) => {
+  Month.find({}).sort({ _id: -1 }).exec((err, months) => {
     if (err) {
       console.log(`Unable to display day: ${err}`);
     }
@@ -116,7 +116,7 @@ function updateMonthlyAccount(req, res) {
 router.get('/monthlyAccountDisplay', auth, (req, res) => {
   const success = req.flash('success');
   const danger = req.flash('danger');
-  MonthlyAccount.find({}).sort({ createdAt: -1 }).exec((err, monthlyAccount) => {
+  MonthlyAccount.find({}).sort({ _id: -1 }).exec((err, monthlyAccount) => {
     if (err) {
       console.log(`Unable to display monthlyAccount: ${err}`);
     } else {

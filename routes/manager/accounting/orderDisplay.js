@@ -21,7 +21,7 @@ let auth = function (req, res, next) {
  */
 router.get('/order-display', auth, (req, res) => {
   Order.find({}).sort({
-    createdAt: -1
+    _id: -1
   }).exec((err, orders) => {
     if (err) {
       throw err;

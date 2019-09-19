@@ -13,32 +13,36 @@
 
           <div class="row">
             <div class="input-field col s12">
-              <input id="item_id" type="hidden" name="item_id" class="validate" value="<%= typeof item != 'undefined' ? item._id : '' %>">
+              <input id="item_id" type="hidden" name="item_id" class="validate"
+                value="<%= typeof item != 'undefined' ? item._id : '' %>">
               <!-- <label for="item_id">Item Name</label> -->
             </div>
           </div>
-          
+
           <div class="row">
             <h6>Add Item</h6>
           </div>
 
           <div class="row">
             <div class="input-field col s12">
-              <input id="item_name" type="text" name="item_name" class="validate" placeholder="item name" value="<%= typeof item != 'undefined' ? item.item_name : '' %>" autofocus required>
+              <input id="item_name" type="text" name="item_name" class="validate" placeholder="item name"
+                value="<%= typeof item != 'undefined' ? item.item_name : '' %>" autofocus required>
               <label for="item_name">Item Name</label>
             </div>
           </div>
 
           <div class="row">
             <div class="input-field col s12">
-              <input id="item_quantity" type="text" name="item_quantity" class="validate" placeholder="only numbers" value="<%= typeof item != 'undefined' ? item.item_quantity : '' %>" required>
+              <input id="item_quantity" type="text" name="item_quantity" class="validate" placeholder="only numbers"
+                value="<%= typeof item != 'undefined' ? item.item_quantity : '' %>" required>
               <label for="item_quantity">Item Quantity</label>
             </div>
           </div>
 
           <div class="row">
             <div class="input-field col s12">
-              <input id="item_price" type="number" name="item_price" class="validate" placeholder="only numbers" value="<%= typeof item != 'undefined' ? item.item_price : '' %>" required>
+              <input id="item_price" type="number" name="item_price" class="validate" placeholder="only numbers"
+                value="<%= typeof item != 'undefined' ? item.item_price : '' %>" required>
               <label for="item_price">Item Price</label>
             </div>
           </div>
@@ -85,7 +89,7 @@
 
 <script>
   // selection
-  $(document).ready(function() {
+  $(document).ready(function () {
     $('select').formSelect();
   });
 </script>

@@ -149,7 +149,7 @@ function updateEmployee(req, res) {
 router.get('/display', auth, (req, res) => {
   const success = req.flash('success');
   const danger = req.flash('danger');
-  Employee.find({}).sort({ employee_name: -1 }).exec((err, employee) => {
+  Employee.find({}).sort({ _id: -1 }).exec((err, employee) => {
     if (err) throw err;
     res.render('employee/registration/employeeDisplay', {
       employee,

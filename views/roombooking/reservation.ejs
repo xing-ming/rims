@@ -1,0 +1,144 @@
+<% include ../navbar/frontDesk %>
+
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <h6>Personal Information and Reservation</h6>
+      </div>
+
+      <div class="row">
+        <form action="/guest/reservation/create" method="post">
+          <div class="row">
+            <div class="input-field col s6">
+              <input type="text" name="name" id="name" class="validate" required
+                value="<%= typeof guest != 'undefined' ? guest.name : '' %>">
+              <label for="name">Name</label>
+            </div>
+
+            <div class="input-field col s3">
+              <select name="floor" required>
+                <option value="<%= typeof guest != 'undefined' ? guest.floor : '' %>"><%= typeof guest != 'undefined' ? guest.floor : '' %></option>
+                <% floor.forEach((floor) => {%>
+                <option value="<%= floor.floor_name %>"><%= floor.floor_name %></option>
+                <%})%>
+              </select>
+              <label>Select Floor</label>
+            </div>
+
+            <div class="input-field col s3">
+              <select name="room_type">
+                <option value="<%= typeof guest != 'undefined' ? guest.room_type : '' %>"><%= typeof guest != 'undefined' ? guest.room_type : '' %></option>
+                <% room.forEach((room) => {%>
+                <option value="<%= room.room_type %>"><%= room.room_type %></option>
+                <%})%>
+              </select>
+              <label>Select Room</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input type="email" name="email" id="email" class="validate" required
+                value="<%= typeof guest != 'undefined' ? guest.email : '' %>">
+              <label for="email">Email</label>
+            </div>
+
+            <div class="input-field col s3">
+              <select name="room_number">
+                <option value="<%= typeof guest != 'undefined' ? guest.room_number : '' %>"><%= typeof guest != 'undefined' ? guest.room_number : '' %></option>
+                <% roomNumber.forEach((number) => {%>
+                <option value="<%= number.room_number %>"><%= number.room_number %> <%= number.result %></option>
+                <%})%>
+              </select>
+              <label>Room No</label>
+            </div>
+
+            <div class="input-field col s3">
+              <input type="text" name="number_of_people" id="number_of_people" class="validate" required
+                value="<%= typeof guest != 'undefined' ? guest.number_of_people : '' %>">
+              <label for="number_of_people">Number Of People</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input type="tel" name="phone" id="phone" class="validate" required
+                value="<%= typeof guest != 'undefined' ? guest.phone : '' %>">
+              <label for="phone">Phone</label>
+            </div>
+
+            <div class="input-field col s6">
+              <select name="bed_type">
+                <option value="<%= typeof guest != 'undefined' ? guest.bed_type : '' %>"><%= typeof guest != 'undefined' ? guest.bed_type : '' %></option>
+                <% bed.forEach((bed) => {%>
+                <option value="<%= bed.bed_type %>"><%= bed.bed_type %></option>
+                <%})%>
+              </select>
+              <label>Select Bed</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input type="text" name="state" id="state" class="validate" required
+                value="<%= typeof guest != 'undefined' ? guest.state : '' %>">
+              <label for="state">State</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input type="text" id="check_in" name="check_in" class="datepicker"
+              value="<%= typeof guest != 'undefined' ? guest.check_in : '' %>" required>
+              <label for="check_in">Check-In</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input type="text" name="country" id="country" class="validate" required
+                value="<%= typeof guest != 'undefined' ? guest.country : '' %>">
+              <label for="country">Country</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input type="text" id="check_out" name="check_out" class="datepicker"
+              value="<%= typeof guest != 'undefined' ? guest.check_out : '' %>" required>
+              <label for="check_out">Check-Out</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s4">
+              <button class="btn waves-effect waves-light" type="submit" name="action">
+                  <%= typeof guest != 'undefined' ? 'Update' : 'Submit' %>
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+
+            <div class="input-field col s4">
+              <input type="hidden" name="guest_id" id="guest_id" class="validate"
+                value="<%= typeof guest != 'undefined' ? guest._id : '' %>" readonly>
+              <!-- <label for="guest_id">ID</label> -->
+            </div>
+
+            <div class="input-field col s4">
+              <input type="hidden" name="username" id="username" class="validate" 
+              value="<%= user.name %>" required>
+              <!-- <label for="username">Username</label> -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('select').formSelect();
+  });
+
+  $(document).ready(function () {
+    $('.datepicker').datepicker();
+  });
+</script>

@@ -44,7 +44,7 @@ let auth = function (req, res, next) {
  */
 router.get('/departmentAndAllowance', auth, (req, res) => {
   Department.find({}).sort({
-    department_name: -1
+    _id: -1
   }).exec((err, department) => {
     if (err) throw err;
     Allowance.find({}).sort({
@@ -70,7 +70,7 @@ router.get('/departmentAndAllowance', auth, (req, res) => {
  */
 router.get('/paymentMethod', auth, (req, res, next) => {
   PaymentMethod.find({}).sort({
-    payment_method: -1
+    _id: -1
   }).exec((err, payment_method) => {
     if (err) {
       console.log(`Unable to display payment method: ${err}`);
@@ -93,7 +93,7 @@ router.get('/paymentMethod', auth, (req, res, next) => {
  */
 router.get('/statusAndPosition', auth, (req, res) => {
   Status.find({}).sort({
-    status: -1
+    _id: -1
   }).exec((err, status) => {
     if (err) throw err;
     Position.find({}).sort({
@@ -120,7 +120,7 @@ router.get('/statusAndPosition', auth, (req, res) => {
  */
 router.get('/expenses/display', auth, (req, res) => {
   Expenses.find({}).sort({
-    createdAt: -1
+    _id: -1
   }).exec((err, expenses) => {
     if (err) throw err;
     res.render('manager/expensesAndBudget/expensesDisplay', {
@@ -141,7 +141,7 @@ router.get('/expenses/display', auth, (req, res) => {
  */
 router.get('/budget/display', auth, (req, res) => {
   Budget.find({}).sort({
-    createdAt: -1
+    budget: -1
   }).exec((err, budget) => {
     if (err) throw err;
     res.render('manager/expensesAndBudget/budgetDisplay', {

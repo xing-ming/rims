@@ -3,7 +3,7 @@ const router = express.Router();
 
 /**
  * @method : get
- * @route : /
+ * @route : /front-office-home
  * @access : all
  * @description: display home page
  */

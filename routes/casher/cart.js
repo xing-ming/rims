@@ -22,7 +22,7 @@ let auth = function (req, res, next) {
  * @private: casher
  */
 router.get('/display', auth, (req, res) => {
-  Item.find({}).sort({ item_name: 1 }).exec((err, items) => {
+  Item.find({}).sort({ _id: -1 }).exec((err, items) => {
     if (err) {
       throw err;
     } else {

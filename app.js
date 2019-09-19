@@ -61,7 +61,7 @@ app.use('/manager/signup/users', require('./routes/manager/users/displayUsers'))
 app.use('/manager/employee/duty-roster', require('./routes/manager/roster/dutyRoster'));
 // home page
 app.use('/', require('./routes/home/index'));
-// information communication technology base
+// information communication technology base (ICT)
 app.use('/ict/home', require('./routes/ict/ictHome'));
 app.use('/ict/catalog', require('./routes/ict/catalog'));// controlling category and brand
 app.use('/ict/item', require('./routes/ict/item'));
@@ -89,6 +89,13 @@ app.use('/payroll/payslip', require('./routes/employee/payslip/payslip'));
 app.use('/expensesAndBudget', require('./routes/expensesAndBudget/expensesAndBudget'));
 // attendance
 app.use('/attendance', require('./routes/attendance/attendance'));
+// room booking
+app.use('/guest/reservation', require('./routes/roombooking/reservation'));
+app.use('/room/floor', require('./routes/roombooking/floor'));
+app.use('/room/room-number', require('./routes/roombooking/room_number'));
+app.use('/room/room-type', require('./routes/roombooking/room_type'));
+app.use('/room/bedding-type', require('./routes/roombooking/bedding_type'));
+app.use('/front-office-home', require('./routes/frontOffice/home'));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

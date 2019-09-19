@@ -21,7 +21,7 @@ let auth = function (req, res, next) {
 router.get('/display', auth, (req, res) => {
   const success = req.flash('success');
   Employee.find({}).sort({
-    employee_name: -1
+    _id: -1
   }).exec((err, employee) => {
     if (err) throw err;
     res.render('manager/employee/employeeDisplay', {

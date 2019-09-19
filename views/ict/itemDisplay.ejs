@@ -33,10 +33,12 @@
               <td><%= item.item_quantity %></td>
               <td><%= item.item_price %></td>
               <td>
-                <a class="black-text" href="/ict/item/display/brand/<%= item.brand_name %>"><%= brand.brand_name %><%= item.brand_name %></a>
+                <a class="black-text"
+                  href="/ict/item/display/brand/<%= item.brand_name %>"><%= brand.brand_name %><%= item.brand_name %></a>
               </td>
               <td>
-                <a class="black-text" href="/ict/item/display/category/<%= item.category_name %>"><%= item.category_name %></a>
+                <a class="black-text"
+                  href="/ict/item/display/category/<%= item.category_name %>"><%= item.category_name %></a>
               </td>
               <td>
                 <a href="/ict/item/edit/<%= item._id %>" class="black-text">

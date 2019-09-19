@@ -14,6 +14,10 @@ const schema = new Schema({
     type: String,
     required: true
   },
+  draft: {
+    type: String,
+    required: true
+  },
   session_task_start: {
     type: String,
     required: true

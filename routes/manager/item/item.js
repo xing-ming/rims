@@ -3,7 +3,7 @@ const router = express.Router();
 const Item = require('../../../model/ict/Item');
 
 // security
-let auth = function (req, res, next) {
+let auth = function(req, res, next) {
   if (req.user && req.user.administrator === 'Manager' || req.user && req.user.administrator === 'Developer') {
     next();
   } else {
@@ -20,7 +20,7 @@ let auth = function (req, res, next) {
  */
 router.get('/display', auth, (req, res) => {
   Item.find({}).sort({
-    item_name: -1
+    _id: -1
   }).exec((err, items) => {
     if (err) throw err
     res.render('manager/item/itemDisplay', {

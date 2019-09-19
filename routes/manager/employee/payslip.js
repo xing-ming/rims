@@ -3,7 +3,7 @@ const router = express.Router();
 const Payslip = require('../../../model/employee/payslip/Payslip');
 
 // security
-let auth = function (req, res, next) {
+let auth = function(req, res, next) {
   if (req.user && req.user.administrator === 'Manager' || req.user && req.user.administrator === 'Developer') {
     next();
   } else {
@@ -21,7 +21,7 @@ let auth = function (req, res, next) {
 router.get('/display', auth, (req, res) => {
   const success = req.flash('success');
   Payslip.find({}).sort({
-    employee_name: -1
+    _id: -1
   }).exec((err, payslip) => {
     if (err) throw err;
     res.render('manager/payroll/payslipDisplay', {
@@ -72,7 +72,9 @@ router.get('/print-payslip/invoice/each/:id', auth, (req, res) => {
  * @description : display payslip by individual
  */
 router.get('/delete/:id', (req, res) => {
-  Payslip.findOneAndDelete({ _id: req.params.id }, (err) => {
+  Payslip.findOneAndDelete({
+    _id: req.params.id
+  }, (err) => {
     if (err) throw err;
     res.redirect('/manager/payroll/payslip/display')
   });

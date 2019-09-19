@@ -27,7 +27,7 @@ let auth = function (req, res, next) {
 */
 router.get('/employee-information/display', auth, (req, res) => {
   const success = req.flash('success');
-  Employee.find({}).sort({ employee_name: -1 }).exec((err, employee) => {
+  Employee.find({}).sort({ _id: -1 }).exec((err, employee) => {
     if (err) throw err;
     res.render('employee/payslip/employeeDisplay', {
       employee,
@@ -126,7 +126,7 @@ router.get('/employee-information/create/:id', auth, (req, res) => {
 router.get('/display', auth, (req, res) => {
   const success = req.flash('success');
   const danger = req.flash('danger');
-  Payslip.find({}).sort({ employee_name: -1 }).exec((err, payslip) => {
+  Payslip.find({}).sort({ _id: -1 }).exec((err, payslip) => {
     if (err) throw err;
     res.render('employee/payslip/payslipDisplay', {
       success,

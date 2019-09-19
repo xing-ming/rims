@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <form action="/room/room-type/create" method="post">
+          <div class="row">
+            <div class="input-field col s12">
+              <input type="text" name="room_type" id="room_type" placeholder="Add Room" class="validate" required>
+              <label for="room_type">Room Type</label>
+            </div>
+          </div>
+        </form>
+      </div><!-- form row -->
+
+      <div class="row">
+        <table class="highlight centered responsive-table">
+          <thead>
+            <tr>
+              <th>Room Type</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% room.forEach((room) => {%>
+            <tr>
+              <td><%= room.room_type %></td>
+              <td>
+                <a href=" /room/room-type/delete/<%= room._id %>" class=" btn tooltipped" data-position="bottom"
+                  data-tooltip="Delete">
+                  <i class="material-icons">delete</i>
+                </a>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div><!-- table row -->
+    </div>
+  </div>
+</div>

@@ -21,7 +21,7 @@ let auth = function (req, res, next) {
  * @private: accountant
  */
 router.get('/create', auth, (req, res, next) => {
-  Weekly.find({}).sort({ week_name: 1 }).exec((err, weeks) => {
+  Weekly.find({}).sort({ _id: -1 }).exec((err, weeks) => {
     if (err) {
       console.log(`Unable to display day: ${err}`);
     }
@@ -116,7 +116,7 @@ function updateWeeklyAccount(req, res) {
 router.get('/weeklyAccountDisplay', auth, (req, res) => {
   const success = req.flash('success');
   const danger = req.flash('danger');
-  WeeklyAccount.find({}).sort({ createdAt: -1 }).exec((err, weeklyAccount) => {
+  WeeklyAccount.find({}).sort({ _id: -1 }).exec((err, weeklyAccount) => {
     if (err) {
       console.log(`Unable to display weeklyAccount: ${err}`);
     } else {

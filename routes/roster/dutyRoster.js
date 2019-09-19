@@ -13,14 +13,16 @@ let auth = function (req, res, next) {
   }
 };
 
-/** 
+/**
  * @route : /employee/duty-roster/create/id
  * @method: get
  * @access: ict
  * @description: create duty roster
  */
 router.get('/create/:id', auth, (req, res) => {
-  Employee.findById({ _id: req.params.id }, (err, employee) => {
+  Employee.findById({
+    _id: req.params.id
+  }, (err, employee) => {
     if (err) throw err;
     res.render('roster/dutyRoster', {
       employee
@@ -28,18 +30,26 @@ router.get('/create/:id', auth, (req, res) => {
   });
 });
 
-/** 
+/**
  * @route : /employee/duty-roster/create-roster
  * @method: post
  * @access: ict
  * @description: create duty roster
  */
 router.post('/create-roster', (req, res) => {
-  const { employee_id, employee, session_task, session_task_start, session_task_end } = req.body;
+  const {
+    employee_id,
+    employee,
+    session_task,
+    draft,
+    session_task_start,
+    session_task_end
+  } = req.body;
   let newRoster = new Roster({
     employee_id,
     employee,
     session_task,
+    draft,
     session_task_start,
     session_task_end
   });
@@ -50,7 +60,7 @@ router.post('/create-roster', (req, res) => {
   });
 });
 
-/** 
+/**
  * @route : /employee/duty-roster/display
  * @method: get
  * @access: ict
@@ -58,23 +68,27 @@ router.post('/create-roster', (req, res) => {
  */
 router.get('/display', auth, (req, res) => {
   const success = req.flash('success');
-  Roster.find((err, roster) => {
+  Roster.find({}).sort({
+    _id: -1
+  }).exec((err, roster) => {
     if (err) throw err;
     res.render('roster/displayDutyRoster', {
       roster,
       success
-    })
+    });
   });
 });
 
-/** 
+/**
  * @route : /employee/duty-roster/delete/id
  * @method: get
  * @access: ict
  * @description: delete duty roster
  */
 router.get('/delete/:id', auth, (req, res) => {
-  Roster.findByIdAndDelete({ _id: req.params.id },(err, roster) => {
+  Roster.findByIdAndDelete({
+    _id: req.params.id
+  }, (err, roster) => {
     if (err) throw err;
     req.flash('success', 'roster delete successful')
     res.redirect('/employee/duty-roster/display')

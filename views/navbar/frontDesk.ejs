@@ -1,0 +1,23 @@
+<ul id="item" class="dropdown-content">
+  <% if(user) {%>
+  <li><span>Hi <%= user.name %></span></li>
+  <li><a href="/auth/users/logout">Sign-Out</a></li>
+  <%}%>
+</ul>
+<nav>
+  <div class="nav-wrapper">
+    <a href="/front-office-home">Home</a>
+    <ul class="right hide-on-med-and-down">
+      <li>
+        <a class="dropdown-trigger" href="#!" data-target="item">
+          User Account
+          <i class="material-icons right">arrow_drop_down</i>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<script>
+  $(".dropdown-trigger").dropdown();
+</script>

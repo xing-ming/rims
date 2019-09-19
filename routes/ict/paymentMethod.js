@@ -46,7 +46,7 @@ router.post('/create', function (req, res, next) {
 router.get('/getPaymentMethod', auth, (req, res, next) => {
   let success = req.flash('success');
   let danger = req.flash('danger');
-  PaymentMethod.find({}).sort({ payment_method: 1 }).exec((err, payment_method) => {
+  PaymentMethod.find({}).sort({ payment_method: -1 }).exec((err, payment_method) => {
     if (err) {
       console.log(`Unable to display payment method: ${err}`);
     }

@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col s12">
+      <div class="row">
+        <form action="/room/room-number/create" method="post">
+          <div class="row">
+            <div class="input-field col s6">
+              <input type="number" name="room_number" id="room_number" placeholder="Add Room Number" class="validate"
+                value="<%= typeof roomNumber != 'undefined' ? roomNumber.room_number : '' %>" required>
+              <label for="room_number">Room Number</label>
+            </div>
+
+            <div class="input-field col s6">
+              <select name="result" required>
+                <option value="<%= typeof roomNumber != 'undefined' ? roomNumber.result : '' %>"><%= typeof roomNumber != 'undefined' ? roomNumber.result : '' %></option>
+                <option value="vacant">Vacant</option>
+                <option value="occupied">Occupied</option>
+              </select>
+              <label>Confirm Number</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="row">
+              <div class="input-field col s6">
+                <button class="btn waves-effect waves-light" type="submit" name="action">
+                  Save
+                  <i class="material-icons right">send</i>
+                </button>
+              </div>
+
+              <div class="input-field col s6">
+                <input type="hidden" name="room_number_id" id="room_number_id"
+                  value="<%= typeof roomNumber != 'undefined' ? roomNumber._id : '' %>">
+                <!-- <label for="room_number_id">Room Number ID</label> -->
+              </div>
+            </div>
+        </form>
+      </div><!-- form row -->
+    </div>
+  </div>
+</div>

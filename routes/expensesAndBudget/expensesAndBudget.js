@@ -118,7 +118,7 @@ function updateExpenses(req, res) {
 router.get('/expenses/display', auth, (req, res) => {
   const success = req.flash('success');
   const danger = req.flash('danger');
-  Expenses.find({}).sort({ createdAt: -1 }).exec((err, expenses) => {
+  Expenses.find({}).sort({ _id: -1 }).exec((err, expenses) => {
     if (err) throw err;
     res.render('expensesAndBudget/expensesDisplay', {
       expenses,
@@ -191,7 +191,7 @@ function addBudget(req, res) {
 router.get('/budget/display', auth, (req, res) => {
   const success = req.flash('success');
   const danger = req.flash('danger');
-  Budget.find({}).sort({ createdAt: -1 }).exec((err, budget) => {
+  Budget.find({}).sort({ _id: -1 }).exec((err, budget) => {
     if (err) throw err;
     res.render('expensesAndBudget/budgetDisplay', {
       budget,

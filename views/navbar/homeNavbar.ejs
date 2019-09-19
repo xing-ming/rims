@@ -18,6 +18,10 @@
   <% if(user && user.administrator === 'Developer') {%>
   <li><a href="/manager/home/manager-home">Hi <%= user.name %></a></li>
   <%}%>
+
+  <% if(user && user.administrator === 'Front_office') {%>
+  <li><a href="/front-office-home">Hi <%= user.name %></a></li>
+  <%}%>
   
   <li class="divider"></li>
   <% if(user) {%>

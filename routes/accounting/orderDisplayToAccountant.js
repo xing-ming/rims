@@ -20,7 +20,7 @@ let auth = function (req, res, next) {
  * @private: accountant
  */
 router.get('/order-display', auth, (req, res) => {
-  Order.find({}).sort({ createdAt: 1 }).exec((err, orders) => {
+  Order.find({}).sort({ _id: -1 }).exec((err, orders) => {
     if (err) {
       throw err;
     }

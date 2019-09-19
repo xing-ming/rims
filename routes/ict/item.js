@@ -167,7 +167,7 @@ router.get('/display', auth, (req, res) => {
   let success = req.flash('success');
   let danger = req.flash('danger');
   Item.find({}).sort({
-    item_name: 1
+    _id: -1
   }).exec((err, items) => {
     if (err) throw err
     Brand.find((err, brand) => {

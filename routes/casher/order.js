@@ -97,7 +97,7 @@ function updateOrder(req, res) {
  */
 router.get('/order-display', auth, (req, res) => {
   const success = req.flash('success');
-  Order.find({}).sort({ createdAt: -1 }).exec((err, orders) => {
+  Order.find({}).sort({ _id: -1 }).exec((err, orders) => {
     if (err) {
       throw err;
     }

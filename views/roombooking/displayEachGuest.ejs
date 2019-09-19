@@ -1,0 +1,96 @@
+<% include ../navbar/frontDesk %>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col s6">
+      <div class="row">
+        <table>
+          <thead>
+            <tr>
+              <th>Personal Information</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <td><%= guest.name %></td>
+            </tr>
+            <tr>
+              <th>Email</th>
+              <td><%= guest.email %></td>
+            </tr>
+            <tr>
+              <th>Phone</th>
+              <td><%= guest.phone %></td>
+            </tr>
+            <tr>
+              <th>State</th>
+              <td><%= guest.state %></td>
+            </tr>
+            <tr>
+              <th>Country</th>
+              <td><%= guest.country %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="col s6">
+      <div class="row">
+        <table>
+          <thead>
+            <tr>
+              <th>Reservation Information</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <th>Floor</th>
+              <td><%= guest.floor %></td>
+            </tr>
+            <tr>
+              <th>Room Type</th>
+              <td><%= guest.room_type %></td>
+            </tr>
+            <tr>
+              <th>Room Number</th>
+              <td><%= guest.room_number %></td>
+            </tr>
+            <tr>
+              <th>Number Of People</th>
+              <td><%= guest.number_of_people %></td>
+            </tr>
+            <tr>
+              <th>Bedding Type</th>
+              <td><%= guest.bed_type %></td>
+            </tr>
+            <tr>
+              <th>Check In Time</th>
+              <td><%= guest.createdAt.toLocaleTimeString() %></td>
+            </tr>
+            <tr>
+              <th>Check In Date</th>
+              <td><%= guest.check_in %></td>
+            </tr>
+            <tr>
+              <th>Check Out Time</th>
+              <td><%= guest.createdAt.toLocaleTimeString() %></td>
+            </tr>
+            <tr>
+              <th>Check Out Date</th>
+              <td><%= guest.check_out %></td>
+            </tr>
+            <tr>
+              <th>Updated At</th>
+              <td><%= guest.updatedAt.toLocaleString() %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

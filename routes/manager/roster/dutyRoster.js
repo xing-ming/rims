@@ -12,7 +12,7 @@ let auth = function (req, res, next) {
   }
 };
 
-/** 
+/**
  * @route : /manager/employee/duty-roster/display
  * @method: get
  * @access: manager
@@ -20,7 +20,7 @@ let auth = function (req, res, next) {
  */
 router.get('/display', auth, (req, res) => {
   const success = req.flash('success');
-  Roster.find((err, roster) => {
+  Roster.find({}).sort({ _id: -1 }).exec((err, roster) => {
     if (err) throw err;
     res.render('manager/roster/displayDutyRoster', {
       roster,
