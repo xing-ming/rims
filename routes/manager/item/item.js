@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const Item = require('../../../model/ict/Item');
+const Item = require('../../../model/product/Item');
 
 // security
 let auth = function(req, res, next) {
   if (req.user && req.user.administrator === 'Manager' || req.user && req.user.administrator === 'Developer') {
     next();
   } else {
-    req.flash('auth_danger', 'Please sign in to continue !!!!!');
     res.redirect('/auth/users/signin');
   }
 };
@@ -19,12 +18,14 @@ let auth = function(req, res, next) {
  * @access: manager
  */
 router.get('/display', auth, (req, res) => {
+  const success = req.flash('success');
   Item.find({}).sort({
     _id: -1
   }).exec((err, items) => {
     if (err) throw err
     res.render('manager/item/itemDisplay', {
-      items
+      items,
+      success
     });
   });
 });

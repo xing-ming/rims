@@ -4,22 +4,11 @@
   <div class="row">
     <div class="col s8 push-s2">
       <div class="row">
+        <h6>Create Daily Account</h6>
+      </div>
+
+      <div class="row">
         <form action="/accountant/dayAccount/create" method="post">
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="dayAccount_id" type="hidden" name="dayAccount_id" class="validate"
-                value="<%= typeof dayAccount != 'undefined' ? dayAccount._id : '' %>">
-              <!-- <label for="dayAccount_id">Id</label> -->
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="username" type="hidden" name="username" class="validate" required value="<%= user.name %>">
-              <!-- <label for="username">Username</label> -->
-            </div>
-          </div>
-
           <div class="row">
             <div class="input-field col s12">
               <input id="account_title" type="text" name="account_title" class="validate" required
@@ -65,9 +54,22 @@
           </div>
 
           <div class="row">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Save
-              <i class="material-icons right">send</i>
-            </button>
+            <div class="input-field col s3">
+              <button class="btn waves-effect waves-light" type="submit" name="action">Save
+                <i class="material-icons right">save</i>
+              </button>
+            </div>
+
+            <div class="input-field col s3">
+              <input id="dayAccount_id" type="hidden" name="dayAccount_id" class="validate"
+                value="<%= typeof dayAccount != 'undefined' ? dayAccount._id : '' %>">
+              <!-- <label for="dayAccount_id">Id</label> -->
+            </div>
+
+            <div class="input-field col s3">
+              <input id="username" type="hidden" name="username" class="validate" required value="<%= user.name %>">
+              <!-- <label for="username">Username</label> -->
+            </div>
           </div>
         </form>
       </div>

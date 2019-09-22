@@ -3,358 +3,367 @@
 <div class="container">
   <div class="row">
     <div class="col s12">
-      <h6>Add staff member</h6>
-      <form class="col s8 push-s2" action="/employee/create" method="POST">
-        <h6>Personal information</h6>
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="employee_id" name="employee_id" type="hidden"
-              value="<%= typeof employee != 'undefined' ? employee._id : '' %>">
-            <!-- <label for="employee_id">ID</label> -->
-          </div>
-        </div>
+      <div class="row">
+        <h6>Add staff member</h6>
+      </div>
 
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="employee_name" name="employee_name" type="text" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.employee_name : '' %>" autofocus>
-            <label for="employee_name">Full Name</label>
-          </div>
+      <div class="row">
+        <h6 class="red-text" style="text-align: center"><% include ../../messages/danger %></h6>
+      </div>
 
-          <div class="input-field col s6">
-            <input id="email" name="email" type="email" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.email : '' %>">
-            <label for="email">E-Mail</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input class="datepicker" id="date_of_birth" name="date_of_birth" type="text" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.date_of_birth : '' %>">
-            <label for="date_of_birth">Date of birth</label>
-          </div>
-
-          <div class="input-field col s6">
-            <select name="gender" required>
-              <option value="<%= typeof employee != 'undefined' ? employee.gender : '' %>" required>
-                <%= typeof employee != 'undefined' ? employee.gender : '' %>
-              </option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-            </select>
-            <label>Gender</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="phone_1" name="phone_1" type="tel" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.phone_1 : '' %>">
-            <label for="phone_1">Phone 1</label>
-          </div>
-
-          <div class="input-field col s6">
-            <input id="phone_2" name="phone_2" type="tel" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.phone_2 : '' %>">
-            <label for="phone_2">Phone 2</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <textarea id="street" name="street" class="materialize-textarea"
-              required><%= typeof employee != 'undefined' ? employee.street : '' %></textarea>
-            <label for="street">Street</label>
-          </div>
-
-          <div class="input-field col s6">
-            <input id="city" name="city" type="text" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.city : '' %>">
-            <label for="city">City</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="state" name="state" type="text" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.state : '' %>">
-            <label for="state">State</label>
-          </div>
-
-          <div class="input-field col s6">
-            <input id="country" name="country" type="text" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.country : '' %>">
-            <label for="country">Country</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <select name="marital_status" required>
-              <option value="<%= typeof employee != 'undefined' ? employee.marital_status : '' %>">
-                <%= typeof employee != 'undefined' ? employee.marital_status : '' %>
-              </option>
-              <option value="Married">Married</option>
-              <option value="Single">Single</option>
-              <option value="Divorced">Divorced</option>
-              <option value="Widowed">Widowed</option>
-            </select>
-            <label>Marital status</label>
-          </div>
-
-          <div class="col s6">
-            <div class="file-field input-field">
-              <div class="btn">
-                <span>Photo</span>
-                <input type="file">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
-              </div>
-            </div>
-          </div>
-        </div>
-        <h6>Company Detail</h6>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="employee_id_auto" type="text" disabled
-              value="<%= typeof employee != 'undefined' ? employee._id : 'Employee Id Auto Generated' %>">
-            <label for="employee_id_auto">Employee Id</label>
-          </div>
-
-          <div class="input-field col s6">
-            <select name="department_name" required>
-              <option value="<%= typeof employee != 'undefined' ? employee.department_name : '' %>">
-                <%= typeof employee != 'undefined' ? employee.department_name : '' %>
-              </option>
-              <%department.forEach((department) => {%>
-              <option value="<%= department.department_name%>"><%= department.department_name %></option>
-              <%})%>
-            </select>
-            <label>Department</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <select name="status" required>
-              <option value="<%= typeof employee != 'undefined' ? employee.status : '' %>">
-                <%= typeof employee != 'undefined' ? employee.status : '' %>
-              </option>
-              <%status.forEach((status) => {%>
-              <option value="<%= status.status %>"><%= status.status %></option>
-              <%})%>
-            </select>
-            <label>Status</label>
-          </div>
-
-          <div class="input-field col s6">
-            <select name="position" required>
-              <option value="<%= typeof employee != 'undefined' ? employee.position : '' %>">
-                <%= typeof employee != 'undefined' ? employee.position : '' %>
-              </option>
-              <%position.forEach((position) => {%>
-              <option value="<%= position.position%>"><%= position.position %></option>
-              <%})%>
-            </select>
-            <label>Position</label>
-          </div>
-        </div>
-        <h6>Financial Detail</h6>
-
-        <div class="row">
-          <div class="input-field col s4">
-            <select name="allowance_1">
-              <option value="<%= typeof employee != 'undefined' ? employee.allowance_1 : '' %>">
-                <%= typeof employee != 'undefined' ? employee.allowance_1 : '' %>
-              </option>
-              <%allowance.forEach((allowance) => {%>
-              <option value="<%= allowance.allowance%>"><%= allowance.allowance %></option>
-              <%})%>
-            </select>
-            <label>Allowance</label>
-          </div>
-
-          <div class="input-field col s2">
-            <input id="allowance_1_amount" name="allowance_1_amount" type="number" class="validate"
-              value="<%= typeof employee != 'undefined' ? employee.allowance_1_amount : '' %>">
-            <label for="allowance_1_amount">Amount</label>
-          </div>
-
-          <div class="input-field col s4">
-            <select name="allowance_2">
-              <option value="<%= typeof employee != 'undefined' ? employee.allowance_2 : '' %>">
-                <%= typeof employee != 'undefined' ? employee.allowance_2 : '' %>
-              </option>
-              <%allowance.forEach((allowance) => {%>
-              <option value="<%= allowance.allowance%>"><%= allowance.allowance %></option>
-              <%})%>
-            </select>
-            <label>Allowance</label>
-          </div>
-
-          <div class="input-field col s2">
-            <input id="allowance_2_amount" name="allowance_2_amount" type="number" class="validate"
-              value="<%= typeof employee != 'undefined' ? employee.allowance_2_amount : '' %>">
-            <label for="allowance_2_amount">Amount</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s4">
-            <input id="tax" name="tax" type="number" class="validate"
-              value="<%= typeof employee != 'undefined' ? employee.tax : '' %>">
-            <label for="tax">Tax Deduction</label>
-          </div>
-
-          <div class="input-field col s4">
-            <input id="total_deduction" name="total_deduction" type="number" class="validate"
-              value="<%= typeof employee != 'undefined' ? employee.total_deduction : '' %>"
-              placeholder="Total Deduction" required readonly>
-            <label for="total_deduction">Total Deduction</label>
-          </div>
-
-          <div class="input-field col s4">
-            <input id="total_allowance" name="total_allowance" type="number" class="validate"
-              value="<%= typeof employee != 'undefined' ? employee.total_allowance : '' %>"
-              placeholder="Total Allowance" required readonly>
-            <label for="total_allowance">Total Allowance</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="salary" name="salary" type="number" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.salary : '' %>">
-            <label for="salary">Salary</label>
-          </div>
-
-          <div class="input-field col s6">
-            <input id="total_salary" name="total_salary" type="number" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.total_salary : '' %>" placeholder="Total Salary"
-              readonly>
-            <label for="total_salary">Total Salary</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6 push-s3">
-            <input id="net_pay" name="net_pay" type="number" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.net_pay : '' %>" placeholder="Net Pay" readonly>
-            <label for="net_pay">Net Pay</label>
-          </div>
-        </div>
-        <h6>Bank Account Detail</h6>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="account_holder_name" name="account_holder_name" type="text" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.account_holder_name : '' %>">
-            <label for="account_holder_name">Account Holder Name</label>
-          </div>
-
-          <div class="input-field col s6">
-            <input id="account_number" name="account_number" type="number" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.account_number : '' %>">
-            <label for="account_number">Account Number</label>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="bank_name" name="bank_name" type="text" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.bank_name : '' %>">
-            <label for="bank_name">Bank Name</label>
-          </div>
-
-          <div class="input-field col s6">
-            <input id="branch" name="branch" type="text" class="validate" required
-              value="<%= typeof employee != 'undefined' ? employee.branch : '' %>">
-            <label for="branch">Branch</label>
-          </div>
-        </div>
-        <h6>Documents</h6>
-
-        <div class="row">
-          <div class="col s6">
-            <div class="file-field input-field">
-              <div class="btn btn-small">
-                <span>Resume File</span>
-                <input type="file">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
-              </div>
+      <div class="row">
+        <form class="col s8 push-s2" action="/employee/create" method="POST">
+          <h6>Personal information</h6>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="employee_id" name="employee_id" type="hidden"
+                value="<%= typeof employee != 'undefined' ? employee._id : '' %>">
+              <!-- <label for="employee_id">ID</label> -->
             </div>
           </div>
 
-          <div class="col s6">
-            <div class="file-field input-field">
-              <div class="btn btn-small">
-                <span>Offer Letter</span>
-                <input type="file">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="employee_name" name="employee_name" type="text" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.employee_name : '' %>" autofocus>
+              <label for="employee_name">Full Name</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="email" name="email" type="email" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.email : '' %>">
+              <label for="email">E-Mail</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input class="datepicker" id="date_of_birth" name="date_of_birth" type="text" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.date_of_birth : '' %>">
+              <label for="date_of_birth">Date of birth</label>
+            </div>
+
+            <div class="input-field col s6">
+              <select name="gender" required>
+                <option value="<%= typeof employee != 'undefined' ? employee.gender : '' %>" required>
+                  <%= typeof employee != 'undefined' ? employee.gender : '' %>
+                </option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+              <label>Gender</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="phone_1" name="phone_1" type="tel" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.phone_1 : '' %>" placeholder="Personal Phone">
+              <label for="phone_1">Phone 1</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="phone_2" name="phone_2" type="tel" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.phone_2 : '' %>" placeholder="Refrence Phone">
+              <label for="phone_2">Phone 2</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <textarea id="street" name="street" class="materialize-textarea"
+                required><%= typeof employee != 'undefined' ? employee.street : '' %></textarea>
+              <label for="street">Street</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="city" name="city" type="text" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.city : '' %>">
+              <label for="city">City</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="state" name="state" type="text" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.state : '' %>">
+              <label for="state">State</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="country" name="country" type="text" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.country : '' %>">
+              <label for="country">Country</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <select name="marital_status" required>
+                <option value="<%= typeof employee != 'undefined' ? employee.marital_status : '' %>">
+                  <%= typeof employee != 'undefined' ? employee.marital_status : '' %>
+                </option>
+                <option value="Married">Married</option>
+                <option value="Single">Single</option>
+                <option value="Divorced">Divorced</option>
+                <option value="Widowed">Widowed</option>
+              </select>
+              <label>Marital status</label>
+            </div>
+
+            <div class="col s6">
+              <div class="file-field input-field">
+                <div class="btn">
+                  <span>Photo</span>
+                  <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
               </div>
             </div>
           </div>
-        </div>
+          <h6>Company Detail</h6>
 
-        <div class="row">
-          <div class="col s6">
-            <div class="file-field input-field">
-              <div class="btn btn-small">
-                <span>Joining Letter</span>
-                <input type="file">
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="employee_id_auto" type="text" disabled
+                value="<%= typeof employee != 'undefined' ? employee._id : 'Employee Id Auto Generated' %>">
+              <label for="employee_id_auto">Employee Id</label>
+            </div>
+
+            <div class="input-field col s6">
+              <select name="department_name" required>
+                <option value="<%= typeof employee != 'undefined' ? employee.department_name : '' %>">
+                  <%= typeof employee != 'undefined' ? employee.department_name : '' %>
+                </option>
+                <%department.forEach((department) => {%>
+                <option value="<%= department.department_name%>"><%= department.department_name %></option>
+                <%})%>
+              </select>
+              <label>Department</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <select name="status" required>
+                <option value="<%= typeof employee != 'undefined' ? employee.status : '' %>">
+                  <%= typeof employee != 'undefined' ? employee.status : '' %>
+                </option>
+                <%status.forEach((status) => {%>
+                <option value="<%= status.status %>"><%= status.status %></option>
+                <%})%>
+              </select>
+              <label>Status</label>
+            </div>
+
+            <div class="input-field col s6">
+              <select name="position" required>
+                <option value="<%= typeof employee != 'undefined' ? employee.position : '' %>">
+                  <%= typeof employee != 'undefined' ? employee.position : '' %>
+                </option>
+                <%position.forEach((position) => {%>
+                <option value="<%= position.position%>"><%= position.position %></option>
+                <%})%>
+              </select>
+              <label>Position</label>
+            </div>
+          </div>
+          <h6>Financial Detail</h6>
+
+          <div class="row">
+            <div class="input-field col s4">
+              <select name="allowance_1">
+                <option value="<%= typeof employee != 'undefined' ? employee.allowance_1 : '' %>">
+                  <%= typeof employee != 'undefined' ? employee.allowance_1 : '' %>
+                </option>
+                <%allowance.forEach((allowance) => {%>
+                <option value="<%= allowance.allowance%>"><%= allowance.allowance %></option>
+                <%})%>
+              </select>
+              <label>Allowance</label>
+            </div>
+
+            <div class="input-field col s2">
+              <input id="allowance_1_amount" name="allowance_1_amount" type="number" class="validate"
+                value="<%= typeof employee != 'undefined' ? employee.allowance_1_amount : '' %>">
+              <label for="allowance_1_amount">Amount</label>
+            </div>
+
+            <div class="input-field col s4">
+              <select name="allowance_2">
+                <option value="<%= typeof employee != 'undefined' ? employee.allowance_2 : '' %>">
+                  <%= typeof employee != 'undefined' ? employee.allowance_2 : '' %>
+                </option>
+                <%allowance.forEach((allowance) => {%>
+                <option value="<%= allowance.allowance%>"><%= allowance.allowance %></option>
+                <%})%>
+              </select>
+              <label>Allowance</label>
+            </div>
+
+            <div class="input-field col s2">
+              <input id="allowance_2_amount" name="allowance_2_amount" type="number" class="validate"
+                value="<%= typeof employee != 'undefined' ? employee.allowance_2_amount : '' %>">
+              <label for="allowance_2_amount">Amount</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s4">
+              <input id="tax" name="tax" type="number" class="validate"
+                value="<%= typeof employee != 'undefined' ? employee.tax : '' %>">
+              <label for="tax">Tax Deduction</label>
+            </div>
+
+            <div class="input-field col s4">
+              <input id="total_deduction" name="total_deduction" type="number" class="validate"
+                value="<%= typeof employee != 'undefined' ? employee.total_deduction : '' %>"
+                placeholder="Total Deduction" required readonly>
+              <label for="total_deduction">Total Deduction</label>
+            </div>
+
+            <div class="input-field col s4">
+              <input id="total_allowance" name="total_allowance" type="number" class="validate"
+                value="<%= typeof employee != 'undefined' ? employee.total_allowance : '' %>"
+                placeholder="Total Allowance" required readonly>
+              <label for="total_allowance">Total Allowance</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="salary" name="salary" type="number" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.salary : '' %>">
+              <label for="salary">Salary</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="total_salary" name="total_salary" type="number" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.total_salary : '' %>" placeholder="Total Salary"
+                readonly>
+              <label for="total_salary">Total Salary</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6 push-s3">
+              <input id="net_pay" name="net_pay" type="number" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.net_pay : '' %>" placeholder="Net Pay" readonly>
+              <label for="net_pay">Net Pay</label>
+            </div>
+          </div>
+          <h6>Bank Account Detail</h6>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="account_holder_name" name="account_holder_name" type="text" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.account_holder_name : '' %>">
+              <label for="account_holder_name">Account Holder Name</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="account_number" name="account_number" type="number" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.account_number : '' %>">
+              <label for="account_number">Account Number</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="bank_name" name="bank_name" type="text" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.bank_name : '' %>">
+              <label for="bank_name">Bank Name</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="branch" name="branch" type="text" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee.branch : '' %>">
+              <label for="branch">Branch</label>
+            </div>
+          </div>
+          <h6>Documents</h6>
+
+          <div class="row">
+            <div class="col s6">
+              <div class="file-field input-field">
+                <div class="btn btn-small">
+                  <span>Resume File</span>
+                  <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
               </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
+            </div>
+
+            <div class="col s6">
+              <div class="file-field input-field">
+                <div class="btn btn-small">
+                  <span>Offer Letter</span>
+                  <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="col s6">
-            <div class="file-field input-field">
-              <div class="btn btn-small">
-                <span>Contract & Agreement</span>
-                <input type="file">
+          <div class="row">
+            <div class="col s6">
+              <div class="file-field input-field">
+                <div class="btn btn-small">
+                  <span>Joining Letter</span>
+                  <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
               </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
+            </div>
+
+            <div class="col s6">
+              <div class="file-field input-field">
+                <div class="btn btn-small">
+                  <span>Contract & Agreement</span>
+                  <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col s12">
-            <div class="file-field input-field">
-              <div class="btn btn-small">
-                <span>Other</span>
-                <input type="file">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
+          <div class="row">
+            <div class="col s12">
+              <div class="file-field input-field">
+                <div class="btn btn-small">
+                  <span>Other</span>
+                  <input type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col s6">
-            <button class="btn waves-effect waves-light" type="submit" name="action" id="button">
-              <%= typeof employee != 'undefined' ? 'Update' : 'Save' %>
-              <i class="material-icons right">send</i>
-            </button>
+          <div class="row">
+            <div class="col s6">
+              <button class="btn waves-effect waves-light" type="submit" name="action" id="button">
+                <%= typeof employee != 'undefined' ? 'Update' : 'Save' %>
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+        </form>
+      </div>
+    </div><!-- main col 12 -->
+  </div><!-- main row -->
+</div><!-- container -->
 
 <script>
   $(document).ready(function () {

@@ -1,7 +1,7 @@
 let express = require('express');
 let router = express.Router();
-const Category = require('../../model/ict/Category');
-const Brand = require('../../model/ict/Brand');
+const Category = require('../../model/product/Category');
+const Brand = require('../../model/product/Brand');
 
 // security
 let auth = function (req, res, next) {

@@ -1,11 +1,20 @@
-<!--  containg department and allowance -->
 <% include ../../navbar/ict %>
+
+<!--  containg department and allowance -->
 
 <div class="container">
   <div class="row">
-    <h6>Manage Department And Allowance</h6>
-    <h6 class="green-text" style="text-align: center;"><% include ../../messages/success %></h6>
-    <h6 class="red-text" style="text-align: center;"><% include ../../messages/danger %></h6>
+    <div class="col s12">
+      <div class="row">
+        <h6>Manage Department And Allowance</h6>
+      </div>
+
+      <div class="row">
+        <h6 class="green-text" style="text-align: center;"><% include ../../messages/success %></h6>
+        <h6 class="red-text" style="text-align: center;"><% include ../../messages/danger %></h6>
+      </div>
+    </div>
+
 
     <div class="col s6">
       <div class="row">
@@ -21,34 +30,36 @@
             <div class="col s6">
               <button class="btn waves-effect waves-light" type="submit" name="action">
                 Save
-                <i class="material-icons right">send</i>
+                <i class="material-icons right">save</i>
               </button>
             </div>
           </div>
         </form>
-
       </div>
-      <table class="highlight responsive-table">
-        <thead>
-          <tr>
-            <th>Department</th>
-            <th></th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <% department.forEach((department) => {%>
-          <tr>
-            <td><%= department.department_name %></td>
-            <td>
-              <a href="/employee/catalog/department/delete/<%= department._id %>" class="black-text">
-                <i class="material-icons">delete</i>
-              </a>
-            </td>
-          </tr>
-          <%})%>
-        </tbody>
-      </table>
+      <div class="row">
+        <table class="highlight responsive-table">
+          <thead>
+            <tr>
+              <th>Department</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% department.forEach((department) => {%>
+            <tr>
+              <td><%= department.department_name %></td>
+              <td>
+                <a href="/employee/catalog/department/delete/<%= department._id %>" class="black-text">
+                  <i class="material-icons">delete</i>
+                </a>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
     </div><!-- department col -->
 
     <!-- allowance start -->
@@ -66,34 +77,36 @@
             <div class="col s6 push-s9">
               <button class="btn waves-effect waves-light" type="submit" name="action">
                 Save
-                <i class="material-icons right">send</i>
+                <i class="material-icons right">save</i>
               </button>
             </div>
           </div>
         </form>
-
       </div>
-      <table class="highlight responsive-table">
-        <thead>
-          <tr>
-            <th>Allowance</th>
-            <th></th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <% allowance.forEach((allowance) => {%>
-          <tr>
-            <td><%= allowance.allowance %></td>
-            <td>
-              <a href="/employee/catalog/allowance/delete/<%= allowance._id %>" class="black-text">
-                <i class="material-icons">delete</i>
-              </a>
-            </td>
-          </tr>
-          <%})%>
-        </tbody>
-      </table>
+      <div class="row">
+        <table class="highlight responsive-table">
+          <thead>
+            <tr>
+              <th>Allowance</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <% allowance.forEach((allowance) => {%>
+            <tr>
+              <td><%= allowance.allowance %></td>
+              <td>
+                <a href="/employee/catalog/allowance/delete/<%= allowance._id %>" class="black-text">
+                  <i class="material-icons">delete</i>
+                </a>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
     </div><!-- allowance col -->
   </div>
 </div>

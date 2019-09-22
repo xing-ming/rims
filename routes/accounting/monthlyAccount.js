@@ -2,14 +2,13 @@ var express = require('express');
 var router = express.Router();
 const MonthlyAccount = require('../../model/accounting/MonthlyAccount');
 const Month = require('../../model/accounting/Month');
-const PaymentMethod = require('../../model/ict/PaymentMethod');
+const PaymentMethod = require('../../model/product/PaymentMethod');
 
 // security
 let auth = function (req, res, next) {
   if (req.user && req.user.administrator === 'Accountant') {
     next();
   } else {
-    req.flash('auth_danger', 'Please sign in to continue !!!!!');
     res.redirect('/auth/users/signin');
   }
 };
@@ -22,9 +21,7 @@ let auth = function (req, res, next) {
  */
 router.get('/create', auth, (req, res, next) => {
   Month.find({}).sort({ _id: -1 }).exec((err, months) => {
-    if (err) {
-      console.log(`Unable to display day: ${err}`);
-    }
+    if (err) throw err;
     PaymentMethod.find((err, paymentMethod) => {
       if (err) throw err;
       res.render('accountant/monthly/monthlyAccount', {
@@ -59,9 +56,7 @@ function createMonthlyAccount(req, res) {
     account_title: req.body.account_title
   });
   newAccount.save((err) => {
-    if (err) {
-      console.log(`Unable to create account: ${err}`);
-    }
+    if (err) throw err;
     req.flash('success', 'save successful');
     res.redirect('/accountant/monthlyAccount/monthlyAccountDisplay')
   });
@@ -75,9 +70,7 @@ function createMonthlyAccount(req, res) {
  */
 router.get('/edit/:id', auth, (req, res) => {
   MonthlyAccount.findById({ _id: req.params.id }, (err, monthlyAccount) => {
-    if (err) {
-      console.log(`Unable to edit monthly account: ${err}`);
-    }
+    if (err) throw err;
     Month.find((err, months) => {
       if (err) throw err;
       PaymentMethod.find((err, paymentMethod) => {
@@ -99,9 +92,7 @@ router.get('/edit/:id', auth, (req, res) => {
  */
 function updateMonthlyAccount(req, res) {
   MonthlyAccount.findByIdAndUpdate({ _id: req.body.monthlyAccount_id }, req.body, { new: true }, (err) => {
-    if (err) {
-      console.log(`Unable to update monthly account: ${err}`);
-    }
+    if (err) throw err;
     req.flash('success', 'update successful');
     res.redirect('/accountant/monthlyAccount/monthlyAccountDisplay');
   });
@@ -115,15 +106,13 @@ function updateMonthlyAccount(req, res) {
  */
 router.get('/monthlyAccountDisplay', auth, (req, res) => {
   const success = req.flash('success');
-  const danger = req.flash('danger');
   MonthlyAccount.find({}).sort({ _id: -1 }).exec((err, monthlyAccount) => {
     if (err) {
-      console.log(`Unable to display monthlyAccount: ${err}`);
+      throw err;
     } else {
       res.render('accountant/monthly/monthlyAccountDisplay', {
         monthlyAccount,
-        success,
-        danger
+        success
       });
     }
   });

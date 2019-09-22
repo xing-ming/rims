@@ -139,3 +139,10 @@ footer {
     background-color: #000;
     text-align: center;
 }
+
+/* login page */
+.graphic_login {
+  font-family: sans-serif;
+  background: url(/img/login/bg.jpg) no-repeat;
+  background-size: cover;
+}

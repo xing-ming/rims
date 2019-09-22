@@ -1,13 +1,21 @@
-<!-- handling both status and position -->
 <% include ../../navbar/ict %>
+
+<!-- handling both status and position -->
 
 <div class="container">
   <div class="row">
-    <h6>Add Employee Status And Position</h6>
-    <h6 class="green-text" style="text-align: center;"><% include ../../messages/success %></h6>
-    <h6 class="red-text" style="text-align: center;"><% include ../../messages/danger %></h6>
-    <div class="col s6">
+    <div class="col s12">
+      <div class="row">
+        <h6>Create Employee Status And Position</h6>
+      </div>
 
+      <div class="row">
+        <h6 class="green-text" style="text-align: center;"><% include ../../messages/success %></h6>
+        <h6 class="red-text" style="text-align: center;"><% include ../../messages/danger %></h6>
+      </div>
+    </div>
+
+    <div class="col s6">
       <div class="row">
         <form class="col s12" action="/employee/statusAndPosition/status/create" method="POST">
           <div class="row">
@@ -21,34 +29,36 @@
             <div class="col s6">
               <button class="btn waves-effect waves-light" type="submit" name="action">
                 Save
-                <i class="material-icons right">send</i>
+                <i class="material-icons right">save</i>
               </button>
             </div>
           </div>
         </form>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
+      <div class="row">
+        <table>
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <% status.forEach((status) => {%>
-          <tr>
-            <td><%= status.status %></td>
-            <td>
-              <a href="/employee/statusAndPosition/status/delete/<%= status._id %>">
-                <i class="material-icons right black-text">delete</i>
-              </a>
-            </td>
-          </tr>
-          <%})%>
-        </tbody>
-      </table>
+          <tbody>
+            <% status.forEach((status) => {%>
+            <tr>
+              <td><%= status.status %></td>
+              <td>
+                <a href="/employee/statusAndPosition/status/delete/<%= status._id %>">
+                  <i class="material-icons right black-text">delete</i>
+                </a>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
     </div><!-- status col -->
 
     <!-- Position -->
@@ -66,34 +76,36 @@
             <div class="col s6 push-s9">
               <button class="btn waves-effect waves-light" type="submit" name="action">
                 Save
-                <i class="material-icons right">send</i>
+                <i class="material-icons right">save</i>
               </button>
             </div>
           </div>
         </form>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Position</th>
-            <th></th>
-          </tr>
-        </thead>
+      <div class="row">
+        <table>
+          <thead>
+            <tr>
+              <th>Position</th>
+              <th></th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <% position.forEach((position) => {%>
-          <tr>
-            <td><%= position.position %></td>
-            <td>
-              <a href="/employee/statusAndPosition/position/delete/<%= position._id %>">
-                <i class="material-icons right black-text">delete</i>
-              </a>
-            </td>
-          </tr>
-          <%})%>
-        </tbody>
-      </table>
+          <tbody>
+            <% position.forEach((position) => {%>
+            <tr>
+              <td><%= position.position %></td>
+              <td>
+                <a href="/employee/statusAndPosition/position/delete/<%= position._id %>">
+                  <i class="material-icons right black-text">delete</i>
+                </a>
+              </td>
+            </tr>
+            <%})%>
+          </tbody>
+        </table>
+      </div>
     </div><!-- position col -->
   </div><!-- main row -->
 </div>

@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Department = require('../../../model/employee/department/Department');
 const Allowance = require('../../../model/employee/allowance/Allowance');
-const PaymentMethod = require('../../../model/ict/PaymentMethod');
+const PaymentMethod = require('../../../model/product/PaymentMethod');
 const Status = require('../../../model/employee/statusAndPosition/Status');
 const Position = require('../../../model/employee/statusAndPosition/Position');
 const Expenses = require('../../../model/expenses/Expenses');
 const Budget = require('../../../model/budget/Budget');
-const Category = require('../../../model/ict/Category');
-const Brand = require('../../../model/ict/Brand');
+const Category = require('../../../model/product/Category');
+const Brand = require('../../../model/product/Brand');
 
 /**
  * @department
@@ -27,7 +27,6 @@ let auth = function (req, res, next) {
   if (req.user && req.user.administrator === 'Manager' || req.user && req.user.administrator === 'Developer') {
     next();
   } else {
-    req.flash('auth_danger', 'Please sign in to continue !!!!!');
     res.redirect('/auth/users/signin');
   }
 };

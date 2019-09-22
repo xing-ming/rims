@@ -2,14 +2,13 @@ var express = require('express');
 var router = express.Router();
 const DayAccount = require('../../model/accounting/DayAccount');
 const Day = require('../../model/accounting/Day');
-const PaymentMethod = require('../../model/ict/PaymentMethod');
+const PaymentMethod = require('../../model/product/PaymentMethod');
 
 // security
 let auth = function (req, res, next) {
   if (req.user && req.user.administrator === 'Accountant') {
     next();
   } else {
-    req.flash('auth_danger', 'Please sign in to continue !!!!!');
     res.redirect('/auth/users/signin');
   }
 };
@@ -22,9 +21,7 @@ let auth = function (req, res, next) {
  */
 router.get('/create', auth, (req, res, next) => {
   Day.find({}).sort({ _id: -1 }).exec((err, days) => {
-    if (err) {
-      console.log(`Unable to display day: ${err}`);
-    }
+    if (err) throw err;
     PaymentMethod.find((err, paymentMethod) => {
       if (err) throw err;
       res.render('accountant/daily/dayAccount', {
@@ -60,9 +57,7 @@ function createDayAccount(req, res) {
     account_title: req.body.account_title
   });
   newAccount.save((err) => {
-    if (err) {
-      console.log(`Unable to create account: ${err}`);
-    }
+    if (err) throw err;
     req.flash('success', 'save successful');
     res.redirect('/accountant/dayAccount/dayAccountDisplay')
   });
@@ -72,13 +67,11 @@ function createDayAccount(req, res) {
  * @method: get
  * @access: /accountant/dayAccount/edit/:id
  * @description: edit item
- * @private: ict
+ * @private: product
  */
 router.get('/edit/:id', auth, (req, res) => {
   DayAccount.findById({ _id: req.params.id }, (err, dayAccount) => {
-    if (err) {
-      console.log(`Unable to edit day account: ${err}`);
-    }
+    if (err) throw err;
     Day.find((err, days) => {
       if (err) throw err;
       PaymentMethod.find((err, paymentMethod) => {
@@ -100,9 +93,7 @@ router.get('/edit/:id', auth, (req, res) => {
  */
 function updateDayAccount(req, res) {
   DayAccount.findByIdAndUpdate({ _id: req.body.dayAccount_id }, req.body, { new: true }, (err) => {
-    if (err) {
-      console.log(`Unable to update day account: ${err}`);
-    }
+    if (err) throw err;
     req.flash('success', 'update successful');
     res.redirect('/accountant/dayAccount/dayAccountDisplay');
   });
@@ -117,15 +108,13 @@ function updateDayAccount(req, res) {
  */
 router.get('/dayAccountDisplay', auth, (req, res) => {
   const success = req.flash('success');
-  const danger = req.flash('danger');
   DayAccount.find({}).sort({ _id: -1 }).exec((err, dayAccount) => {
     if (err) {
-      console.log(`Unable to display dayAccount: ${err}`);
+      throw err;
     } else {
       res.render('accountant/daily/dayAccountDisplay', {
         dayAccount,
-        success,
-        danger
+        success
       });
     }
   });

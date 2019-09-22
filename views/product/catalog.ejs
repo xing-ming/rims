@@ -1,0 +1,34 @@
+<% include ../navbar/accountant %>
+
+<!-- NOTE: CONTAING BOTH CATEGORY AND BRAND -->
+
+
+<div class="container">
+  <div class="row">
+    <!-- messages -->
+    <h6 class="green-text" style="text-align: center"><% include ../messages/success%></h6>
+    <h6 class="red-text" style="text-align: center"><% include ../messages/danger%></h6>
+  </div>
+
+  <div class="row">
+    <h6>Category / Brand / Payment Method</h6>
+
+    <div class="col s4">
+      <div class="row">
+        <% include ./category %>
+      </div>
+    </div>
+
+    <div class="col s4">
+      <div class="row">
+        <% include ./brand %>
+      </div>
+    </div>
+
+    <div class="col s4">
+      <div class="row">
+        <% include ./paymentMethod %>
+      </div>
+    </div>
+  </div>
+</div>

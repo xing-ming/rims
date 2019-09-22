@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const WeeklyAccount = require('../../model/accounting/WeeklyAccount');
 const Weekly = require('../../model/accounting/Weekly');
-const PaymentMethod = require('../../model/ict/PaymentMethod');
+const PaymentMethod = require('../../model/product/PaymentMethod');
 
 // security
 let auth = function (req, res, next) {
@@ -115,7 +115,6 @@ function updateWeeklyAccount(req, res) {
  */
 router.get('/weeklyAccountDisplay', auth, (req, res) => {
   const success = req.flash('success');
-  const danger = req.flash('danger');
   WeeklyAccount.find({}).sort({ _id: -1 }).exec((err, weeklyAccount) => {
     if (err) {
       console.log(`Unable to display weeklyAccount: ${err}`);
@@ -123,7 +122,6 @@ router.get('/weeklyAccountDisplay', auth, (req, res) => {
       res.render('accountant/weekly/weeklyAccountDisplay', {
         weeklyAccount,
         success,
-        danger
       });
     }
   });

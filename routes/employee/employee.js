@@ -11,7 +11,6 @@ let auth = function (req, res, next) {
   if (req.user && req.user.administrator === 'ICT') {
     next();
   } else {
-    req.flash('auth_danger', 'Please sign in to continue !!!!!');
     res.redirect('/auth/users/signin');
   }
 };
@@ -23,6 +22,7 @@ let auth = function (req, res, next) {
 * @description: display create employee
 */
 router.get('/create', auth, (req, res) => {
+  const danger = req.flash('danger');
   Department.find((err, department) => {
     if (err) throw err;
     Status.find((err, status) => {
@@ -35,7 +35,8 @@ router.get('/create', auth, (req, res) => {
             department,
             status,
             position,
-            allowance
+            allowance,
+            danger
           });
         });
       });
@@ -148,13 +149,11 @@ function updateEmployee(req, res) {
 */
 router.get('/display', auth, (req, res) => {
   const success = req.flash('success');
-  const danger = req.flash('danger');
   Employee.find({}).sort({ _id: -1 }).exec((err, employee) => {
     if (err) throw err;
     res.render('employee/registration/employeeDisplay', {
       employee,
-      success,
-      danger
+      success
     });
   });
 });

@@ -5,16 +5,10 @@
     <div class="col s12">
       <div class="row">
         <h6>Create Payslip</h6>
+      </div>
 
+      <div class="row">
         <form action="/payroll/payslip/create" method="post">
-          <div class="row">
-            <div class="input-field col s12">
-              <input id="employee_id_code" name="employee_id_code" type="hidden" class="validate" required
-                value="<%= typeof employee != 'undefined' ? employee._id : '' %>" readonly>
-              <!-- <label for="employee_name">Employee ID</label> -->
-            </div>
-          </div>
-
           <div class="row">
             <div class="input-field col s3">
               <input id="employee_name" name="employee_name" type="text" class="validate" required
@@ -190,11 +184,17 @@
           </div>
 
           <div class="row">
-            <div class="col s6">
+            <div class="col s4">
               <button class="btn waves-effect waves-light" type="submit" name="action" id="button">
                 Save
-                <i class="material-icons right">send</i>
+                <i class="material-icons right">save</i>
               </button>
+            </div>
+
+            <div class="input-field col s4">
+              <input id="employee_id_code" name="employee_id_code" type="hidden" class="validate" required
+                value="<%= typeof employee != 'undefined' ? employee._id : '' %>" readonly>
+              <!-- <label for="employee_name">Employee ID</label> -->
             </div>
           </div>
         </form>

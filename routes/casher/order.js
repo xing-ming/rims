@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Order = require('../../model/casher/Order');
 const Cart = require('../../model/casher/Cart');
-const PaymentMethod = require('../../model/ict/PaymentMethod');
+const PaymentMethod = require('../../model/product/PaymentMethod');
 
 // security
 let auth = function (req, res, next) {

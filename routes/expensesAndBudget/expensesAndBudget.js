@@ -2,15 +2,14 @@ var express = require('express');
 var router = express.Router();
 const Expenses = require('../../model/expenses/Expenses');
 const Budget = require('../../model/budget/Budget');
-const Category = require('../../model/ict/Category');
-const Brand = require('../../model/ict/Brand');
+const Category = require('../../model/product/Category');
+const Brand = require('../../model/product/Brand');
 
 // security
 let auth = function (req, res, next) {
   if (req.user && req.user.administrator === 'Accountant') {
     next();
   } else {
-    req.flash('auth_danger', 'Please sign in to continue !!!!!');
     res.redirect('/auth/users/signin');
   }
 };
@@ -76,9 +75,7 @@ function addExpenses(req, res) {
 */
 router.get('/expenses/edit/:id', auth, (req, res) => {
   Expenses.findById({ _id: req.params.id }, (err, expenses) => {
-    if (err) {
-      console.log(`Unable to edit expenses: ${err}`);
-    }
+    if (err) throw err;
     Category.find((err, category) => {
       if (err) throw err;
       Brand.find((err, brand) => {
@@ -101,9 +98,7 @@ router.get('/expenses/edit/:id', auth, (req, res) => {
 */
 function updateExpenses(req, res) {
   Expenses.findByIdAndUpdate({ _id: req.body.expenses_id }, req.body, { new: true }, (err) => {
-    if (err) {
-      console.log(`Unable to update expenses: ${err}`);
-    }
+    if (err) throw err;
     req.flash('success', 'update successful');
     res.redirect('/expensesAndBudget/expenses/display');
   });
@@ -136,9 +131,7 @@ router.get('/expenses/display', auth, (req, res) => {
 */
 router.get('/expenses/delete/:id', auth, (req, res) => {
   Expenses.findByIdAndDelete({ _id: req.params.id }, (err) => {
-    if (err) {
-      console.log(`Unable to delete expenses: ${err}`);
-    }
+    if (err) throw err;
     req.flash('success', 'delete successful');
     res.redirect('/expensesAndBudget/expenses/display');
   });

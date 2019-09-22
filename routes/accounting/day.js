@@ -7,7 +7,6 @@ let auth = function (req, res, next) {
   if (req.user && req.user.administrator === 'Accountant') {
     next();
   } else {
-    req.flash('auth_danger', 'Please sign in to continue !!!!!');
     res.redirect('/auth/users/signin');
   }
 };
@@ -28,9 +27,7 @@ router.post('/create', function (req, res, next) {
         day_name: req.body.day_name
       });
       newDay.save((err) => {
-        if (err) {
-          console.log(`Unable to save: ${err}`);
-        }
+        if (err) throw err;
         req.flash('success', 'save successful');
         res.redirect('/accountant/day/getSaleDay')
       });
@@ -47,10 +44,8 @@ router.post('/create', function (req, res, next) {
 router.get('/getSaleDay', auth, (req, res, next) => {
   const success = req.flash('success');
   const danger = req.flash('danger');
-  Day.find({}).sort({ day_name: -1 }).exec((err, days) => {
-    if (err) {
-      console.log(`Unable to display day: ${err}`);
-    }
+  Day.find({}).sort({ _id: -1 }).exec((err, days) => {
+    if (err) throw err;
     res.render('accountant/daily/day', { days, success, danger });
   });
 });

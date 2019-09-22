@@ -1,18 +1,21 @@
-<% include ../navbar/ict %>
+<% include ../navbar/accountant %>
 
-<br>
 <div class="container">
   <div class="row">
     <div class="col s12 pull-s0">
       <div class="row">
-        <div class="row">
-          <h6 class="green-text"><% include ../messages/success%></h6>
-          <h6 class="red-text"><% include ../messages/danger%></h6>
-          <div class="input-field col s12">
-            <input id="searchInput" type="text" placeholder="search name qty price category brand">
-            <label for="searchInput">Search</label>
-          </div>
+        <h6>Manage Products</h6>
+        <h6 class="green-text" style="text-align: center"><% include ../messages/success%></h6>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="searchInput" type="text" placeholder="search name, qty, price, category, brand">
+          <label for="searchInput">Search</label>
         </div>
+      </div>
+
+      <div class="row">
         <table class="highlight centered responsive-table">
           <thead>
             <tr>
@@ -33,20 +36,22 @@
               <td><%= item.item_quantity %></td>
               <td><%= item.item_price %></td>
               <td>
-                <a class="black-text"
-                  href="/ict/item/display/brand/<%= item.brand_name %>"><%= brand.brand_name %><%= item.brand_name %></a>
+                <a class="black-text" href="/product/item/display/brand/<%= item.brand_name %>">
+                  <%= item.brand_name %>
+                </a>
               </td>
               <td>
-                <a class="black-text"
-                  href="/ict/item/display/category/<%= item.category_name %>"><%= item.category_name %></a>
+                <a class="black-text" href="/product/item/display/category/<%= item.category_name %>">
+                  <%= item.category_name %>
+                </a>
               </td>
               <td>
-                <a href="/ict/item/edit/<%= item._id %>" class="black-text">
+                <a href="/product/item/edit/<%= item._id %>" class="black-text">
                   <i class="material-icons">edit</i>
                 </a>
               </td>
               <td>
-                <a href="/ict/item/delete/<%= item._id %>" class="black-text">
+                <a href="/product/item/delete/<%= item._id %>" class="black-text">
                   <i class="material-icons">delete</i>
                 </a>
               </td>

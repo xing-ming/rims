@@ -1,8 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const Item = require('../../model/ict/Item');
+const Item = require('../../model/product/Item');
 const Cart = require('../../model/casher/Cart');
-const PaymentMethod = require('../../model/ict/PaymentMethod');
+const PaymentMethod = require('../../model/product/PaymentMethod');
 const Department = require('../../model/employee/department/Department');
 
 // security

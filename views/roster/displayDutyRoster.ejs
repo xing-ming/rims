@@ -20,8 +20,8 @@
               <th>Employee ID</th>
               <th>Employee</th>
               <th>Task</th>
-              <th>Start</th>
-              <th>End</th>
+              <th>Date</th>
+              <th>Draft</th>
               <th>Created</th>
               <th></th>
             </tr>
@@ -34,8 +34,13 @@
               <td><%= roster.employee_id %></td>
               <td><%= roster.employee %></td>
               <td><%= roster.session_task %></td>
-              <td><%= roster.session_task_start %></td>
-              <td><%= roster.session_task_end %></td>
+              <td>
+                <b>Start: </b>
+                <%= roster.session_task_start %> <br>
+                <b>End: </b>
+                <%= roster.session_task_end %>
+              </td>
+              <td><%= roster.draft %></td>
               <td><%= roster.createdAt.toDateString() %></td>
               <td>
                 <a href="/employee/duty-roster/delete/<%= roster._id %>" class="black-text">

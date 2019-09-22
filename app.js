@@ -63,10 +63,12 @@ app.use('/manager/employee/duty-roster', require('./routes/manager/roster/dutyRo
 app.use('/', require('./routes/home/index'));
 // information communication technology base (ICT)
 app.use('/ict/home', require('./routes/ict/ictHome'));
-app.use('/ict/catalog', require('./routes/ict/catalog'));// controlling category and brand
-app.use('/ict/item', require('./routes/ict/item'));
-app.use('/ict/paymentMethod', require('./routes/ict/paymentMethod'));
 app.use('/employee/duty-roster', require('./routes/roster/dutyRoster'));
+// Accountant
+app.use('/product/category', require('./routes/product/category'));// controlling category and brand
+app.use('/product/brand', require('./routes/product/brand'));
+app.use('/product/item', require('./routes/product/item'));
+app.use('/product/paymentMethod', require('./routes/product/paymentMethod'));
 // casher base
 app.use('/casher/home', require('./routes/casher/casherHome'));
 app.use('/casher/item', require('./routes/casher/cart'));

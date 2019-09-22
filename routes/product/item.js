@@ -1,41 +1,40 @@
 let express = require('express');
 let router = express.Router();
-let Category = require('../../model/ict/Category');
-let Brand = require('../../model/ict/Brand');
-let Item = require('../../model/ict/Item');
+let Category = require('../../model/product/Category');
+let Brand = require('../../model/product/Brand');
+let Item = require('../../model/product/Item');
 
 // security
-let auth = function(req, res, next) {
-  if (req.user && req.user.administrator === 'ICT') {
+let auth = function (req, res, next) {
+  if (req.user && req.user.administrator === 'Accountant') {
     next();
   } else {
-    req.flash('auth_danger', 'Please sign in to continue !!!!!');
     res.redirect('/auth/users/signin');
   }
 };
 
 /**
  * @method: get
- * @route : /ict/item/create
+ * @route : /product/item/create
  * @description: passing brand and category to user form
- * @access: ict
+ * @access: product
  */
 router.get('/create', auth, (req, res) => {
   let success = req.flash('success');
   let danger = req.flash('danger');
   Category.find({}).sort({
-    category_name: 1
+    _id: 1
   }).exec((err, categories) => {
     if (err) {
       throw err;
     }
     Brand.find({}).sort({
-      brand_name: 1
+      _id: 1
     }).exec((err, brands) => {
       if (err) {
         throw err;
       }
-      res.render('ict/item', {
+      res.render('product/item', {
         brands,
         categories,
         success,
@@ -47,9 +46,9 @@ router.get('/create', auth, (req, res) => {
 
 /**
  * @method: post
- * @route : /ict/item/create
+ * @route : /product/item/create
  * @description: create item
- * @access: ict
+ * @access: product
  */
 router.post('/create', (req, res) => {
   if (req.body.item_id === '') {
@@ -69,7 +68,7 @@ function addItem(req, res) {
   }, (err, item_name) => {
     if (item_name) {
       req.flash('danger', `${req.body.item_name} already exist`);
-      res.redirect('/ict/item/create');
+      res.redirect('/product/item/create');
     } else {
       newItem = new Item({
         item_name: req.body.item_name,
@@ -83,7 +82,7 @@ function addItem(req, res) {
           console.log(`Unable to save: ${err}`);
         }
         req.flash('success', 'save successful');
-        res.redirect('/ict/item/create')
+        res.redirect('/product/item/display')
       });
     }
   });
@@ -91,9 +90,9 @@ function addItem(req, res) {
 
 /**
  * @method: get
- * @route : /ict/item/edit/:id
+ * @route : /product/item/edit/:id
  * @description: edit item
- * @access: ict
+ * @access: product
  */
 router.get('/edit/:id', auth, (req, res) => {
   Item.findById({
@@ -110,7 +109,7 @@ router.get('/edit/:id', auth, (req, res) => {
         if (err) {
           throw err;
         }
-        res.render('ict/item', {
+        res.render('product/item', {
           item,
           categories,
           brands
@@ -123,7 +122,7 @@ router.get('/edit/:id', auth, (req, res) => {
 /**
  * @method: post
  * @description: update item
- * @access: ict
+ * @access: product
  */
 function updateItem(req, res) {
   Item.findByIdAndUpdate({
@@ -135,15 +134,15 @@ function updateItem(req, res) {
       console.log(`Unable to update item: ${err}`);
     }
     req.flash('success', 'update successful');
-    res.redirect('/ict/item/display');
+    res.redirect('/product/item/display');
   });
 }
 
 /**
  * @method: get
- * @route : /ict/item/delete/:id
+ * @route : /product/item/delete/:id
  * @description: delete item
- * @access: ict
+ * @access: product
  */
 router.get('/delete/:id', auth, (req, res) => {
   Item.findByIdAndDelete({
@@ -153,29 +152,27 @@ router.get('/delete/:id', auth, (req, res) => {
       console.log(`Unable to delete item: ${err}`);
     }
     req.flash('success', 'delete successful');
-    res.redirect('/ict/item/display');
+    res.redirect('/product/item/display');
   });
 });
 
 /**
  * @method: get
- * @route : /ict/item/display
+ * @route : /product/item/display
  * @description: display item
- * @access: ict
+ * @access: product
  */
 router.get('/display', auth, (req, res) => {
   let success = req.flash('success');
-  let danger = req.flash('danger');
   Item.find({}).sort({
     _id: -1
   }).exec((err, items) => {
     if (err) throw err
     Brand.find((err, brand) => {
       if (err) throw err;
-      res.render('ict/itemDisplay', {
+      res.render('product/itemDisplay', {
         items,
         success,
-        danger,
         brand
       });
     });
@@ -184,9 +181,9 @@ router.get('/display', auth, (req, res) => {
 
 /**
  * @method: get
- * @route : /ict/item/display/:category
+ * @route : /product/item/display/category/:category
  * @description: display item by category
- * @access: ict
+ * @access: product
  */
 router.get('/display/category/:category', auth, (req, res) => {
   Item.find({
@@ -195,7 +192,7 @@ router.get('/display/category/:category', auth, (req, res) => {
     if (err) {
       throw err;
     }
-    res.render('ict/itemDisplay', {
+    res.render('product/itemDisplay', {
       items
     });
   });
@@ -203,9 +200,9 @@ router.get('/display/category/:category', auth, (req, res) => {
 
 /**
  * @method: get
- * @route : /ict/item/display/:brand
+ * @route : /product/item/display/brand/:brand
  * @description: display item by brand
- * @access: ict
+ * @access: product
  */
 router.get('/display/brand/:brand', auth, (req, res) => {
   Item.find({
@@ -214,7 +211,7 @@ router.get('/display/brand/:brand', auth, (req, res) => {
     if (err) {
       throw err;
     }
-    res.render('ict/itemDisplay', {
+    res.render('product/itemDisplay', {
       items
     });
   });

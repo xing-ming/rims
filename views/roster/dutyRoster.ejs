@@ -3,59 +3,64 @@
 <div class="container">
   <div class="row">
     <div class="col s10 push-s4">
-      <form action="/employee/duty-roster/create-roster" method="post">
+      <div class="row">
         <h6>Create Duty Roster</h6>
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="employee_id" name="employee_id" type="text" class="validate" required readonly
-              value="<%= typeof employee != 'undefined' ? employee._id : '' %>">
-            <label for="employee_id">Employee ID</label>
-          </div>
-        </div>
+      </div>
 
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="employee" name="employee" type="text" class="validate" required readonly
-              value="<%= typeof employee != 'undefined' ? employee.employee_name : '' %>">
-            <label for="employee">Employee</label>
+      <div class="row">
+        <form action="/employee/duty-roster/create-roster" method="post">
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="employee_id" name="employee_id" type="text" class="validate" required readonly
+                value="<%= typeof employee != 'undefined' ? employee._id : '' %>">
+              <label for="employee_id">Employee ID</label>
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="session_task" name="session_task" type="text" class="validate" required>
-            <label for="session_task">Task</label>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="employee" name="employee" type="text" class="validate" required readonly
+                value="<%= typeof employee != 'undefined' ? employee.employee_name : '' %>">
+              <label for="employee">Employee</label>
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="draft" name="draft" type="text" class="validate" required
-            placeholder="Mon, Tue, Wed, Thur, Fri, Sat, Sun">
-            <label for="draft">Draft</label>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="session_task" name="session_task" type="text" class="validate" required>
+              <label for="session_task">Task</label>
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="session_task_start" name="session_task_start" type="text" class="datepicker">
-            <label for="session_task_start">Start Date</label>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="draft" name="draft" type="text" class="validate" required
+                placeholder="Mon, Tue, Wed, Thur, Fri, Sat, Sun">
+              <label for="draft">Draft</label>
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="input-field col s6">
-            <input id="session_task_end" name="session_task_end" type="text" class="datepicker">
-            <label for="session_task_end">End Date</label>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="session_task_start" name="session_task_start" type="text" class="datepicker">
+              <label for="session_task_start">Start Date</label>
+            </div>
           </div>
-        </div>
 
-        <div class="row">
-          <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-            <i class="material-icons right">send</i>
-          </button>
-        </div>
-      </form>
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="session_task_end" name="session_task_end" type="text" class="datepicker">
+              <label for="session_task_end">End Date</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

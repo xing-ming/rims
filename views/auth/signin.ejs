@@ -1,37 +1,47 @@
 <% include ../navbar/homeNavbar %>
 
-<br>
-<div class="container">
-  <div class="row">
-    <div class="col s10 push-s4">
-      <div class="row">
-        <br>
-        <h6 style="line-height: 200px">Sign in</h6>
-        <h6 style="text-align: center"><% include ../messages/messages %></h6>
-        <h6 style="text-align: center" class="red-text"><% include ../messages/auth_danger %></h6>
+<br><br>
+<div class="graphic_login">
+  <div class="container">
+    <div class="row">
+      <div class="col s6 push-s6">
+        <div class="row">
+          <h6 style="text-align: center; padding-right: 30px"><% include ../messages/messages %></h6>
+        </div>
 
-        <form class="col s12" action="/auth/users/signin" method="POST">
-          <div class="row">
-            <div class="input-field col s6">
-              <input placeholder="Enter Email" id="email" type="email" class="validate" name="email" autofocus>
-              <label for="email">E-Mail</label>
+        <div class="row">
+          <h6 style="line-height: 250px; padding-right: 20px">LOG IN</h6>
+        </div>
+      </div>
+
+      <div class="col s9 push-s4">
+        <div class="row">
+          <form class="col s12" action="/auth/users/signin" method="POST">
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="email" type="email" class="validate" name="email" autofocus>
+                <label for="email">
+                  <i class="material-icons">email</i> E-mail
+                </label>
+              </div>
             </div>
-          </div>
 
-          <div class="row">
-            <div class="input-field col s6">
-              <input placeholder="Enter Password" id="password" type="password" class="validate" name="password">
-              <label for="password">Password</label>
+            <div class="row">
+              <div class="input-field col s6">
+                <input id="password" type="password" class="validate" name="password">
+                <label for="password">
+                  <i class="material-icons">lock</i> Password
+                </label>
+              </div>
             </div>
-          </div>
 
-          <div class="row">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-              <i class="material-icons right">send</i>
-            </button>
-          </div>
-        </form>
+            <div class="row">
+              <button class="btn waves-effect waves-light" type="submit" name="action">Sign in
+                <i class="material-icons right">vpn_key</i>
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>

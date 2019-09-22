@@ -7,14 +7,13 @@ const Status = require('../../../model/employee/statusAndPosition/Status');
 const Position = require('../../../model/employee/statusAndPosition/Position');
 const Department = require('../../../model/employee/department/Department');
 const Allowance = require('../../../model/employee/allowance/Allowance');
-const PaymentMethod = require('../../../model/ict/PaymentMethod');
+const PaymentMethod = require('../../../model/product/PaymentMethod');
 
 // security
 let auth = function (req, res, next) {
   if (req.user && req.user.administrator === 'Accountant') {
     next();
   } else {
-    req.flash('auth_danger', 'Please sign in to continue !!!!!');
     res.redirect('/auth/users/signin');
   }
 };
@@ -101,6 +100,7 @@ router.get('/employee-information/create/:id', auth, (req, res) => {
           Allowance.find((err, allowance) => {
             if (err) throw err;
             PaymentMethod.find((err, payment) => {
+              if (err) throw err; 
               res.render('employee/payslip/payslip', {
                 employee,
                 department,
@@ -176,7 +176,7 @@ router.get('/employee-information/delete/:id', auth, (req, res) => {
   Employee.findOneAndDelete({ _id: req.params.id }, (err) => {
     if (err) throw err;
     req.flash('success', 'employee delete successful');
-    res.redirect('/payroll/payslip/employee-information/display')
+    res.redirect('/payroll/payslip/employee-information/display');
   });
 });
 
