@@ -1,0 +1,171 @@
+<% include ../../navbar/admin %>
+
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col s8 push-s2">
+      <div class="row">
+        <form action="/manager/store/create" method="POST" class="col s12">
+          <div class="row">
+            <h6 class="green-text" style="text-align: center"><% include ../../messages/success%></h6>
+            <h6 class="red-text" style="text-align: center"><% include ../../messages/danger%></h6>
+          </div>
+
+          <div class="row">
+            <h6>Add Product To Store</h6>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="product_name" type="text" name="product_name" class="validate" placeholder="product name"
+                value="<%= typeof product != 'undefined' ? product.product_name : '' %>" required>
+              <label for="product_name">Product Name</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="new_carton_quantity" type="text" name="new_carton_quantity" class="validate"
+                placeholder="only numbers" required
+                value="<%= typeof product != 'undefined' ? product.new_carton_quantity : 0 %>">
+              <label for="new_carton_quantity">New Carton Quantity</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="old_carton_quantity" type="number" name="old_carton_quantity" class="validate"
+                placeholder="only numbers"
+                value="<%= typeof product != 'undefined' ? product.old_carton_quantity : '' %>">
+              <label for="old_carton_quantity">Old Carton Quantity</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="new_carton_qty_unit" type="number" name="new_carton_qty_unit" class="validate"
+                value="<%= typeof product != 'undefined' ? product.new_carton_qty_unit : 0 %>" required>
+              <label for="new_carton_qty_unit">New Carton Qty Unit</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="old_carton_qty_unit" type="number" name="old_carton_qty_unit" class="validate"
+                placeholder="only numbers"
+                value="<%= typeof product != 'undefined' ? product.old_carton_qty_unit : '' %>" required>
+              <label for="old_carton_qty_unit">Old Carton Qty Unit</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="new_carton_total_qty" type="number" name="new_carton_total_qty" class="validate"
+                value="<%= typeof product != 'undefined' ? product.new_carton_total_qty : 0 %>"
+                placeholder="Auto Compute" required readonly>
+              <label for="new_carton_total_qty">New Carton Total Qty</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="old_carton_total_qty" type="number" name="old_carton_total_qty" class="validate"
+                value="<%= typeof product != 'undefined' ? product.old_carton_total_qty : '' %>"
+                placeholder="Auto Compute" required readonly>
+              <label for="old_carton_total_qty">Old Carton Total Qty</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="new_carton_price_unit" type="number" name="new_carton_price_unit" class="validate"
+                placeholder="only numbers"
+                value="<%= typeof product != 'undefined' ? product.new_carton_price_unit : 0 %>" required>
+              <label for="new_carton_price_unit">New Carton Price Unit</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="old_carton_price_unit" type="number" name="old_carton_price_unit" class="validate"
+                placeholder="only numbers"
+                value="<%= typeof product != 'undefined' ? product.old_carton_price_unit : '' %>" required>
+              <label for="old_carton_price_unit">Old Carton Price Unit</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="new_product_total_amount" type="number" name="new_product_total_amount" class="validate"
+                placeholder="Auto Compute"
+                value="<%= typeof product != 'undefined' ? product.new_product_total_amount : '' %>" required readonly>
+              <label for="new_product_total_amount">New Product Total Amount</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input id="old_product_total_amount" type="number" name="old_product_total_amount" class="validate"
+                placeholder="Auto Compute"
+                value="<%= typeof product != 'undefined' ? product.old_product_total_amount : '' %>" required readonly>
+              <label for="old_product_total_amount">Old Product Total Amount</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s2">
+              <button class="btn waves-effect waves-light" type="submit" name="action" id="button">
+                <%= typeof product != 'undefined' ? 'Update' : 'Save' %>
+                <i class="material-icons right">save</i>
+              </button>
+            </div>
+
+            <div class="input-field col s2">
+              <input id="product_id" type="hidden" name="product_id" class="validate"
+                value="<%= typeof product != 'undefined' ? product._id : '' %>">
+              <!-- <label for="product_id">Item Name</label> -->
+            </div>
+
+            <div class="input-field col s6">
+              <input id="_csrf" type="hidden" name="_csrf" class="validate" value="<%= csrfToken %>">
+              <!-- <label for="_csrf">CSRF</label> -->
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // computing new carton only
+  document.getElementById('button').addEventListener('mouseover', () => {
+    const new_carton_quantity = document.getElementById('new_carton_quantity').value;
+    const new_carton_qty_unit = document.getElementById('new_carton_qty_unit').value;
+    // solve
+    const output = +new_carton_quantity * +new_carton_qty_unit
+    // output
+    document.getElementById('new_carton_total_qty').value = output;
+  });
+
+  // computing new carton only
+  document.getElementById('button').addEventListener('mouseover', () => {
+    const new_carton_total_qty = document.getElementById('new_carton_total_qty').value;
+    const new_carton_price_unit = document.getElementById('new_carton_price_unit').value;
+    // solve
+    const output = +new_carton_total_qty * +new_carton_price_unit
+    // output
+    document.getElementById('new_product_total_amount').value = output;
+  });
+  
+
+  // computing old carton only
+  document.getElementById('button').addEventListener('mouseover', () => {
+    const old_carton_quantity = document.getElementById('old_carton_quantity').value;
+    const old_carton_qty_unit = document.getElementById('old_carton_qty_unit').value;
+    // solve
+    const output = +old_carton_quantity * +old_carton_qty_unit
+    // output
+    document.getElementById('old_carton_total_qty').value = output;
+  });
+
+  // computing old carton only
+  document.getElementById('button').addEventListener('mouseover', () => {
+    const old_carton_total_qty = document.getElementById('old_carton_total_qty').value;
+    const old_carton_price_unit = document.getElementById('old_carton_price_unit').value;
+    // solve
+    const output = +old_carton_total_qty * +old_carton_price_unit
+    // output
+    document.getElementById('old_product_total_amount').value = output;
+  });
+</script>

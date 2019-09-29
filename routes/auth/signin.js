@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const passport = require('passport');
+let csrf = require('csurf'),
+  csrfProtection = csrf();
+router.use(csrfProtection);
 
 /**
  * @access: /auth/users/signin
@@ -9,7 +12,9 @@ const passport = require('passport');
  * @description: signin page
  */
 router.get('/signin', (req, res) => {
-  res.render('auth/signin');
+  res.render('auth/signin', {
+    csrfToken: req.csrfToken()
+  });
 });
 
 /**

@@ -64,7 +64,7 @@ router.post('/create', (req, res) => {
  */
 function addReservation(req, res) {
   const { name, username, floor, room_type, email, room_number, number_of_people,
-    phone, bed_type, state, check_in, country, check_out } = req.body;
+    phone, bed_type, state, check_in, country, check_out, price } = req.body;
   let newReservation = new Reservation({
     name,
     username,
@@ -78,7 +78,8 @@ function addReservation(req, res) {
     state,
     check_in,
     country,
-    check_out
+    check_out,
+    price
   });
   newReservation.save((err) => {
     if (err) throw err;

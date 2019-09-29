@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const Users = require('../../model/auth/Users');
+let csrf = require('csurf'),
+  csrfProtection = csrf();
+router.use(csrfProtection);
 
 /**
  * @access: /auth/users/signup
@@ -10,7 +13,9 @@ const Users = require('../../model/auth/Users');
  * @description: signup page
  */
 router.get('/signup', (req, res) => {
-  res.render('auth/signup');
+  res.render('auth/signup', {
+    csrfToken: req.csrfToken()
+  });
 });
 
 /**

@@ -58,9 +58,16 @@
           </div>
 
           <div class="row">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-              <i class="material-icons right">send</i>
-            </button>
+            <div class="input-field col s3">
+              <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+
+            <div class="input-field col s3">
+              <input id="_csrf" type="hidden" name="_csrf" class="validate" value="<%= csrfToken %>">
+              <!-- <label for="_csrf">CSRF</label> -->
+            </div>
           </div>
         </form>
       </div>

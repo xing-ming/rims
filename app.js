@@ -55,7 +55,8 @@ app.use('/manager/accounting', require('./routes/manager/accounting/account'));
 app.use('/manager/order', require('./routes/manager/accounting/orderDisplay'));
 app.use('/manager/catalog', require('./routes/manager/catalog/catalog'));
 app.use('/manager/employee', require('./routes/manager/employee/employee'));
-app.use('/manager/payroll/payslip',  require('./routes/manager/employee/payslip'));
+app.use('/manager/payroll/payslip', require('./routes/manager/employee/payslip'));
+app.use('/manager/store', require('./routes/manager/item/store'));
 app.use('/manager/item', require('./routes/manager/item/item'));
 app.use('/manager/signup/users', require('./routes/manager/users/displayUsers'));
 app.use('/manager/employee/duty-roster', require('./routes/manager/roster/dutyRoster'));
@@ -64,7 +65,8 @@ app.use('/', require('./routes/home/index'));
 // information communication technology base (ICT)
 app.use('/ict/home', require('./routes/ict/ictHome'));
 app.use('/employee/duty-roster', require('./routes/roster/dutyRoster'));
-// Accountant
+//  products
+app.use('/product/store', require('./routes/product/store'));
 app.use('/product/category', require('./routes/product/category'));// controlling category and brand
 app.use('/product/brand', require('./routes/product/brand'));
 app.use('/product/item', require('./routes/product/item'));
@@ -82,6 +84,7 @@ app.use('/accountant/month', require('./routes/accounting/month'));
 app.use('/accountant/dayAccount', require('./routes/accounting/dayAccount'));
 app.use('/accountant/weeklyAccount', require('./routes/accounting/weeklyAccount'));
 app.use('/accountant/monthlyAccount', require('./routes/accounting/monthlyAccount'));
+app.use('/accountant/reservation', require('./routes/accounting/roombooking/reservation'));
 // employee
 app.use('/employee/catalog', require('./routes/employee/departmentAndAllowance/departmentAndAllowance'));
 app.use('/employee', require('./routes/employee/employee'));

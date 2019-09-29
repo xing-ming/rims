@@ -3,6 +3,9 @@ let router = express.Router();
 let Category = require('../../model/product/Category');
 let Brand = require('../../model/product/Brand');
 let Item = require('../../model/product/Item');
+let csrf = require('csurf'),
+  csrfProtection = csrf();
+router.use(csrfProtection);
 
 // security
 let auth = function (req, res, next) {
@@ -38,7 +41,8 @@ router.get('/create', auth, (req, res) => {
         brands,
         categories,
         success,
-        danger
+        danger,
+        csrfToken: req.csrfToken()
       });
     });
   });
@@ -112,7 +116,8 @@ router.get('/edit/:id', auth, (req, res) => {
         res.render('product/item', {
           item,
           categories,
-          brands
+          brands,
+          csrfToken: req.csrfToken()
         })
       });
     });

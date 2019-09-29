@@ -1,6 +1,6 @@
 <% include ../navbar/accountant %>
 
-<br style="line-height: 100px">
+<br>
 <div class="container">
   <div class="row">
     <div class="col s8 push-s2">
@@ -12,15 +12,7 @@
           </div>
 
           <div class="row">
-            <div class="input-field col s12">
-              <input id="item_id" type="hidden" name="item_id" class="validate"
-                value="<%= typeof item != 'undefined' ? item._id : '' %>">
-              <!-- <label for="item_id">Item Name</label> -->
-            </div>
-          </div>
-
-          <div class="row">
-            <h6>Add Item</h6>
+            <h6>Create Sale Item</h6>
           </div>
 
           <div class="row">
@@ -76,10 +68,23 @@
           </div>
 
           <div class="row">
-            <button class="btn waves-effect waves-light" type="submit" name="action">
-              <%= typeof item != 'undefined' ? 'Update' : 'Save' %>
-              <i class="material-icons right">send</i>
-            </button>
+            <div class="input-field col s2">
+              <button class="btn waves-effect waves-light" type="submit" name="action">
+                <%= typeof item != 'undefined' ? 'Update' : 'Save' %>
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+
+            <div class="input-field col s2">
+              <input id="item_id" type="hidden" name="item_id" class="validate"
+                value="<%= typeof item != 'undefined' ? item._id : '' %>">
+              <!-- <label for="item_id">Item Name</label> -->
+            </div>
+
+            <div class="input-field col s6">
+              <input id="_csrf" type="hidden" name="_csrf" class="validate" value="<%= csrfToken %>">
+              <!-- <label for="_csrf">CSRF</label> -->
+            </div>
           </div>
         </form>
       </div>

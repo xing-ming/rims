@@ -1,11 +1,10 @@
-<% include ../navbar/frontDesk %>
+<% include ../../navbar/accountant %>
 
 <div class="container">
   <div class="row">
     <div class="col s12">
       <div class="row">
         <h6>Manage Reservation</h6>
-        <h6 class="green-text" style="text-align: center"><% include ../messages/success%></h6>
       </div>
 
       <div class="row">
@@ -25,9 +24,6 @@
               <th>Check IN</th>
               <th>Check OUT</th>
               <th>Updated</th>
-              <th></th>
-              <th></th>
-              <th></th>
             </tr>
           </thead>
 
@@ -55,24 +51,6 @@
                 <%= room.updatedAt.toLocaleTimeString() %> <br>
                 <%= room.updatedAt.toDateString() %>
               </td>
-              <td>
-                <a href="/guest/reservation/edit/<%= room._id %>" class="btn tooltipped black" data-position="bottom"
-                  data-tooltip="Edit Details">
-                  <i class="material-icons">edit</i>
-                </a>
-              </td>
-              <td>
-                <a href="/guest/reservation/details/<%= room._id %>" class="btn tooltipped black" data-position="bottom"
-                  data-tooltip="View Details">
-                  <i class="material-icons">folder_open</i>
-                </a>
-              </td>
-              <td>
-                <a href="/guest/reservation/delete/<%= room._id %>" class="btn tooltipped black" data-position="bottom"
-                  data-tooltip="Delete Details" onclick="return confirm('Please update room number before deleting ?')">
-                  <i class="material-icons">delete</i>
-                </a>
-              </td>
             </tr>
             <%})%>
           </tbody>
@@ -81,9 +59,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  $(document).ready(function () {
-    $('.tooltipped').tooltip();
-  });
-</script>
